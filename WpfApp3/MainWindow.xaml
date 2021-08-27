@@ -10,7 +10,9 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
         xmlns:lang="clr-namespace:WpfApp3.Localization"
-       Title="{lang:Lang Tittle }"  WindowState="Maximized">
+        Title="{lang:Lang Tittle }"
+        WindowState="Maximized"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <vm:AdminViewModel/>
     </Window.DataContext>

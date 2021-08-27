@@ -171,6 +171,12 @@
   <data name="Tittle" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdateProgress" xml:space="preserve">
+    <value>Update progress</value>
+  </data>
   <data name="Warehouse" xml:space="preserve">
     <value>Warehouse Bishkek</value>
   </data>

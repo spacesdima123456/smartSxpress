@@ -223,6 +223,24 @@ namespace WpfApp3.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Update progress.
+        /// </summary>
+        public static string UpdateProgress {
+            get {
+                return ResourceManager.GetString("UpdateProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Warehouse Bishkek.
         /// </summary>
         public static string Warehouse {

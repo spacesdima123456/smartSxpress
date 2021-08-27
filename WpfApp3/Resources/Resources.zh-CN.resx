@@ -171,6 +171,12 @@
   <data name="Tittle" xml:space="preserve">
     <value>管理员</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UpdateProgress" xml:space="preserve">
+    <value>更新进度</value>
+  </data>
   <data name="Warehouse" xml:space="preserve">
     <value>比什凯克仓库</value>
   </data>

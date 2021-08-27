@@ -171,6 +171,12 @@
   <data name="Tittle" xml:space="preserve">
     <value>Админочка</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Обновление</value>
+  </data>
+  <data name="UpdateProgress" xml:space="preserve">
+    <value>Процесс обновления</value>
+  </data>
   <data name="Warehouse" xml:space="preserve">
     <value>Склад Бишкек</value>
   </data>
