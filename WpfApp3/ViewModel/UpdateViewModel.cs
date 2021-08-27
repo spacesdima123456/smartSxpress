@@ -17,11 +17,24 @@ namespace WpfApp3.ViewModel
 
         public UpdateViewModel(InfoVersion info)
         {
-            var client = new WebClient();
-            var path = System.IO.Directory.GetCurrentDirectory();
-            client.DownloadFileCompleted += DownloadFileCompleted;
-            client.DownloadProgressChanged += DownloadProgressChanged;
-            client.DownloadFileAsync(new Uri(info.Url), path + @"\\update.rar");
+            UpdateCurrApp(info);
+        }
+
+        private void UpdateCurrApp(InfoVersion info)
+        {
+            try
+            {
+                var client = new WebClient();
+                var path = System.IO.Directory.GetCurrentDirectory();
+                client.DownloadFileCompleted += DownloadFileCompleted;
+                client.DownloadProgressChanged += DownloadProgressChanged;
+                client.DownloadFileAsync(new Uri(info.Url), path + @"\\update.rar");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error", ex.Message);
+            }
         }
 
         private void DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
