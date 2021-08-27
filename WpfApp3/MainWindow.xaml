@@ -1,0 +1,212 @@
+﻿<Window
+       x:Class="WpfApp3.MainWindow"  
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxwuii="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:WpfApp3.ViewModel"
+        xmlns:lang="clr-namespace:WpfApp3.Localization"
+       Title="{lang:Lang Tittle }"  WindowState="Maximized">
+    <Window.DataContext>
+        <vm:AdminViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+    <Style TargetType="{x:Type dxwui:HamburgerMenuNavigationButton}">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="GlyphColor" Value="White"/>
+            <Setter Property="SelectOnClick" Value="False"/>
+            <Setter Property="Padding" Value="35 5 0 25"/>
+            <Setter Property="AllowGlyphTheming" Value="True"/>
+        </Style>
+        <Style TargetType="{x:Type dxwui:HamburgerSubMenu}">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="GlyphColor" Value="White"/>
+            <Setter Property="Padding" Value="35 5 0 0"/>
+            <Setter Property="AllowGlyphTheming" Value="True"/>
+            <Setter Property="MoreButtonVisibilityMode" Value="Hidden"/>
+        </Style>
+        <Style TargetType="dxwuii:HamburgerSubMenuButton">
+        </Style>
+        <Style TargetType="{x:Type dxwui:HamburgerMenuToggleStateButton}">
+            <Setter Property="Visibility" Value="Hidden"/>
+        </Style>
+        <Style TargetType="{x:Type dxwuii:HamburgerSubMenuPane}">
+            <Setter Property="Background" Value="#212529" />
+        </Style>
+        <Style TargetType="{x:Type dxwui:HamburgerSubMenuNavigationButton}">
+            <Setter Property="Foreground" Value="White" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2a8ad4" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type dx:DropDownButton }">
+            <Setter Property="Height" Value="35" />
+            <Setter Property="GlyphAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#212529" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="BorderBrush" Value="#212529" />
+            <Setter Property="ArrowPadding" Value="-10 0 0 0" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2a8ad4" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#212529">
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid  
+            Grid.Row="0" 
+            Grid.Column="0"
+            Width="300"
+            Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Smart Express" FontWeight="Bold" FontSize="30" Foreground="White"  Grid.Row="1" Grid.Column="1"/>
+            <Separator Background="AliceBlue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
+        </Grid>
+        <DockPanel 
+            Grid.Column="1" 
+            Grid.Row="0">
+            <Label 
+                FontSize="24" 
+                Content="Диана" 
+                Margin="30 0 0 0" 
+                Foreground="White" 
+                VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <dx:DropDownButton Content="Языки(TEST)" >
+                    <StackPanel>
+                        <Button Content="РУС" Click="ButtonBase_OnClick" />
+                        <Button Content="АНГ" Click="ButtonBase_OnClick1"/>
+                        <Button Content="China" Click="ButtonBase_OnClick3" />
+                    </StackPanel>
+                </dx:DropDownButton>
+                <dx:DropDownButton Content="{lang:Lang Current}" Glyph="/Icon/Svg/time.svg" ArrowGlyph="Icon/Svg/fakeIcon.svg" ArrowPadding="-40 0 0 0">
+                    <dx:WpfSvgPalette.Palette>
+                        <dx:WpfSvgPalette>
+                            <SolidColorBrush x:Key="Black" Color="White"/>
+                            <SolidColorBrush x:Key="Red" Color="White"/>
+                        </dx:WpfSvgPalette>
+                    </dx:WpfSvgPalette.Palette>
+                </dx:DropDownButton>
+                <dx:DropDownButton Content="{lang:Lang OnWay}" Glyph="/Icon/Svg/country.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                    <dx:WpfSvgPalette.Palette>
+                        <dx:WpfSvgPalette>
+                            <SolidColorBrush x:Key="Blue" Color="White"/>
+                            <SolidColorBrush x:Key="Red" Color="White"/>
+                        </dx:WpfSvgPalette>
+                    </dx:WpfSvgPalette.Palette>
+                    <StackPanel>
+                        <Button  Content="{lang:Lang DeliveryServices}"/>
+                    </StackPanel>
+                </dx:DropDownButton>
+                <dx:DropDownButton Content="{lang:Lang Bishkek}" Glyph="/Icon/Svg/geoPointMaps.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                    <dx:WpfSvgPalette.Palette>
+                        <dx:WpfSvgPalette>
+                            <SolidColorBrush x:Key="Blue" Color="White"/>
+                            <SolidColorBrush x:Key="Red" Color="White"/>
+                        </dx:WpfSvgPalette>
+                    </dx:WpfSvgPalette.Palette>
+                    <StackPanel>
+                        <Button Content="{lang:Lang Addition}"/>
+                    </StackPanel>
+                </dx:DropDownButton>
+                <dx:DropDownButton Content="{lang:Lang ForDelivery}" Glyph="/Icon/Svg/vendor.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                    <dx:WpfSvgPalette.Palette>
+                        <dx:WpfSvgPalette>
+                            <SolidColorBrush x:Key="Blue" Color="White"/>
+                        </dx:WpfSvgPalette>
+                    </dx:WpfSvgPalette.Palette>
+                    <StackPanel>
+                        <Button Content="{lang:Lang Redemption}"/>
+                        <Button Content="{lang:Lang DeliveryServices}"/>
+                    </StackPanel>
+                </dx:DropDownButton>
+            </StackPanel>
+        </DockPanel>
+        <StackPanel 
+            Grid.Column="1" 
+            Grid.Row="1" 
+            Background="White">
+        </StackPanel>
+        <dxwui:HamburgerMenu 
+                Grid.Row="1"
+                Grid.Column="0"
+                HeaderHeight="NaN"
+                OpenPaneWidth="NaN"
+                PaneBackground="#212529"
+                AvailableViewStates="Inline">
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈">
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈" >
+                <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="США"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Турция"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Германия"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Россия"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/contact.svg" Content="{lang:Lang Staff}" ContentStringFormat=" {0} ⯈">
+                <dxwui:HamburgerSubMenuNavigationButton Content="Учетные записи"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="Зарплаты"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/orderItem.svg" Content="{lang:Lang Cargo}" ContentStringFormat=" {0} ⯈">
+                <dxwui:HamburgerSubMenuNavigationButton Content="Добавить"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="Отправители"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Получатели"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="В пути"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Приход"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Оплата"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Документы"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="История"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/productGroup.svg" Content="{lang:Lang Warehouses}" ContentStringFormat=" {0} ⯈">
+                <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="США"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Турция"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Германия"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Россия"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/department.svg" Content="{lang:Lang Couriers}" ContentStringFormat=" {0} ⯈">
+                <dxwui:HamburgerSubMenuNavigationButton Content="Положение"/>
+                <dxwui:HamburgerSubMenuNavigationButton Content="Посылки и пплата"/>
+            </dxwui:HamburgerSubMenu>
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/localization.svg" Content="{lang:Lang Warehouse}" Margin="0 10 0 0"/>
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/contract.svg" Content="{lang:Lang Delivery}" />
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Money}" />
+        </dxwui:HamburgerMenu>
+    </Grid>
+</Window>

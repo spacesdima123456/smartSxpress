@@ -1,0 +1,40 @@
+﻿using System.Globalization;
+using System.Windows;
+using WpfApp3.Localization;
+using WpfApp3.Properties;
+
+namespace WpfApp3
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            TranslationSource.Instance.CurrentCulture = new CultureInfo("ru-RU");
+            Settings.Default.DefaultLanguage = "ru-RU";
+            Settings.Default.Save();
+
+        }
+
+        private void ButtonBase_OnClick1(object sender, RoutedEventArgs e)
+        {
+            TranslationSource.Instance.CurrentCulture = new CultureInfo("en-US");
+            Settings.Default.DefaultLanguage = "en-US";
+            Settings.Default.Save();
+        }
+
+        private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+        {
+            TranslationSource.Instance.CurrentCulture = new CultureInfo("zh-CN");
+            Settings.Default.DefaultLanguage = "zh-CN";
+            Settings.Default.Save();
+        }
+    }
+}
