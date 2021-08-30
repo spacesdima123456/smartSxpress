@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Net;
 using System.Windows;
-using WpfApp3.Updater;
+using Wms.Updater;
 
-namespace WpfApp3.ViewModel
+namespace Wms.ViewModel
 {
     public class UpdateViewModel: BaseViewModel
     {

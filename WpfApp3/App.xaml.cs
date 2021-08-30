@@ -1,9 +1,11 @@
 ﻿using System.Globalization;
 using System.Windows;
-using WpfApp3.Localization;
-using WpfApp3.Properties;
+using Wms.Localization;
+using Wms.Properties;
+using Wms.Updater;
 
-namespace WpfApp3
+
+namespace Wms
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -4,10 +4,10 @@ using System.Reflection;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
+using Wms.Properties;
 using WpfApp3.Models;
-using WpfApp3.Properties;
 
-namespace WpfApp3.Updater
+namespace Wms.Updater
 {
 
     public class InfoVersion

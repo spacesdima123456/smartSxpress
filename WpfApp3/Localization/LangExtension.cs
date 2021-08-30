@@ -1,6 +1,6 @@
 ﻿using System.Windows.Data;
 
-namespace WpfApp3.Localization
+namespace Wms.Localization
 {
     public class LangExtension : Binding
     {

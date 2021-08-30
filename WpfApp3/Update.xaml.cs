@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using WpfApp3.Updater;
-using WpfApp3.ViewModel;
+using Wms.Updater;
+using Wms.ViewModel;
 
-namespace WpfApp3
+namespace Wms
 {
     /// <summary>
     /// Логика взаимодействия для Update.xaml

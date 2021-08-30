@@ -1,6 +1,4 @@
-﻿using WpfApp3.Updater;
-
-namespace WpfApp3
+﻿namespace Wms.Updater
 {
     public class UpdatingApp
     {

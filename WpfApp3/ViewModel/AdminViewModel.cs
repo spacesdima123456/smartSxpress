@@ -1,5 +1,4 @@
-﻿
-namespace WpfApp3.ViewModel
+﻿namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {

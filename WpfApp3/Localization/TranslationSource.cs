@@ -1,8 +1,8 @@
 ﻿using System.Resources;
-using WpfApp3.ViewModel;
 using System.Globalization;
+using Wms.ViewModel;
 
-namespace WpfApp3.Localization
+namespace Wms.Localization
 {
     public class TranslationSource : BaseViewModel
     {

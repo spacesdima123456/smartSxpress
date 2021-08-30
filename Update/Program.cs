@@ -19,7 +19,7 @@ namespace Update
                     entry.WriteToDirectory(Directory.GetCurrentDirectory(), new ExtractionOptions { Overwrite = true });
                 }
             }
-            Process.Start("WpfApp3.exe");
+            Process.Start("Wms.exe");
             Environment.Exit(0);
         }
     }

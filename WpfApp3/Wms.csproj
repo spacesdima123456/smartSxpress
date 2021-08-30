@@ -4,7 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <AssemblyVersion>0.0.0.2</AssemblyVersion>
+    <AssemblyName>Wms</AssemblyName>
+    <RootNamespace>Wms</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="devexpress.wpf.carousel" Version="21.1.5-pre-21203" />
     <PackageReference Include="devexpress.wpf.controls" Version="21.1.5-pre-21203" />
   </ItemGroup>
 

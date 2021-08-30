@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp3", "WpfApp3\WpfApp3.csproj", "{C1792D08-352A-4EAC-82DD-4629D9B5CC33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wms", "WpfApp3\Wms.csproj", "{C1792D08-352A-4EAC-82DD-4629D9B5CC33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Update", "Update\Update.csproj", "{166045E0-F882-4B92-8D34-AE3BA9DAC032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Update", "Update\Update.csproj", "{166045E0-F882-4B92-8D34-AE3BA9DAC032}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

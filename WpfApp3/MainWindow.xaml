@@ -1,5 +1,5 @@
 ﻿<Window
-       x:Class="WpfApp3.MainWindow"  
+       x:Class="Wms.MainWindow"  
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,8 +8,8 @@
         xmlns:dxwuii="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
-        xmlns:vm="clr-namespace:WpfApp3.ViewModel"
-        xmlns:lang="clr-namespace:WpfApp3.Localization"
+        xmlns:vm="clr-namespace:Wms.ViewModel"
+        xmlns:lang="clr-namespace:Wms.Localization"
         Title="{lang:Lang Tittle }"
         WindowState="Maximized"
         ResizeMode="NoResize">
