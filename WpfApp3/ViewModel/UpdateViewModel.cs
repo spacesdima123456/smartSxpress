@@ -33,7 +33,7 @@ namespace WpfApp3.ViewModel
             catch (Exception ex)
             {
 
-                MessageBox.Show("Error", ex.Message);
+                MessageBox.Show( ex.Message, "Error");
             }
         }
 

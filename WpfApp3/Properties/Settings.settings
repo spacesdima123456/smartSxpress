@@ -6,7 +6,7 @@
       <Value Profile="(Default)">en-US</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://95.215.244.234:8081/Update.xml</Value>
+      <Value Profile="(Default)">https://api.wmsfor.us/app/checkUpdate</Value>
     </Setting>
   </Settings>
 </SettingsFile>

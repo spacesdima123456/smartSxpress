@@ -21,13 +21,13 @@ namespace WpfApp3.Updater
             Init();
         }
 
-        private static InfoVersion instance;
+        private static InfoVersion _instance;
 
         public static InfoVersion Instance()
         {
-            if (instance == null)
-                instance = new InfoVersion();
-            return instance;
+            if (_instance == null)
+                _instance = new InfoVersion();
+            return _instance;
         }
 
         private void Init()
@@ -40,14 +40,18 @@ namespace WpfApp3.Updater
                 using var reader = new StringReader(doc.InnerXml);
                 var info = (Xml)serializer.Deserialize(reader);
 
-                Url = info.Url;
-                NewVersion = new Version(info.Version);
+                if (info != null)
+                {
+                    Url = info.Url;
+                    NewVersion = new Version(info.Version);
+                }
+
                 CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error", ex.Message, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show( ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

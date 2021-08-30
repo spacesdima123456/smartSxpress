@@ -37,7 +37,7 @@ namespace WpfApp3.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://95.215.244.234:8081/Update.xml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.wmsfor.us/app/checkUpdate")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
