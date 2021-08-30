@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wms.ViewModel
+﻿namespace Wms.ViewModel
 {
-    class LoginViewModel
+    public class LoginViewModel: BaseViewModel
     {
+
     }
 }
