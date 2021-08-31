@@ -42,15 +42,12 @@
                         <KeyBinding Key="Enter" Command="{Binding FocusNextPassCommand}"/>
                     </dxe:PasswordBoxEdit.InputBindings>
                 </dxe:PasswordBoxEdit>
-
                 <Label Content="{Binding StatusLabelContent}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
-
                 <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center"
-                        Width="100">
+                            Width="100">
                     <Button Content="Login" Margin="0 0 0 20"/>
                     <Button Content="Close" />
                 </StackPanel>
-
             </Grid>
         </Border>
     </dx:ThemedWindow>
