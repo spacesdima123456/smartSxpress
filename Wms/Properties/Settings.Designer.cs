@@ -46,5 +46,17 @@ namespace Wms.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.wmsfor.us")]
+        public string HostUrl {
+            get {
+                return ((string)(this["HostUrl"]));
+            }
+            set {
+                this["HostUrl"] = value;
+            }
+        }
     }
 }

@@ -8,5 +8,8 @@
     <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.wmsfor.us/app/checkUpdate</Value>
     </Setting>
+    <Setting Name="HostUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.wmsfor.us</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -6,9 +6,13 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                       mc:Ignorable="d"
+                      xmlns:vm="clr-namespace:Wms.ViewModel"
                       Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" WindowStyle="None">
-        <Border BorderBrush="Black" BorderThickness="1,1,1,1">
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+    <Border BorderBrush="Black" BorderThickness="1,1,1,1">
             <Grid FocusManager.FocusedElement="{Binding ElementName=LoginTB}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="275px" />
@@ -32,20 +36,14 @@
                         <RadioButton Content="Русский" FontWeight="Bold" FontSize="12" IsChecked="{Binding RuIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="RU"/>
                     </StackPanel>
                 </GroupBox>
-                <TextBox Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding LoginText, UpdateSourceTrigger=PropertyChanged}"  MaxLength="25">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding FocusNextLoginCommand}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding PassText, UpdateSourceTrigger=PropertyChanged}"   MaxLength="23">
-                    <dxe:PasswordBoxEdit.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding FocusNextPassCommand}"/>
-                    </dxe:PasswordBoxEdit.InputBindings>
-                </dxe:PasswordBoxEdit>
-                <Label Content="{Binding StatusLabelContent}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+
+                <TextBox Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}"  MaxLength="25"/>
+                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
+
+                <!--<Label Content="{Binding StatusLabelContent}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />-->
                 <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center"
                             Width="100">
-                    <Button Content="Login" Margin="0 0 0 20"/>
+                <Button Content="Login" Margin="0 0 0 20" Command="{Binding Path=LoginCommand, Mode=OneWay}"/>
                     <Button Content="Close" />
                 </StackPanel>
             </Grid>
