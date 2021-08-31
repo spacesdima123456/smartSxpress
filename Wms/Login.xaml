@@ -29,13 +29,18 @@
                 </Grid.ColumnDefinitions>
                 <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
                 <!--<Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="/Img/LogLg.png" Width="110"/>-->
-                <GroupBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Header="{DynamicResource w_Language}"
+                <!--<GroupBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Header="{DynamicResource w_Language}"
                       VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel>
                         <RadioButton Content="English" FontWeight="Bold" FontSize="12" IsChecked="{Binding EnIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="EN"/>
                         <RadioButton Content="Русский" FontWeight="Bold" FontSize="12" IsChecked="{Binding RuIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="RU"/>
                     </StackPanel>
-                </GroupBox>
+                </GroupBox>-->
+
+            <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
+                <Label Content="Языки"/>
+                <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneWay}" SelectedValue="{Binding Path=Language, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"></ComboBox>
+            </StackPanel>
 
                 <TextBox Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}"  MaxLength="25"/>
                 <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>

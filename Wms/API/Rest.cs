@@ -7,7 +7,7 @@ namespace Wms.API
     {
         public T ExecuteRequest<T>()
         {
-            return RestService.For<T>(Properties.Settings.Default.HostUrl); 
+            return RestService.For<T>(Properties.Settings.Default.HostUrl);
         }
     }
 }
