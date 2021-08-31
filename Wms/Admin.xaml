@@ -11,13 +11,12 @@
         xmlns:vm="clr-namespace:Wms.ViewModel"
         xmlns:lang="clr-namespace:Wms.Localization"
         Title="{lang:Lang Tittle }"
-        WindowState="Maximized"
-        ResizeMode="NoResize">
+        WindowState="Maximized">
     <Window.DataContext>
         <vm:AdminViewModel/>
     </Window.DataContext>
     <Window.Resources>
-    <Style TargetType="{x:Type dxwui:HamburgerMenuNavigationButton}">
+        <Style TargetType="{x:Type dxwui:HamburgerMenuNavigationButton}">
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="GlyphColor" Value="White"/>
             <Setter Property="SelectOnClick" Value="False"/>
@@ -30,6 +29,11 @@
             <Setter Property="Padding" Value="35 5 0 0"/>
             <Setter Property="AllowGlyphTheming" Value="True"/>
             <Setter Property="MoreButtonVisibilityMode" Value="Hidden"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2a8ad4" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="dxwuii:HamburgerSubMenuButton">
         </Style>
@@ -89,9 +93,9 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="90*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="15*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Smart Express" FontWeight="Bold" FontSize="30" Foreground="White"  Grid.Row="1" Grid.Column="1"/>
             <Separator Background="AliceBlue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
@@ -156,19 +160,22 @@
                 </dx:DropDownButton>
             </StackPanel>
         </DockPanel>
+
         <StackPanel 
             Grid.Column="1" 
             Grid.Row="1" 
             Background="White">
         </StackPanel>
+
         <dxwui:HamburgerMenu 
                 Grid.Row="1"
                 Grid.Column="0"
                 HeaderHeight="NaN"
-                OpenPaneWidth="NaN"
+                OpenPaneWidth="300"
+                Background="White"
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
-            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈">
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
