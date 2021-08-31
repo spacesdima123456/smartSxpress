@@ -20,6 +20,7 @@ namespace Update
                 }
             }
             Process.Start("Wms.exe");
+            File.Delete("update.rar");
             Environment.Exit(0);
         }
     }

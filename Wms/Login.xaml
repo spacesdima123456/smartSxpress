@@ -1,10 +1,56 @@
-﻿<Window x:Class="Wms.Login"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
-    <Grid>
-    </Grid>
-</Window>
+﻿<dx:ThemedWindow  x:Class="Wms.Login"
+                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                      mc:Ignorable="d"
+                      Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen"
+                      ResizeMode="NoResize" WindowStyle="None">
+        <Border BorderBrush="Black" BorderThickness="1,1,1,1">
+            <Grid FocusManager.FocusedElement="{Binding ElementName=LoginTB}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="275px" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
+                <!--<Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="/Img/LogLg.png" Width="110"/>-->
+                <GroupBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Header="{DynamicResource w_Language}"
+                      VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel>
+                        <RadioButton Content="English" FontWeight="Bold" FontSize="12" IsChecked="{Binding EnIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="EN"/>
+                        <RadioButton Content="Русский" FontWeight="Bold" FontSize="12" IsChecked="{Binding RuIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="RU"/>
+                    </StackPanel>
+                </GroupBox>
+                <TextBox Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding LoginText, UpdateSourceTrigger=PropertyChanged}"  MaxLength="25">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding FocusNextLoginCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding PassText, UpdateSourceTrigger=PropertyChanged}"   MaxLength="23">
+                    <dxe:PasswordBoxEdit.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding FocusNextPassCommand}"/>
+                    </dxe:PasswordBoxEdit.InputBindings>
+                </dxe:PasswordBoxEdit>
+
+                <Label Content="{Binding StatusLabelContent}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+
+                <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center"
+                        Width="100">
+                    <Button Content="Login" Margin="0 0 0 20"/>
+                    <Button Content="Close" />
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </dx:ThemedWindow>
