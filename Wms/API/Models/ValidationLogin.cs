@@ -8,9 +8,12 @@ namespace Wms.API.Models
         [JsonPropertyName("text")]
         public string Text
         {
-            get => _text == "validationError" ? "" : _text;
+            get => Code != 2 ? _text : "";
             set => _text = value;
         }
+
+        [JsonPropertyName("code")]
+        public  int Code { get; set; }
 
         [JsonPropertyName("errors")]
         public Errors Errors { get; set; }
