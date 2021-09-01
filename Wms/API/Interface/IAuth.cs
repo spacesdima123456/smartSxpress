@@ -8,6 +8,6 @@ namespace Wms.API.Interface
     public interface IAuth
     {
         [Post("/auth/login")]
-        Task<LoginRes> LogInAsync([Body] LoginReq login);
+        Task<LoginReq> LogInAsync([Body] LoginReq login);
     }
 }

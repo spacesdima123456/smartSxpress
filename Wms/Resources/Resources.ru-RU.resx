@@ -129,6 +129,9 @@
   <data name="Cargo" xml:space="preserve">
     <value>Грузы</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="Cost" xml:space="preserve">
     <value>Цены</value>
   </data>
@@ -149,6 +152,12 @@
   </data>
   <data name="ForDelivery" xml:space="preserve">
     <value>На доставку</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Языки</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
   </data>
   <data name="Money" xml:space="preserve">
     <value>Касса</value>

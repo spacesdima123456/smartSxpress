@@ -129,6 +129,9 @@
   <data name="Cargo" xml:space="preserve">
     <value>货物</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
   <data name="Cost" xml:space="preserve">
     <value>价格</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="ForDelivery" xml:space="preserve">
     <value>对于交付</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
   </data>
   <data name="Money" xml:space="preserve">
     <value>现金</value>

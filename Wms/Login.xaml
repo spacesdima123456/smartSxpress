@@ -6,6 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                       mc:Ignorable="d"
+                      xmlns:lang="clr-namespace:Wms.Localization"
                       xmlns:vm="clr-namespace:Wms.ViewModel"
                       Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" WindowStyle="None">
@@ -13,7 +14,7 @@
         <vm:LoginViewModel/>
     </Window.DataContext>
     <Border BorderBrush="Black" BorderThickness="1,1,1,1">
-            <Grid FocusManager.FocusedElement="{Binding ElementName=LoginTB}">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="275px" />
                     <RowDefinition Height="5*" />
@@ -28,28 +29,16 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
                 <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
-                <!--<Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="/Img/LogLg.png" Width="110"/>-->
-                <!--<GroupBox Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Header="{DynamicResource w_Language}"
-                      VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <StackPanel>
-                        <RadioButton Content="English" FontWeight="Bold" FontSize="12" IsChecked="{Binding EnIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="EN"/>
-                        <RadioButton Content="Русский" FontWeight="Bold" FontSize="12" IsChecked="{Binding RuIsChecked}" Command="{Binding SetLanguageCommand}" CommandParameter="RU"/>
-                    </StackPanel>
-                </GroupBox>-->
-
-            <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
-                <Label Content="Языки"/>
-                <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneWay}" SelectedValue="{Binding Path=Language, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"></ComboBox>
+                <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
+                <Label Content="{lang:Lang Languages}"/>
+                <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneWay}" SelectedValue="{Binding Path=Language, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
             </StackPanel>
-
-                <TextBox Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}"  MaxLength="25"/>
+                <dxe:TextEdit Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25"/>
                 <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
-
-                <!--<Label Content="{Binding StatusLabelContent}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />-->
-                <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center"
-                            Width="100">
-                <Button Content="Login" Margin="0 0 0 20" Command="{Binding Path=LoginCommand, Mode=OneWay}"/>
-                    <Button Content="Close" />
+                <Label Content="{Binding Path=Error, Mode=OneWay}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+                <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center" Width="100">
+                <Button Content="{lang:Lang Login}" Margin="0 0 0 20" Command="{Binding Path=LoginCommand, Mode=OneWay}"/>
+                <Button Content="{lang:Lang Close}" />
                 </StackPanel>
             </Grid>
         </Border>
