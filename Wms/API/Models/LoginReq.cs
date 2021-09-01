@@ -30,39 +30,4 @@ namespace Wms.API.Models
             Language = language;
         }
     }
-
-
-    public class ValidationLogin
-    {
-        private string _text;
-        [JsonPropertyName("text")]
-        public string Text
-        {
-            get => _text == "validationError" ? "" : _text;
-            set => _text = value;
-        }
-
-        [JsonPropertyName("errors")]
-        public Errors Errors { get; set; }
-    }
-
-    public class Errors
-    {
-        [JsonPropertyName("email")]
-        public Email Email { get; set; }
-        [JsonPropertyName("password")]
-        public Password Password { get; set; }
-    }
-
-    public class Email
-    {
-        [JsonPropertyName("email")]
-        public string Emails { get; set; }
-    }
-
-    public class Password
-    {
-        [JsonPropertyName("min")]
-        public string Min { get; set; }
-    }
 }

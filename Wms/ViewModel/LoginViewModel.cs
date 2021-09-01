@@ -104,24 +104,6 @@ namespace Wms.ViewModel
             return _errorsByPropertyName.ContainsKey(propertyName) ? _errorsByPropertyName[propertyName] : null;
         }
 
-        //private void Validate(string value, string name)
-        //{
-        //    ClearErrors(name);
-        //    if (string.IsNullOrWhiteSpace(value))
-        //        AddError(name, $"{name} cannot be empty.");
-
-        //    if (value == null || value?.Length <= 6)
-        //        AddError(name, $"{name} must be at least 6 characters long.");
-        //}
-
-        //private void ValidateEmail(string value, string name)
-        //{
-        //    Validate(value, name);
-
-        //    if (!value.ToLower().Contains("@"))
-        //        AddError(name, $"{name} the email must contain a domain @.");
-        //}
-
         private void AddError(string propertyName, string error)
         {
             if (!_errorsByPropertyName.ContainsKey(propertyName))
