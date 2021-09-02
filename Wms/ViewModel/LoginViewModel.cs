@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Refit;
 using Nito.AsyncEx;
-using Refit;
 using Wms.API.Models;
 using Wms.Localization;
+using System.Globalization;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using Wms.Services.Authorization;
 using Wms.Services.Authorization.Contract;
 using AsyncCommand = DevExpress.Mvvm.AsyncCommand;
 
 namespace Wms.ViewModel
 {
-    public class LoginViewModel: BaseViewModel, INotifyDataErrorInfo
+    public class LoginViewModel: ValidateViewModel 
     {
         private readonly Login _login;
         private readonly IAuthorization _authorization;
-        private readonly Dictionary<string, List<string>> _errorsByPropertyName = new Dictionary<string, List<string>>();
 
         private string _email;
         public string Email
@@ -70,8 +65,6 @@ namespace Wms.ViewModel
             private set => Set(nameof(Error), ref _error, value);
         }
 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
         private ICommand _loginCommand;
         public ICommand LoginCommand => _loginCommand ??= new AsyncCommand(async () =>
         {
@@ -86,18 +79,11 @@ namespace Wms.ViewModel
             }
         });
 
-        public bool HasErrors => _errorsByPropertyName.Any();
-
         public LoginViewModel(Login login)
         {
             _authorization = new AuthorizationFactory().Make();
             _login = login;
             VerifyApiKey();
-        }
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            return _errorsByPropertyName.ContainsKey(propertyName) ? _errorsByPropertyName[propertyName] : null;
         }
 
         private async Task HandleErrorsAsync(ApiException ex)
@@ -116,37 +102,11 @@ namespace Wms.ViewModel
             Error = error.Text ?? "";
         }
 
-        private void AddError(string propertyName, string error)
-        {
-            if (!_errorsByPropertyName.ContainsKey(propertyName))
-                _errorsByPropertyName[propertyName] = new List<string>();
-
-            if (!_errorsByPropertyName[propertyName].Contains(error))
-            {
-                _errorsByPropertyName[propertyName].Add(error);
-                OnErrorsChanged(propertyName);
-            }
-        }
-
-        private void ClearErrors(string property)
-        {
-            if (_errorsByPropertyName.ContainsKey(property))
-            {
-                _errorsByPropertyName.Remove(property);
-                OnErrorsChanged(property);
-            }
-        }
-
         private static void SetCulture(string culture)
         {
             Properties.Settings.Default.DefaultLanguage = culture;
             TranslationSource.Instance.CurrentCulture = new CultureInfo(culture);
             Properties.Settings.Default.Save();
-        }
-
-        private void OnErrorsChanged(string property)
-        {
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(property));
         }
 
         private void VerifyApiKey()
