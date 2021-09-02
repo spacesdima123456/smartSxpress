@@ -13,12 +13,16 @@ using Wms.API.Contract;
 using Wms.API.Interface;
 using Wms.API.Models;
 using Wms.Localization;
+using Wms.Token;
+using Wms.Token.Contract;
+using Wms.Token.Enum;
 
 namespace Wms.ViewModel
 {
     public class LoginViewModel: BaseViewModel, INotifyDataErrorInfo
     {
         private readonly IRest _rest;
+        private readonly ITokenStorage _tokenStorage;
         private readonly Dictionary<string, List<string>> _errorsByPropertyName = new Dictionary<string, List<string>>();
 
         private string _email;
@@ -71,6 +75,8 @@ namespace Wms.ViewModel
             try
             {
                 var login = await _rest.ExecuteRequest<IAuth>().LogInAsync(new LoginReq(Email, Password, Language));
+                if (login!=null)
+                    _tokenStorage.SaveToken(login.ApiKey, "ApiKey");
             }
             catch (ApiException ex)
             {
@@ -97,6 +103,7 @@ namespace Wms.ViewModel
         public LoginViewModel()
         {
             _rest = new RestFactory().CreateRest();
+            _tokenStorage = new TokenStorageFactory().MakeStorage(TypeStorage.Registry);
         }
 
         public IEnumerable GetErrors(string propertyName)
