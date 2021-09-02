@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace WpfApp3.Models
+namespace Wms.Models
 {
     [Serializable]
     [System.ComponentModel.DesignerCategory("code")]

@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
+using Wms.Models;
 using Wms.Properties;
-using WpfApp3.Models;
 
 namespace Wms.Updater
 {
