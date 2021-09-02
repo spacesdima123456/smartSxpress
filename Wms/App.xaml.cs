@@ -2,7 +2,7 @@
 using System.Windows;
 using Wms.Localization;
 using Wms.Properties;
-using Wms.Updater;
+using Wms.Services.Updater;
 
 
 namespace Wms

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Net;
 using System.Windows;
-using Wms.Updater;
+using Wms.Services.Updater;
 
 namespace Wms.ViewModel
 {

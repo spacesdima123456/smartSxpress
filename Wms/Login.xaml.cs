@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Core;
+using Wms.ViewModel;
 
 namespace Wms
 {
@@ -7,6 +8,7 @@ namespace Wms
         public Login()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel(this);
         }
     }
 }

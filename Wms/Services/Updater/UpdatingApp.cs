@@ -1,4 +1,4 @@
-﻿namespace Wms.Updater
+﻿namespace Wms.Services.Updater
 {
     public class UpdatingApp
     {

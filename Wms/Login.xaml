@@ -7,12 +7,8 @@
                       xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                       mc:Ignorable="d"
                       xmlns:lang="clr-namespace:Wms.Localization"
-                      xmlns:vm="clr-namespace:Wms.ViewModel"
                       Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" WindowStyle="None">
-    <Window.DataContext>
-        <vm:LoginViewModel/>
-    </Window.DataContext>
     <Border BorderBrush="Black" BorderThickness="1,1,1,1">
             <Grid>
                 <Grid.RowDefinitions>

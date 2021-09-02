@@ -1,8 +1,8 @@
-﻿using Wms.Token.Contract;
-using Wms.Token.Enum;
-using Wms.Token.Providers;
+﻿using Wms.Services.Token.Contract;
+using Wms.Services.Token.Enum;
+using Wms.Services.Token.Providers;
 
-namespace Wms.Token
+namespace Wms.Services.Token
 {
     public class TokenStorageFactory : ITokenStorageFactory
     {

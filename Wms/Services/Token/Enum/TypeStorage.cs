@@ -1,4 +1,4 @@
-﻿namespace Wms.Token.Enum
+﻿namespace Wms.Services.Token.Enum
 {
     public enum TypeStorage
     {

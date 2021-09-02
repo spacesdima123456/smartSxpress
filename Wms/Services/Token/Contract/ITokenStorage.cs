@@ -1,8 +1,8 @@
-﻿namespace Wms.Token.Contract
+﻿namespace Wms.Services.Token.Contract
 {
     public interface ITokenStorage
     {
-        void SaveToken(string key, string path);
+        void SetToken(string key, string path);
         string GetToken(string path);
     }
 }

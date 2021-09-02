@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
-using Wms.Token.Contract;
+using Wms.Services.Token.Contract;
 
-namespace Wms.Token.Providers
+namespace Wms.Services.Token.Providers
 {
     public class StorageRegistry: ITokenStorage
     {
@@ -11,13 +11,13 @@ namespace Wms.Token.Providers
             return (string)registry.GetValue(path);
         }
 
-        public void SaveToken(string apiKey, string path)
+        public void SetToken(string apiKey, string path)
         {
             using var registry = GetRegistryKey(true);
             registry.SetValue(path, apiKey);
         }
 
-        private RegistryKey GetRegistryKey(bool writable = false)
+        private static RegistryKey GetRegistryKey(bool writable = false)
         {
             var reg = Registry.CurrentUser.OpenSubKey(@"Software\WMS", writable) ?? Registry.CurrentUser.CreateSubKey(@"Software\WMS", writable);
             return reg;

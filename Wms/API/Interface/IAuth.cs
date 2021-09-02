@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Refit;
+﻿using Refit;
 using Wms.API.Models;
+using System.Threading.Tasks;
 
 namespace Wms.API.Interface
 {
@@ -9,5 +9,8 @@ namespace Wms.API.Interface
     {
         [Post("/auth/login")]
         Task<LoginRes> LogInAsync([Body] LoginReq login);
+
+        [Get("/auth/keyCheck")]
+        Task<LoginRes> ValidTokenAsync([Header("apikey")] string token);
     }
 }

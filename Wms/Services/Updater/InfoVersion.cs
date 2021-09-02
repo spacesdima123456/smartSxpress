@@ -4,10 +4,10 @@ using System.Reflection;
 using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
-using Wms.Models;
+using Wms.Localization.Models;
 using Wms.Properties;
 
-namespace Wms.Updater
+namespace Wms.Services.Updater
 {
 
     public class InfoVersion
@@ -36,9 +36,9 @@ namespace Wms.Updater
             {
                 var doc = new XmlDocument();
                 doc.Load(Settings.Default.Version);
-                var serializer = new XmlSerializer(typeof(Xml));
+                var serializer = new XmlSerializer(typeof(VersionApp));
                 using var reader = new StringReader(doc.InnerXml);
-                var info = (Xml)serializer.Deserialize(reader);
+                var info = (VersionApp)serializer.Deserialize(reader);
 
                 if (info != null)
                 {

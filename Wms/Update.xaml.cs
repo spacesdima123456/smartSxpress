@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Wms.Updater;
+using Wms.Services.Updater;
 using Wms.ViewModel;
 
 namespace Wms
