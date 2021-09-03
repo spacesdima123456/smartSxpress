@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using DevExpress.Mvvm;
 using Wms.Services.Authorization;
 using Wms.Services.Authorization.Contract;
 using AsyncCommand = DevExpress.Mvvm.AsyncCommand;
@@ -77,6 +78,12 @@ namespace Wms.ViewModel
             {
                 await HandleErrorsAsync(ex);
             }
+        });
+
+        private ICommand _closeCommand;
+        public ICommand CloseCommand => _closeCommand ??=new DelegateCommand(() =>
+        {
+            System.Windows.Application.Current.Shutdown();
         });
 
         public LoginViewModel(Login login)

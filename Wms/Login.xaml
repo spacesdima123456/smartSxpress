@@ -40,7 +40,7 @@
             </Label>
             <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center" Width="100">
                 <Button Content="{lang:Lang Login}" Margin="0 0 0 20" Command="{Binding Path=LoginCommand, Mode=OneWay}"/>
-                <Button Content="{lang:Lang Close}" />
+                <Button Content="{lang:Lang Close}" Command="{Binding Path=CloseCommand, Mode=OneWay }"/>
                 </StackPanel>
             </Grid>
         </Border>
