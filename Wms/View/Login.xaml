@@ -22,8 +22,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="275px" />
                     <RowDefinition Height="5*" />
-                    <RowDefinition Height="5*" />
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="25*" />
+                    <RowDefinition Height="25*" />
                     <RowDefinition Height="5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -90,8 +90,14 @@
                     </RadioButton>
                 </Grid>
             </GroupBox>
-            <dxe:TextEdit Grid.Row="2" Grid.Column="2" Margin="20 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"/>
-                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="20 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
+                <StackPanel Grid.Row="2" Grid.Column="2">
+                <Label Content="Логин" Margin="20 -5 0 0"/>
+                <dxe:TextEdit Margin="20 0 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"/>
+            </StackPanel>
+                <StackPanel Grid.Row="3" Grid.Column="2">
+                <Label Content="Пароль" Margin="20 -5 0 0"/>
+                <dxe:PasswordBoxEdit  Margin="20 0 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
+            </StackPanel>
                 <Label  Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red"  >
                 <TextBlock Text="{Binding Path=Error, Mode=OneWay}" TextWrapping="WrapWithOverflow">
                 </TextBlock>
