@@ -1,4 +1,6 @@
-﻿using Refit;
+﻿using System;
+using System.Net.Http;
+using Refit;
 using Wms.API.Contract;
 
 namespace Wms.API
@@ -7,7 +9,11 @@ namespace Wms.API
     {
         public T ExecuteRequest<T>()
         {
-            return RestService.For<T>(Properties.Settings.Default.HostUrl);
+            return RestService.For<T>(new HttpClient
+            {
+                BaseAddress = new  Uri(Properties.Settings.Default.HostUrl),
+                Timeout = TimeSpan.FromSeconds(15)
+            });
         }
     }
 }
