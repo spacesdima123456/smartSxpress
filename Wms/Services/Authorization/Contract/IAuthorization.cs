@@ -6,7 +6,7 @@ namespace Wms.Services.Authorization.Contract
     public interface IAuthorization
     {
         bool IsAuth { get; }
-        void LogOut();
+        Task LogOutAsync();
         Task LogInAsync(LoginReq login);
         Task<LoginRes> ValidKeyAsync();
     }

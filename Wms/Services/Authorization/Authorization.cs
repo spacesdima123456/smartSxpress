@@ -29,8 +29,12 @@ namespace Wms.Services.Authorization
                 _tokenStorage.SetToken(auth.ApiKey, "ApiKey");
         }
 
-        public void LogOut()
+        public async Task LogOutAsync()
         {
+            var token = _tokenStorage.GetToken("ApiKey");
+            if (!string.IsNullOrEmpty(token))
+                await _rest.ExecuteRequest<IAuth>().LogOutAsync(token);
+
             _tokenStorage.SetToken("", "ApiKey");
         }
 

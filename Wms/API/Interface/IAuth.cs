@@ -12,5 +12,8 @@ namespace Wms.API.Interface
 
         [Get("/auth/keyCheck")]
         Task<LoginRes> ValidTokenAsync([Header("apikey")] string token);
+
+        [Get("/auth/logout")]
+        Task LogOutAsync([Header("apikey")] string token);
     }
 }
