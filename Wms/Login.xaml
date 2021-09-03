@@ -7,7 +7,9 @@
                       xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                       mc:Ignorable="d"
                       xmlns:lang="clr-namespace:Wms.Localization"
-                      Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen"
+                      Height="400"
+                      Width="600"
+                      WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" WindowStyle="None">
     <Border BorderBrush="Black" BorderThickness="1,1,1,1">
             <Grid>
@@ -24,7 +26,8 @@
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
+                <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="Image/logo.png" Width="110"/>
+            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
                 <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
                 <Label Content="{lang:Lang Languages}"/>
                 <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneWay}" SelectedValue="{Binding Path=Language, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
