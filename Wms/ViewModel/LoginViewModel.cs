@@ -5,10 +5,10 @@ using Wms.Localization;
 using System.Globalization;
 using System.Windows.Input;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using DevExpress.Mvvm;
 using Wms.Services.Authorization;
 using Wms.Services.Authorization.Contract;
+using Wms.View;
 using AsyncCommand = DevExpress.Mvvm.AsyncCommand;
 
 namespace Wms.ViewModel
@@ -40,24 +40,8 @@ namespace Wms.ViewModel
             }
         }
 
-        public static Dictionary<string, string> Languages =>
-            new Dictionary<string, string>
-            {
-                {"en-US", "English"},
-                {"ru-RU", "Русский"},
-                {"zh-CN", "中文"},
-                {"tr-TR", "Türk"},
-            };
-
-        public string Language
-        {
-            get =>  Properties.Settings.Default.DefaultLanguage;
-            set
-            {
-                SetCulture(value);
-                OnPropertyChanged(nameof(Language));
-            }
-        }
+        private ICommand _languageCommand;
+        public ICommand LanguageCommand => _languageCommand??=new DelegateCommand<string>((param) => SetCulture(param));
 
         private string _error;
         public string Error
@@ -71,7 +55,7 @@ namespace Wms.ViewModel
         {
             try
             {
-                await _authorization.LogInAsync(new LoginReq(Email, Password, Language));
+                await _authorization.LogInAsync(new LoginReq(Email, Password, Properties.Settings.Default.DefaultLanguage));
                 VerifyApiKey();
             }
             catch (ApiException ex)

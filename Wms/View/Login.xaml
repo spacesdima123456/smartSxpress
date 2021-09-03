@@ -1,16 +1,22 @@
-﻿<dx:ThemedWindow  x:Class="Wms.Login"
-                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<dx:ThemedWindow  x:Class="Wms.View.Login"
+                      Width="600"
+                      Height="400"
+                      mc:Ignorable="d"
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="NoResize" WindowStyle="None"
+                      xmlns:lang="clr-namespace:Wms.Localization"
+                      xmlns:properties="clr-namespace:Wms.Properties"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                       xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-                      mc:Ignorable="d"
-                      xmlns:lang="clr-namespace:Wms.Localization"
-                      Height="400"
-                      Width="600"
-                      WindowStartupLocation="CenterScreen"
-                      ResizeMode="NoResize" WindowStyle="None">
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <Window.Resources>
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Command" Value="{Binding Path=LanguageCommand}"/>
+        </Style>
+    </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1,1,1,1">
             <Grid>
                 <Grid.RowDefinitions>
@@ -26,14 +32,66 @@
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="/Image/logo.png" Width="110"/>
-            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
-                <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
-                <Label Content="{lang:Lang Languages}"/>
-                <ComboBox ItemsSource="{Binding Path=Languages, Mode=OneWay}" SelectedValue="{Binding Path=Language, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
-            </StackPanel>
-            <dxe:TextEdit Grid.Row="2" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"/>
-                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="30 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
+                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
+            <GroupBox  Header="{lang:Lang Languages}" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10 0 20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Content="English" CommandParameter="en-US"  Grid.Column="0" Grid.Row="0" Margin="0 0 20 0" Command="{Binding Path=LanguageCommand}">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="en-US">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Content="Русский" CommandParameter="ru-RU" Grid.Column="0" Grid.Row="1" Command="{Binding Path=LanguageCommand}">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="ru-RU">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Content="中文" CommandParameter="zh-CN" Grid.Column="1" Grid.Row="0" Command="{Binding Path=LanguageCommand}">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="zh-CN">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton Content="Türk" CommandParameter="tr-TR" Grid.Column="1" Grid.Row="1" Command="{Binding Path=LanguageCommand}">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="tr-TR">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                </Grid>
+            </GroupBox>
+            <dxe:TextEdit Grid.Row="2" Grid.Column="2" Margin="20 3 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"/>
+                <dxe:PasswordBoxEdit Grid.Row="3" Grid.Column="2" Margin="20 3 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
                 <Label  Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red"  >
                 <TextBlock Text="{Binding Path=Error, Mode=OneWay}" TextWrapping="WrapWithOverflow">
                 </TextBlock>

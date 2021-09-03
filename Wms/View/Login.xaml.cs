@@ -1,7 +1,7 @@
 ﻿using DevExpress.Xpf.Core;
 using Wms.ViewModel;
 
-namespace Wms
+namespace Wms.View
 {
     public partial class Login : ThemedWindow
     {
