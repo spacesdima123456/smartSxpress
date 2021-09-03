@@ -26,7 +26,7 @@
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="Image/logo.png" Width="110"/>
+                <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Source="/Image/logo.png" Width="110"/>
             <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Source="/Image/login.jfif" />
                 <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 0 20">
                 <Label Content="{lang:Lang Languages}"/>

@@ -117,7 +117,7 @@
                         <Button Content="China" Click="ButtonBase_OnClick3" />
                     </StackPanel>
                 </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang Current}" Glyph="/Icon/Svg/time.svg" ArrowGlyph="Icon/Svg/fakeIcon.svg" ArrowPadding="-40 0 0 0">
+                <dx:DropDownButton Content="{lang:Lang Current}" Glyph="/Icon/Svg/time.svg" ArrowGlyph="/Icon/Svg/fakeIcon.svg" ArrowPadding="-40 0 0 0">
                     <dx:WpfSvgPalette.Palette>
                         <dx:WpfSvgPalette>
                             <SolidColorBrush x:Key="Black" Color="White"/>
@@ -125,7 +125,7 @@
                         </dx:WpfSvgPalette>
                     </dx:WpfSvgPalette.Palette>
                 </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang OnWay}" Glyph="/Icon/Svg/country.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                <dx:DropDownButton Content="{lang:Lang OnWay}" Glyph="/Icon/Svg/country.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
                     <dx:WpfSvgPalette.Palette>
                         <dx:WpfSvgPalette>
                             <SolidColorBrush x:Key="Blue" Color="White"/>
@@ -136,7 +136,7 @@
                         <Button  Content="{lang:Lang DeliveryServices}"/>
                     </StackPanel>
                 </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang Bishkek}" Glyph="/Icon/Svg/geoPointMaps.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                <dx:DropDownButton Content="{lang:Lang Bishkek}" Glyph="/Icon/Svg/geoPointMaps.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
                     <dx:WpfSvgPalette.Palette>
                         <dx:WpfSvgPalette>
                             <SolidColorBrush x:Key="Blue" Color="White"/>
@@ -147,7 +147,7 @@
                         <Button Content="{lang:Lang Addition}"/>
                     </StackPanel>
                 </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang ForDelivery}" Glyph="/Icon/Svg/vendor.svg" ArrowGlyph="Icon/Svg/actionSortingDescending.svg">
+                <dx:DropDownButton Content="{lang:Lang ForDelivery}" Glyph="/Icon/Svg/vendor.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
                     <dx:WpfSvgPalette.Palette>
                         <dx:WpfSvgPalette>
                             <SolidColorBrush x:Key="Blue" Color="White"/>
