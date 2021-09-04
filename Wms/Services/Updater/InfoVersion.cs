@@ -1,51 +1,37 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
+using Wms.API;
+using Nito.AsyncEx;
 using System.Windows;
-using System.Xml;
-using System.Xml.Serialization;
-using Wms.Localization.Models;
-using Wms.Properties;
+using Wms.API.Interface;
+using System.Reflection;
 
 namespace Wms.Services.Updater
 {
-
     public class InfoVersion
     {
         public string Url { get; private set; }
         public Version NewVersion { get; private set; }
         public Version CurVersion { get; private set; }
+        private static InfoVersion _instance;
 
         private InfoVersion()
         {
-            Init();
+            CheckVerifyApp();
         }
 
-        private static InfoVersion _instance;
+        public static InfoVersion Instance()=> _instance ??= new InfoVersion();
 
-        public static InfoVersion Instance()
-        {
-            if (_instance == null)
-                _instance = new InfoVersion();
-            return _instance;
-        }
-
-        private void Init()
+        private void CheckVerifyApp()
         {
             try
             {
-                var doc = new XmlDocument();
-                doc.Load(Settings.Default.Version);
-                var serializer = new XmlSerializer(typeof(VersionApp));
-                using var reader = new StringReader(doc.InnerXml);
-                var info = (VersionApp)serializer.Deserialize(reader);
-
-                if (info != null)
+                var rest = new RestFactory().CreateRest();
+                var version = AsyncContext.Run(async ()=> await rest.ExecuteRequest<IAppUpdate>().GetActualVersionAppAsync());
+                if (version != null)
                 {
-                    Url = info.Url;
-                    NewVersion = new Version(info.Version);
+                    Url = version.Url;
+                    NewVersion = new Version(version.Version);
                 }
-
                 CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             }

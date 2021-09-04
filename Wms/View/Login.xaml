@@ -6,6 +6,7 @@
                       ResizeMode="NoResize" WindowStyle="None"
                       xmlns:lang="clr-namespace:Wms.Localization"
                       xmlns:properties="clr-namespace:Wms.Properties"
+                      xmlns:bind="clr-namespace:Wms.Infrastructure.Bindings"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -15,6 +16,11 @@
     <Window.Resources>
         <Style TargetType="{x:Type RadioButton}">
             <Setter Property="Command" Value="{Binding Path=LanguageCommand}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CommandParameter, RelativeSource={RelativeSource Mode=Self}}" bind:DataTriggerAssists.Value="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}">
+                    <Setter Property="IsChecked" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1,1,1,1">
@@ -44,50 +50,10 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <RadioButton Content="English" CommandParameter="en-US"  Grid.Column="0" Grid.Row="0" Margin="0 0 20 0" Command="{Binding Path=LanguageCommand}">
-                        <RadioButton.Style>
-                            <Style TargetType="RadioButton">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="en-US">
-                                        <Setter Property="IsChecked" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </RadioButton.Style>
-                    </RadioButton>
-                    <RadioButton Content="Русский" CommandParameter="ru-RU" Grid.Column="0" Grid.Row="1" Command="{Binding Path=LanguageCommand}">
-                        <RadioButton.Style>
-                            <Style TargetType="RadioButton">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="ru-RU">
-                                        <Setter Property="IsChecked" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </RadioButton.Style>
-                    </RadioButton>
-                    <RadioButton Content="中文" CommandParameter="zh-CN" Grid.Column="1" Grid.Row="0" Command="{Binding Path=LanguageCommand}">
-                        <RadioButton.Style>
-                            <Style TargetType="RadioButton">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="zh-CN">
-                                        <Setter Property="IsChecked" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </RadioButton.Style>
-                    </RadioButton>
-                    <RadioButton Content="Türk" CommandParameter="tr-TR" Grid.Column="1" Grid.Row="1" Command="{Binding Path=LanguageCommand}">
-                        <RadioButton.Style>
-                            <Style TargetType="RadioButton">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultLanguage}" Value="tr-TR">
-                                        <Setter Property="IsChecked" Value="True"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </RadioButton.Style>
-                    </RadioButton>
+                    <RadioButton Content="English" CommandParameter="en-US"  Grid.Column="0" Grid.Row="0" Margin="0 0 20 0" Command="{Binding Path=LanguageCommand}"/>
+                    <RadioButton Content="Русский" CommandParameter="ru-RU" Grid.Column="0" Grid.Row="1" Command="{Binding Path=LanguageCommand}"/>
+                    <RadioButton Content="中文" CommandParameter="zh-CN" Grid.Column="1" Grid.Row="0" Command="{Binding Path=LanguageCommand}"/>
+                    <RadioButton Content="Türk" CommandParameter="tr-TR" Grid.Column="1" Grid.Row="1" Command="{Binding Path=LanguageCommand}"/>
                 </Grid>
             </GroupBox>
                 <StackPanel Grid.Row="2" Grid.Column="2">
