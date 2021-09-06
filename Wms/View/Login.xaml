@@ -1,6 +1,6 @@
 ﻿<dx:ThemedWindow  x:Class="Wms.View.Login"
                       Width="600"
-                      Height="400"
+                      Height="410"
                       mc:Ignorable="d"
                       WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize" WindowStyle="None"
@@ -57,16 +57,15 @@
                 </Grid>
             </GroupBox>
                 <StackPanel Grid.Row="2" Grid.Column="2">
-                <Label Content="Логин" Margin="20 -5 0 0"/>
+                <Label Content="{lang:Lang Email}" Margin="20 -5 0 0"/>
                 <dxe:TextEdit Margin="20 0 20 3" Text="{Binding Path=Email, Mode=TwoWay}" MaxLength="25" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"/>
             </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="2">
-                <Label Content="Пароль" Margin="20 -5 0 0"/>
+                <Label Content="{lang:Lang Password}" Margin="20 -5 0 0"/>
                 <dxe:PasswordBoxEdit  Margin="20 0 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
             </StackPanel>
-                <Label  Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red"  >
-                <TextBlock Text="{Binding Path=Error, Mode=OneWay}" TextWrapping="WrapWithOverflow">
-                </TextBlock>
+            <Label Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" Margin="0 -20 0 0">
+                <TextBlock Text="{Binding Path=Error, Mode=OneWay}" TextWrapping="WrapWithOverflow"/>
             </Label>
             <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center" Width="100">
                 <Button Content="{lang:Lang Login}" Margin="0 0 0 20" Command="{Binding Path=LoginCommand, Mode=OneWay}"/>

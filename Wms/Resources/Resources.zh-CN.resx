@@ -150,8 +150,14 @@
   <data name="DeliveryServices" xml:space="preserve">
     <value>送货服务</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮件</value>
+  </data>
   <data name="ForDelivery" xml:space="preserve">
     <value>对于交付</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>语言</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>登录</value>
@@ -164,6 +170,9 @@
   </data>
   <data name="Orders" xml:space="preserve">
     <value>订单</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
   </data>
   <data name="Pay" xml:space="preserve">
     <value>付款</value>

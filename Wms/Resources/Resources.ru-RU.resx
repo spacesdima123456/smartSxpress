@@ -150,6 +150,9 @@
   <data name="DeliveryServices" xml:space="preserve">
     <value>Доставки</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Логин</value>
+  </data>
   <data name="ForDelivery" xml:space="preserve">
     <value>На доставку</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Orders" xml:space="preserve">
     <value>Заказы</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
   </data>
   <data name="Pay" xml:space="preserve">
     <value>Оплата</value>
