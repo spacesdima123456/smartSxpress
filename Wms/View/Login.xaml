@@ -64,7 +64,7 @@
                 <Label Content="{lang:Lang Password}" Margin="20 -5 0 0"/>
                 <dxe:PasswordBoxEdit  Margin="20 0 20 3" Text="{Binding Path=Password, Mode=TwoWay}"  MaxLength="23"/>
             </StackPanel>
-            <Label Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" Margin="0 -20 0 0">
+            <Label Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" Margin="0 -15 0 0">
                 <TextBlock Text="{Binding Path=Error, Mode=OneWay}" TextWrapping="WrapWithOverflow"/>
             </Label>
             <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="3" VerticalAlignment="Center" Width="100">

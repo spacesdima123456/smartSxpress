@@ -10,6 +10,7 @@ namespace Wms.View
     /// </summary>
     public partial class Admin : Window
     {
+
         public Admin()
         {
             InitializeComponent();

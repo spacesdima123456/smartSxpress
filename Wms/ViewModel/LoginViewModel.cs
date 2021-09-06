@@ -84,6 +84,7 @@ namespace Wms.ViewModel
         private void CompletedVerify(object sender, System.EventArgs e)
         {
            _windowFactory.CreateWindow();
+           Messenger.Default.Send((LoginRes)sender);
         }
 
         private async Task HandleErrorsAsync(ApiException ex)
