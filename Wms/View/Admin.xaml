@@ -105,7 +105,7 @@
             Grid.Row="0">
             <Label 
                 FontSize="24" 
-                Content="{Binding Path=Company, Mode=OneWay}" 
+                Content="{Binding Path=UserName, Mode=OneWay}" 
                 Margin="30 0 0 0" 
                 Foreground="White" 
                 VerticalAlignment="Center" />
