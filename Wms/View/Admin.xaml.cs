@@ -3,8 +3,7 @@ using System.Windows;
 using Wms.Localization;
 using Wms.Properties;
 
-
-namespace Wms
+namespace Wms.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -39,3 +38,6 @@ namespace Wms
         }
     }
 }
+
+
+
