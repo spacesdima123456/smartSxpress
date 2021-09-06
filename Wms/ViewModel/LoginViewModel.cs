@@ -1,21 +1,23 @@
 ﻿using Refit;
-using Nito.AsyncEx;
 using Wms.API.Models;
+using DevExpress.Mvvm;
 using Wms.Localization;
 using System.Globalization;
 using System.Windows.Input;
 using System.Threading.Tasks;
-using DevExpress.Mvvm;
+using Wms.Services.TokenVerify;
 using Wms.Services.Authorization;
+using Wms.Services.Window.Contract;
+using Wms.Services.TokenVerify.Contract;
 using Wms.Services.Authorization.Contract;
-using Wms.View;
 using AsyncCommand = DevExpress.Mvvm.AsyncCommand;
 
 namespace Wms.ViewModel
 {
-    public class LoginViewModel: ValidateViewModel 
+    public class LoginViewModel: ValidateViewModel
     {
-        private readonly Login _login;
+        private readonly ITokenVerify _tokenVerify;
+        private readonly IWindowFactory _windowFactory;
         private readonly IAuthorization _authorization;
 
         private string _email;
@@ -56,7 +58,7 @@ namespace Wms.ViewModel
             try
             {
                 await _authorization.LogInAsync(new LoginReq(Email, Password, Properties.Settings.Default.DefaultLanguage));
-                VerifyApiKey();
+                _tokenVerify.VerifyApiToken();
             }
             catch (ApiException ex)
             {
@@ -70,11 +72,18 @@ namespace Wms.ViewModel
             System.Windows.Application.Current.Shutdown();
         });
 
-        public LoginViewModel(Login login)
+        public LoginViewModel(IWindowFactory windowFactory)
         {
+            _windowFactory = windowFactory;
             _authorization = new AuthorizationFactory().Make();
-            _login = login;
-            VerifyApiKey();
+            _tokenVerify = new TokenVerifyFactory(_authorization).Make();
+            _tokenVerify.VerifySuccess += CompletedVerify;
+            _tokenVerify.VerifyApiToken();
+        }
+
+        private void CompletedVerify(object sender, System.EventArgs e)
+        {
+           _windowFactory.CreateWindow();
         }
 
         private async Task HandleErrorsAsync(ApiException ex)
@@ -98,32 +107,6 @@ namespace Wms.ViewModel
             Properties.Settings.Default.DefaultLanguage = culture;
             TranslationSource.Instance.CurrentCulture = new CultureInfo(culture);
             Properties.Settings.Default.Save();
-        }
-
-        private void VerifyApiKey()
-        {
-            if (_authorization.IsAuth)
-            {
-                try
-                {
-                    var data = AsyncContext.Run(async () => await _authorization.ValidKeyAsync());
-                    if (data != null)
-                    {
-                        OpenAdmin();
-                    }
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-        }
-
-        private void OpenAdmin()
-        {
-            var admin = new Admin { Owner = _login.Owner };
-            admin.Show();
-            _login.Close();
         }
     }
 }
