@@ -89,7 +89,7 @@
             Height="80">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
-                <RowDefinition Height="60*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -97,7 +97,12 @@
                 <ColumnDefinition Width="85*"/>
                 <ColumnDefinition Width="15*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="{Binding Path=Company, Mode=OneWay}" FontWeight="Bold" FontSize="30" Foreground="White"  Grid.Row="1" Grid.Column="1"/>
+            <!--<Label Content="{Binding Path=Company, Mode=OneWay}" FontWeight="Bold" FontSize="30" Foreground="White"  Grid.Row="1" Grid.Column="1"/>-->
+            <Label Grid.Row="1" Grid.Column="1">
+                <Label.Content>
+                    <AccessText TextWrapping="Wrap" Text="{Binding Path=Company, Mode=OneWay}" FontWeight="Bold" FontSize="30" Foreground="White"/>
+                </Label.Content>
+            </Label>
             <Separator Background="AliceBlue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
         </Grid>
         <DockPanel 
