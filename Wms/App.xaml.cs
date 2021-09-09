@@ -6,7 +6,6 @@ using Wms.Localization;
 using Wms.Properties;
 using Wms.Services.Updater;
 
-
 namespace Wms
 {
     /// <summary>
@@ -25,7 +24,7 @@ namespace Wms
                     IsIndeterminate = true,
                     Status = "Starting...",
                     Title = "",
-                    Subtitle = "Powered by DevExpress"
+                    Subtitle = "Powered by DevExpress",
                 }
             ).ShowOnStartup();
         }
