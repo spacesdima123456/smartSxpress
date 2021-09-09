@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
+using DevExpress.Mvvm;
+using DevExpress.Xpf.Core;
 using Wms.Localization;
 using Wms.Properties;
 using Wms.Services.Updater;
@@ -16,6 +18,16 @@ namespace Wms
         {
             TranslationSource.Instance.CurrentCulture = new CultureInfo(Settings.Default.DefaultLanguage);
             UpdatingApp.RunUpdate();
+
+            SplashScreenManager.CreateThemed(new DXSplashScreenViewModel
+                {
+                    Copyright = "All rights reserved",
+                    IsIndeterminate = true,
+                    Status = "Starting...",
+                    Title = "",
+                    Subtitle = "Powered by DevExpress"
+                }
+            ).ShowOnStartup();
         }
     }
 }
