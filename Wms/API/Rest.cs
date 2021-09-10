@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using Refit;
 using Wms.API.Contract;
 using Wms.Services.Token;
-using Wms.Services.Token.Contract;
 using Wms.Services.Token.Enum;
 
 namespace Wms.API
@@ -17,7 +16,7 @@ namespace Wms.API
             var client = new HttpClient
             {
                 BaseAddress = new Uri(Properties.Settings.Default.HostUrl),
-                Timeout = TimeSpan.FromSeconds(15)
+                Timeout = TimeSpan.FromSeconds(Properties.Settings.Default.Timeout)
             };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("apiKey", tokenStorageFactory.GetToken("apiKey"));
             return RestService.For<T>(client);

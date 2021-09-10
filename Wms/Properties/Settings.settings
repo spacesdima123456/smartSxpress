@@ -11,5 +11,8 @@
     <Setting Name="HostUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.wmsfor.us</Value>
     </Setting>
+    <Setting Name="Timeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
