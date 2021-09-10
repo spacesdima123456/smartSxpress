@@ -15,7 +15,11 @@ namespace Wms.API
                 BaseAddress = new Uri(Properties.Settings.Default.HostUrl),
                 Timeout = TimeSpan.FromSeconds(Properties.Settings.Default.Timeout)
             };
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("apiKey", Properties.Settings.Default.Token);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("apiKey", Properties.Settings.Default.Token);
+
+            client.DefaultRequestHeaders.Add("apiKey", Properties.Settings.Default.Token);
+
+
             return RestService.For<T>(client);
         }
     }

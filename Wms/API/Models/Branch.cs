@@ -9,7 +9,8 @@ namespace Wms.API.Models
         public int Code { get; set; }
         [JsonPropertyName("text")]
         public string Text { get; set; }
-        [JsonPropertyName("branch")]
+
+        [JsonPropertyName("data")]
         public List<Branches> Branches { get; set; }
     }
 }
