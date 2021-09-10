@@ -5,8 +5,6 @@ using Wms.Localization;
 using System.Globalization;
 using System.Windows.Input;
 using System.Threading.Tasks;
-using Wms.API;
-using Wms.API.Interface;
 using Wms.Services.TokenVerify;
 using Wms.Services.Authorization;
 using Wms.Services.Window.Contract;

@@ -186,6 +186,8 @@
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>
             </dxwui:HamburgerSubMenu>
+
+
             <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈" >
                 <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="США"/>

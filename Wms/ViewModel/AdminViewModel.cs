@@ -1,10 +1,22 @@
-﻿using DevExpress.Mvvm;
+﻿using Wms.API;
 using Wms.API.Models;
+using DevExpress.Mvvm;
+using Wms.API.Contract;
+using System.Collections.Generic;
 
 namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
+        private readonly IRest _rest;
+
+        private IEnumerable<Branches> _branches;
+        public IEnumerable<Branches> Branches
+        {
+            get => _branches;
+            private set => Set(nameof(Branches), ref _branches, value);
+        }
+
         private string _userName;
         public  string UserName
         {
@@ -21,6 +33,8 @@ namespace Wms.ViewModel
 
         public AdminViewModel()
         {
+            _rest = new RestFactory().CreateRest();
+
             Messenger.Default.Register<LoginRes>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;
