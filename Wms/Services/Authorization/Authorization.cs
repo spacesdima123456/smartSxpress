@@ -1,46 +1,45 @@
 ﻿using System.Threading.Tasks;
-using Wms.API;
-using Wms.API.Contract;
-using Wms.API.Interface;
 using Wms.API.Models;
 using Wms.Services.Authorization.Contract;
 using Wms.Services.Token.Contract;
 using Wms.Services.Token.Providers;
+using Wms.UnitOfWorkAPI;
+using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.Services.Authorization
 {
     public class Authorization : IAuthorization
     {
-        private readonly IRest _rest;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenStorage _tokenStorage;
 
         public Authorization()
         {
-            _rest = new Rest();
+            _unitOfWork = new UnitOfWork();
             _tokenStorage = new StorageRegistry();
         }
 
-        public bool IsAuth => !string.IsNullOrEmpty(_tokenStorage.GetToken("ApiKey"));
+        public bool IsAuth => !string.IsNullOrEmpty(GetToken());
 
         public async Task LogInAsync(LoginReq login)
         {
-            var auth = await _rest.ExecuteRequest<IAuth>().LogInAsync(login);
+            var auth = await _unitOfWork.AuthorizationRepository.LogInAsync(login);
             if (auth != null)
                 _tokenStorage.SetToken(auth.ApiKey, "ApiKey");
         }
 
         public async Task LogOutAsync()
         {
-            var token = _tokenStorage.GetToken("ApiKey");
-            if (!string.IsNullOrEmpty(token))
-                await _rest.ExecuteRequest<IAuth>().LogOutAsync(token);
-
+            if (!string.IsNullOrEmpty(GetToken()))
+                await _unitOfWork.AuthorizationRepository.LogOutAsync(GetToken());
             _tokenStorage.SetToken("", "ApiKey");
         }
 
         public async Task<LoginRes> ValidKeyAsync()
         {
-            return await _rest.ExecuteRequest<IAuth>().ValidTokenAsync(_tokenStorage.GetToken("ApiKey"));
+            return await _unitOfWork.AuthorizationRepository.ValidKeyAsync(GetToken());
         }
+
+        private string GetToken() => _tokenStorage.GetToken("ApiKey");
     }
 }

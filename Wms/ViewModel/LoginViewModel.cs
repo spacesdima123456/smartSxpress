@@ -78,6 +78,7 @@ namespace Wms.ViewModel
             _tokenVerify.VerifyApiToken();
         }
 
+
         private void CompletedVerify(object sender, LoginRes e)
         {
             _windowFactory.CreateWindow();

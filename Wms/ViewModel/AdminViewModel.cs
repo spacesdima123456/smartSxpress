@@ -1,14 +1,16 @@
-﻿using Wms.API;
-using Wms.API.Models;
+﻿using Wms.API.Models;
 using DevExpress.Mvvm;
-using Wms.API.Contract;
 using System.Collections.Generic;
+using Nito.AsyncEx;
+using Wms.UnitOfWorkAPI;
+using Wms.UnitOfWorkAPI.Contract;
+
 
 namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
-        private readonly IRest _rest;
+        private readonly IUnitOfWork _unitOfWork;
 
         private IEnumerable<Branches> _branches;
         public IEnumerable<Branches> Branches
@@ -33,7 +35,8 @@ namespace Wms.ViewModel
 
         public AdminViewModel()
         {
-            _rest = new RestFactory().CreateRest();
+            _unitOfWork = new UnitOfWork();
+            Branches = AsyncContext.Run(async ()=> await _unitOfWork.BranchRepository.GetAllBranchesAsync());
 
             Messenger.Default.Register<LoginRes>(this, (data) =>
             {
