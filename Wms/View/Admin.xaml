@@ -165,13 +165,12 @@
                 </dx:DropDownButton>
             </StackPanel>
         </DockPanel>
-
-        <StackPanel 
+        <Frame 
             Grid.Column="1" 
             Grid.Row="1" 
-            Background="White">
-        </StackPanel>
-
+            Background="White"
+            Source="../Page/Branches.xaml">
+        </Frame>
         <dxwui:HamburgerMenu 
                 Grid.Row="1"
                 Grid.Column="0"
@@ -180,19 +179,12 @@
                 Background="White"
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
-            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0" ItemsSource="{Binding Path=Branches}">
-                <dxwui:HamburgerSubMenu.ItemTemplate >
-                    <DataTemplate>
-                        <dxwui:HamburgerSubMenuNavigationButton Content="{Binding Path=Company}" />
-                    </DataTemplate>
-                </dxwui:HamburgerSubMenu.ItemTemplate>
-                <!--<dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"   />
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>-->
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>
             </dxwui:HamburgerSubMenu>
-
-
             <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈" >
                 <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="США"/>

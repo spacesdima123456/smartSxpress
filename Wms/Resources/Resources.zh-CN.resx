@@ -126,6 +126,9 @@
   <data name="Bishkek" xml:space="preserve">
     <value>比什凯克</value>
   </data>
+  <data name="Branches" xml:space="preserve">
+    <value>分支机构</value>
+  </data>
   <data name="Cargo" xml:space="preserve">
     <value>货物</value>
   </data>

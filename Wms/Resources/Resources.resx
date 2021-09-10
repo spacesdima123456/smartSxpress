@@ -126,6 +126,9 @@
   <data name="Bishkek" xml:space="preserve">
     <value>Bishkek</value>
   </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
   <data name="Cargo" xml:space="preserve">
     <value>Cargo</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="Bishkek" xml:space="preserve">
     <value>Бишкек</value>
   </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Филиалы</value>
+  </data>
   <data name="Cargo" xml:space="preserve">
     <value>Грузы</value>
   </data>
