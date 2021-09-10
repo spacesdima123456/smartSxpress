@@ -1,10 +1,11 @@
 ﻿using System;
+using Wms.API.Models;
 
 namespace Wms.Services.TokenVerify.Contract
 {
     public interface ITokenVerify
     {
-        event EventHandler VerifySuccess;
+        event EventHandler<LoginRes> VerifySuccess;
         event EventHandler VerifyError;
         void VerifyApiToken();
     }

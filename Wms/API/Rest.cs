@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Refit;
+using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using Refit;
 using Wms.API.Contract;
-using Wms.Services.Token;
-using Wms.Services.Token.Enum;
+using System.Net.Http.Headers;
 
 namespace Wms.API
 {
@@ -12,13 +10,12 @@ namespace Wms.API
     {
         public T ExecuteRequest<T>()
         {
-            using var tokenStorageFactory = new TokenStorageFactory().MakeStorage(TypeStorage.Registry);
             var client = new HttpClient
             {
                 BaseAddress = new Uri(Properties.Settings.Default.HostUrl),
                 Timeout = TimeSpan.FromSeconds(Properties.Settings.Default.Timeout)
             };
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("apiKey", tokenStorageFactory.GetToken("apiKey"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("apiKey", Properties.Settings.Default.Token);
             return RestService.For<T>(client);
         }
     }

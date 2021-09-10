@@ -14,5 +14,8 @@
     <Setting Name="Timeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
+    <Setting Name="Token" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

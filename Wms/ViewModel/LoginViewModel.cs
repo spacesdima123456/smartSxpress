@@ -43,7 +43,7 @@ namespace Wms.ViewModel
         }
 
         private ICommand _languageCommand;
-        public ICommand LanguageCommand => _languageCommand??=new DelegateCommand<string>((param) => SetCulture(param));
+        public ICommand LanguageCommand => _languageCommand??=new DelegateCommand<string>(SetCulture);
 
         private string _error;
         public string Error
@@ -67,10 +67,7 @@ namespace Wms.ViewModel
         });
 
         private ICommand _closeCommand;
-        public ICommand CloseCommand => _closeCommand ??=new DelegateCommand(() =>
-        {
-            System.Windows.Application.Current.Shutdown();
-        });
+        public ICommand CloseCommand => _closeCommand ??=new DelegateCommand(() => System.Windows.Application.Current.Shutdown());
 
         public LoginViewModel(IWindowFactory windowFactory)
         {
@@ -81,10 +78,11 @@ namespace Wms.ViewModel
             _tokenVerify.VerifyApiToken();
         }
 
-        private void CompletedVerify(object sender, System.EventArgs e)
+        private void CompletedVerify(object sender, LoginRes e)
         {
-           _windowFactory.CreateWindow();
-           Messenger.Default.Send((LoginRes)sender);
+            _windowFactory.CreateWindow();
+            Messenger.Default.Send(e);
+            SetToken(e.ApiKey);
         }
 
         private async Task HandleErrorsAsync(ApiException ex)
@@ -107,6 +105,12 @@ namespace Wms.ViewModel
         {
             Properties.Settings.Default.DefaultLanguage = culture;
             TranslationSource.Instance.CurrentCulture = new CultureInfo(culture);
+            Properties.Settings.Default.Save();
+        }
+
+        private static void SetToken(string token)
+        {
+            Properties.Settings.Default.Token = token;
             Properties.Settings.Default.Save();
         }
     }
