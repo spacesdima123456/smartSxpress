@@ -20,20 +20,20 @@
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="GlyphColor" Value="White"/>
             <Setter Property="SelectOnClick" Value="False"/>
-            <Setter Property="Padding" Value="35 5 0 25"/>
+            <Setter Property="Padding" Value="0 5 0 25"/>
             <Setter Property="AllowGlyphTheming" Value="True"/>
         </Style>
         <Style TargetType="{x:Type dxwui:HamburgerSubMenu}">
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="GlyphColor" Value="White"/>
-            <Setter Property="Padding" Value="35 5 0 0"/>
+            <Setter Property="Padding" Value="0 5 0 0"/>
             <Setter Property="AllowGlyphTheming" Value="True"/>
             <Setter Property="MoreButtonVisibilityMode" Value="Hidden"/>
-            <Style.Triggers>
+            <!--<Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#2a8ad4" />
                 </Trigger>
-            </Style.Triggers>
+            </Style.Triggers>-->
         </Style>
         <Style TargetType="dxwuii:HamburgerSubMenuButton">
         </Style>
@@ -179,13 +179,13 @@
                 Background="White"
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
-            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
+            <dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>
             </dxwui:HamburgerSubMenu>
-            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈" >
+            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈">
                 <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="США"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="Турция"/>
@@ -197,6 +197,7 @@
                 <dxwui:HamburgerSubMenuNavigationButton Content="Зарплаты"/>
             </dxwui:HamburgerSubMenu>
             <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/orderItem.svg" Content="{lang:Lang Cargo}" ContentStringFormat=" {0} ⯈">
+
                 <dxwui:HamburgerSubMenuNavigationButton Content="Добавить"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="Отправители"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="Получатели"/>

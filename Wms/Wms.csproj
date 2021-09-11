@@ -13,10 +13,12 @@
   <ItemGroup>
     <None Remove="Icon\Svg\actionSortingDescending.svg" />
     <None Remove="Icon\Svg\buyNow.svg" />
+    <None Remove="Icon\Svg\close.svg" />
     <None Remove="Icon\Svg\contact.svg" />
     <None Remove="Icon\Svg\contract.svg" />
     <None Remove="Icon\Svg\country.svg" />
     <None Remove="Icon\Svg\department.svg" />
+    <None Remove="Icon\Svg\edit.svg" />
     <None Remove="Icon\Svg\employee.svg" />
     <None Remove="Icon\Svg\fakeIcon.svg" />
     <None Remove="Icon\Svg\geoPointMaps.svg" />
@@ -34,6 +36,7 @@
     <PackageReference Include="devexpress.wpf.controls" Version="21.1.5-pre-21203" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.0" />
     <PackageReference Include="Refit" Version="6.0.94" />
+    <PackageReference Include="SharpVectors" Version="1.7.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +44,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\buyNow.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icon\Svg\close.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\contact.svg">
@@ -53,6 +59,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\department.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icon\Svg\edit.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\employee.svg">
