@@ -82,7 +82,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
-        <Grid  
+        <Grid
             Grid.Row="0" 
             Grid.Column="0"
             Width="300"
@@ -169,7 +169,7 @@
             Grid.Column="1" 
             Grid.Row="1" 
             Background="White"
-            Source="../Page/Branches.xaml">
+            Source="{Binding Path=Source, Mode=OneWay}">
         </Frame>
         <dxwui:HamburgerMenu 
                 Grid.Row="1"

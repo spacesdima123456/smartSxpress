@@ -1,22 +1,15 @@
 ﻿using Wms.API.Models;
 using DevExpress.Mvvm;
-using System.Collections.Generic;
-using Nito.AsyncEx;
-using Wms.UnitOfWorkAPI;
-using Wms.UnitOfWorkAPI.Contract;
-
 
 namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        private IEnumerable<Branches> _branches;
-        public IEnumerable<Branches> Branches
+        private string _source;
+        public string Source
         {
-            get => _branches;
-            private set => Set(nameof(Branches), ref _branches, value);
+            get => _source;
+            private set => Set(nameof(Source), ref _source, value);
         }
 
         private string _userName;
@@ -35,11 +28,9 @@ namespace Wms.ViewModel
 
         public AdminViewModel()
         {
-            _unitOfWork = new UnitOfWork();
-            Branches = AsyncContext.Run(async ()=> await _unitOfWork.BranchRepository.GetAllBranchesAsync());
-
             Messenger.Default.Register<LoginRes>(this, (data) =>
             {
+                Source = "../Page/Branches.xaml";
                 UserName = data.Data.Customer.Name;
                 Company = data.Data.Customer.Company;
             });
