@@ -20,6 +20,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="#212529"/>
             <Setter Property="Margin" Value="0 0 5 0"/>
+            <Setter Property="Padding" Value="0 5 0 0"/>
             <Style.Resources>
                 <Style TargetType="StackPanel">
                     <Setter Property="Orientation" Value="Horizontal"/>
@@ -33,7 +34,7 @@
     <ItemsControl ItemsSource="{Binding Branches}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel Background="#212529" Margin="10 10 15 0" Width="300" Height="215">
+                <StackPanel Background="#212529" Margin="10 10 15 0" Width="300" Height="230">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button>
                             <StackPanel>
@@ -49,6 +50,19 @@
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Company}" />
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Name}" />
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Address}" />
+                    <Label Style="{StaticResource LblBranchInfo}">
+                        <Label.Content>
+                            <TextBlock >
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                        <Binding Path="City" />
+                                        <Binding Path="Zip" />
+                                        <Binding Path="State" FallbackValue="''" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Code}" />
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Phone}" />
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Email}" />
