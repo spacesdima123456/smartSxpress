@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Wms.Services.Window.Contract;
+﻿using Wms.Services.Window.Contract;
 
 namespace Wms.Services.Window
 {

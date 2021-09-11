@@ -100,7 +100,7 @@
             <!--<Label Content="{Binding Path=Company, Mode=OneWay}" FontWeight="Bold" FontSize="30" Foreground="White"  Grid.Row="1" Grid.Column="1"/>-->
             <Label Grid.Row="1" Grid.Column="1">
                 <Label.Content>
-                    <AccessText TextWrapping="Wrap" Text="{Binding Path=Company, Mode=OneWay}" FontWeight="Bold" FontSize="30" Foreground="White"/>
+                    <AccessText TextWrapping="Wrap" Text="{Binding Path=Company, Mode=OneWay, FallbackValue=''}" FontWeight="Bold" FontSize="30" Foreground="White"/>
                 </Label.Content>
             </Label>
             <Separator Background="AliceBlue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
@@ -110,7 +110,7 @@
             Grid.Row="0">
             <Label 
                 FontSize="24" 
-                Content="{Binding Path=UserName, Mode=OneWay}" 
+                Content="{Binding Path=UserName, Mode=OneWay, FallbackValue=''}" 
                 Margin="-45 0 0 0" 
                 Foreground="White" 
                 VerticalAlignment="Center" />
@@ -169,7 +169,7 @@
             Grid.Column="1" 
             Grid.Row="1" 
             Background="White"
-            Source="{Binding Path=Source, Mode=OneWay}">
+            Source="{Binding Path=Source, Mode=OneWay, TargetNullValue=''}">
         </Frame>
         <dxwui:HamburgerMenu 
                 Grid.Row="1"
