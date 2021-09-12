@@ -22,13 +22,13 @@
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="GlyphColor" Value="White"/>
             <Setter Property="SelectOnClick" Value="False"/>
-            <Setter Property="Padding" Value="0 5 0 25"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
             <Setter Property="AllowGlyphTheming" Value="True"/>
         </Style>
         <Style TargetType="{x:Type dxwui:HamburgerSubMenu}">
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="GlyphColor" Value="White"/>
-            <Setter Property="Padding" Value="0 5 0 0"/>
+            <Setter Property="Padding" Value="0 15 0 0"/>
             <Setter Property="AllowGlyphTheming" Value="True"/>
             <Setter Property="MoreButtonVisibilityMode" Value="Hidden"/>
             <!--<Style.Triggers>
@@ -183,10 +183,11 @@
             </StackPanel>
         </DockPanel>-->
         <Frame 
-            Grid.Column="1" 
             Grid.Row="1" 
+            Grid.Column="1" 
             Background="White"
-            Source="{Binding Path=Source, Mode=OneWay, TargetNullValue=''}">
+            NavigationUIVisibility="Hidden" 
+            Source="{Binding Path=Source, Mode=OneWay, TargetNullValue='../Page/Main.xaml'}">
         </Frame>
         <dxwui:HamburgerMenu 
                 Grid.Row="1"
@@ -196,7 +197,10 @@
                 Background="White"
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
-            <dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
+
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../Page/Branches.xaml"/>
+
+            <!--<dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
@@ -237,7 +241,7 @@
             </dxwui:HamburgerSubMenu>
             <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/localization.svg" Content="{lang:Lang Warehouse}" Margin="0 10 0 0"/>
             <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/contract.svg" Content="{lang:Lang Delivery}" />
-            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Money}" />
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Money}" />-->
         </dxwui:HamburgerMenu>
     </Grid>
 </Window>

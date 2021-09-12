@@ -1,4 +1,5 @@
-﻿using Wms.API.Models;
+﻿using System.Windows.Input;
+using Wms.API.Models;
 using DevExpress.Mvvm;
 
 namespace Wms.ViewModel
@@ -26,11 +27,14 @@ namespace Wms.ViewModel
             private set => Set(nameof(Company), ref _company, value);
         }
 
+        private ICommand _pageCommand;
+        public ICommand PageCommand => _pageCommand ??= new DelegateCommand<string>(source => Source = source);
+
         public AdminViewModel()
         {
             Messenger.Default.Register<LoginRes>(this, (data) =>
             {
-                Source = "../Page/Branches.xaml";
+                //Source = "../Page/Branches.xaml";
                 UserName = data.Data.Customer.Name;
                 Company = data.Data.Customer.Company;
             });
