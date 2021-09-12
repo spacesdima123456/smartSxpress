@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Wms.Services.Window.WindowDialogs;
 
 namespace Wms.ViewModel
@@ -24,13 +23,7 @@ namespace Wms.ViewModel
         }
 
         private ICommand _openWindowDeleteBranchCommand;
-        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<int>((id) => _windowBranch.Delete(
-            o =>
-            {
-                var branch = Branches.FirstOrDefault(f => f.Id == id);
-                if (branch != null)
-                    Branches.Remove(branch);
-            }));
+        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(o => Branches.Remove(branches)));
 
         public BranchesViewModel()
         {

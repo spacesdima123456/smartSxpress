@@ -41,7 +41,7 @@
                                 <svgc:SvgViewbox Source="../Icon/Svg/edit.svg"/>
                             </StackPanel>
                         </Button>
-                        <Button Command="{Binding DataContext.OpenWindowDeleteBranchCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Path=Id}">
+                        <Button Command="{Binding DataContext.OpenWindowDeleteBranchCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" >
                             <StackPanel>
                                 <svgc:SvgViewbox Source="../Icon/Svg/close.svg"/>
                             </StackPanel>

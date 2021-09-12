@@ -4,9 +4,6 @@ using Wms.ViewModel;
 
 namespace Wms.WindowDialog
 {
-    /// <summary>
-    /// Логика взаимодействия для BranchDelete.xaml
-    /// </summary>
     public partial class BranchDelete : Window
     {
         public BranchDelete(Action<object> action)
@@ -15,9 +12,6 @@ namespace Wms.WindowDialog
             DataContext = new BranchDeleteViewModel(action);
         }
 
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void Close(object sender, RoutedEventArgs e) => Close();
     }
 }

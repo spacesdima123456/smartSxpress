@@ -12,9 +12,6 @@ namespace Wms.Services.Window.WindowDialogs
            delete.CreateWindow();
         }
 
-        public void Edit(Action<object> action)
-        {
-           
-        }
+        public void Edit(Action<object> action) { }
     }
 }
