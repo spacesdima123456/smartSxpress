@@ -34,7 +34,7 @@
     <ItemsControl ItemsSource="{Binding Branches}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel Background="#212529" Margin="10 10 15 0" Width="300" Height="220">
+                <StackPanel Background="#212529" Margin="0 40 15 0" Width="300" Height="220">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button>
                             <StackPanel>

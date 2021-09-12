@@ -8,6 +8,8 @@
         xmlns:dxwuii="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
+        MinWidth="1300"
+        MinHeight="730"
         xmlns:vm="clr-namespace:Wms.ViewModel"
         xmlns:lang="clr-namespace:Wms.Localization"
         Title="{lang:Lang Tittle }"
@@ -105,7 +107,22 @@
             </Label>
             <Separator Background="AliceBlue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
         </Grid>
-        <DockPanel 
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Label 
+                FontSize="24" 
+                Content="{Binding Path=UserName, Mode=OneWay, FallbackValue=''}" 
+                Margin="-45 0 0 0" 
+                Foreground="White" 
+                VerticalAlignment="Center" />
+        </Grid>
+        <!--<DockPanel 
             Grid.Column="1" 
             Grid.Row="0">
             <Label 
@@ -164,7 +181,7 @@
                     </StackPanel>
                 </dx:DropDownButton>
             </StackPanel>
-        </DockPanel>
+        </DockPanel>-->
         <Frame 
             Grid.Column="1" 
             Grid.Row="1" 
