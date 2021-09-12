@@ -1,24 +1,42 @@
 ﻿using Nito.AsyncEx;
 using Wms.API.Models;
+using DevExpress.Mvvm;
 using Wms.UnitOfWorkAPI;
+using System.Windows.Input;
+using Wms.UnitOfWorkAPI.Contract;
+using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Wms.Services.Window.WindowDialogs;
 
 namespace Wms.ViewModel
 {
     public class BranchesViewModel : BaseViewModel
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWindowBranch _windowBranch;
         private ObservableCollection<Branches> _branches;
+
         public ObservableCollection<Branches> Branches
         {
             get => _branches;
             private set => Set(nameof(Branches), ref _branches, value);
         }
 
+        private ICommand _openWindowDeleteBranchCommand;
+        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<int>((id) => _windowBranch.Delete(
+            o =>
+            {
+                var branch = Branches.FirstOrDefault(f => f.Id == id);
+                if (branch != null)
+                    Branches.Remove(branch);
+            }));
+
         public BranchesViewModel()
         {
-            var unitOfWork = new UnitOfWork();
-            var branches=  AsyncContext.Run(async () => await unitOfWork.BranchRepository.GetAllBranchesAsync());
-            Branches = new ObservableCollection<Branches>(branches); 
+            _unitOfWork = new UnitOfWork();
+            _windowBranch = new WindowBranch();
+            Branches = new ObservableCollection<Branches>(AsyncContext.Run(async () => await _unitOfWork.BranchRepository.GetAllBranchesAsync()));
         }
     }
 }

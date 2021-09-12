@@ -28,9 +28,9 @@
             </Style.Resources>
         </Style>
     </Page.Resources>
-    <Page.DataContext>
+        <Page.DataContext>
         <vm:BranchesViewModel/>
-    </Page.DataContext>
+        </Page.DataContext>
     <ItemsControl ItemsSource="{Binding Branches}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
@@ -41,7 +41,7 @@
                                 <svgc:SvgViewbox Source="../Icon/Svg/edit.svg"/>
                             </StackPanel>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding DataContext.OpenWindowDeleteBranchCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Path=Id}">
                             <StackPanel>
                                 <svgc:SvgViewbox Source="../Icon/Svg/close.svg"/>
                             </StackPanel>
@@ -63,7 +63,7 @@
                             </TextBlock>
                         </Label.Content>
                     </Label>
-                    <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Code}" />
+                    <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Code}"/>
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Phone}" />
                     <Label Style="{StaticResource LblBranchInfo}" Content="{Binding Path=Email}" />
                 </StackPanel>

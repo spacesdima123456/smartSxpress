@@ -34,7 +34,6 @@ namespace Wms.ViewModel
         {
             Messenger.Default.Register<LoginRes>(this, (data) =>
             {
-                //Source = "../Page/Branches.xaml";
                 UserName = data.Data.Customer.Name;
                 Company = data.Data.Customer.Company;
             });

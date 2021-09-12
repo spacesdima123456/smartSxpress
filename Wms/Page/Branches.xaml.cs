@@ -1,4 +1,5 @@
-﻿namespace Wms.Page
+﻿
+namespace Wms.Page
 {
     /// <summary>
     /// Логика взаимодействия для Branches.xaml
