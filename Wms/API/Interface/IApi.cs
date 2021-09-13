@@ -1,4 +1,4 @@
 ﻿namespace Wms.API.Interface
 {
-    public interface IApi: IAuth, IAppUpdate, IReference { }
+    public interface IApi: IAuth, IAppUpdate, IBranch { }
 }

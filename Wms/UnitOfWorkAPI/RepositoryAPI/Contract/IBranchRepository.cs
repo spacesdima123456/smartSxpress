@@ -7,5 +7,6 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI.Contract
     public interface IBranchRepository 
     {
         Task<IEnumerable<Branches>> GetAllBranchesAsync();
+        Task DeleteBranchAsync(int id);
     }
 }

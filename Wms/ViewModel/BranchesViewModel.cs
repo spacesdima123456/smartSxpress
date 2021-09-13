@@ -1,5 +1,4 @@
 ﻿using Nito.AsyncEx;
-using System.Windows;
 using Wms.API.Models;
 using DevExpress.Mvvm;
 using Wms.UnitOfWorkAPI;
@@ -25,7 +24,12 @@ namespace Wms.ViewModel
         }
 
         private ICommand _openWindowDeleteBranchCommand;
-        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(o => Branches.Remove(branches)));
+        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(
+            async o =>
+            {
+                await _unitOfWork.BranchRepository.DeleteBranchAsync(branches.Id);
+                Branches.Remove(branches);
+            }));
 
         public BranchesViewModel()
         {

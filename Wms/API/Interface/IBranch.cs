@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 
 namespace Wms.API.Interface
 {
-    public interface IReference
+    public interface IBranch
     {
         [Get("/branches/all")]
         Task<Branch> GetAllBranchAsync();
+
+        [Delete("/branches/remove/{id}")]
+        Task DeleteBranchAsync(int id);
     }
 }
