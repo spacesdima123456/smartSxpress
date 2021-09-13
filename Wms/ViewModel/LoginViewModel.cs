@@ -89,17 +89,19 @@ namespace Wms.ViewModel
         private async Task HandleErrorsAsync(ApiException ex)
         {
             var error = await ex.GetContentAsAsync<ValidationLogin>();
-
-            if (error.Errors != null)
+            if (error != null)
             {
-                if (error.Errors.Email != null)
-                    AddError(nameof(Email), error.Errors.Email.Emails);
+                if (error.Errors != null)
+                {
+                    if (error.Errors.Email != null)
+                        AddError(nameof(Email), error.Errors.Email.Emails);
 
-                if (error.Errors.Password != null)
-                    AddError(nameof(Password), error.Errors.Password.Min);
+                    if (error.Errors.Password != null)
+                        AddError(nameof(Password), error.Errors.Password.Min);
+                }
+
+                Error = error.Text ?? "";
             }
-
-            Error = error.Text ?? "";
         }
 
         private static void SetCulture(string culture)
