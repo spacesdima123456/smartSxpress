@@ -52,7 +52,17 @@
         <Page.DataContext>
         <vm:BranchesViewModel/>
         </Page.DataContext>
-    <StackPanel VerticalAlignment="{Binding Path=VerticalAlignmentAdd, Mode=OneWay}" HorizontalAlignment="{Binding Path=HorizontalAlignmentAdd, Mode=OneWay}">
+    <StackPanel >
+        <StackPanel.Style>
+            <Style TargetType="StackPanel">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Branches.Count}" Value="0">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Style>
         <Button Width="60" Height="60" Margin="0 10 0 -30">
             <StackPanel HorizontalAlignment="Stretch">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 10" Text="+" Foreground="WhiteSmoke" FontSize="55"/>

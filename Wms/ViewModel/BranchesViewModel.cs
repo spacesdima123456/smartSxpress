@@ -17,20 +17,6 @@ namespace Wms.ViewModel
         private readonly IWindowBranch _windowBranch;
         private ObservableCollection<Branches> _branches;
 
-        private VerticalAlignment _verticalAlignmentAdd;
-        public VerticalAlignment VerticalAlignmentAdd
-        {
-            get => _verticalAlignmentAdd;
-            private set => Set(nameof(VerticalAlignmentAdd), ref _verticalAlignmentAdd, value);
-        }
-
-        private HorizontalAlignment _horizontalAlignmentAdd;
-        public HorizontalAlignment HorizontalAlignmentAdd
-        {
-            get => _horizontalAlignmentAdd;
-            private set => Set(nameof(HorizontalAlignmentAdd), ref _horizontalAlignmentAdd, value);
-        }
-
 
         public ObservableCollection<Branches> Branches
         {
@@ -39,33 +25,13 @@ namespace Wms.ViewModel
         }
 
         private ICommand _openWindowDeleteBranchCommand;
-        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(
-            o =>
-            {
-                Branches.Remove(branches);
-                SetAlignmentAdd();
-            }));
+        public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(o => Branches.Remove(branches)));
 
         public BranchesViewModel()
         {
             _unitOfWork = new UnitOfWork();
             _windowBranch = new WindowBranch();
             Branches = new ObservableCollection<Branches>(AsyncContext.Run(async () => await _unitOfWork.BranchRepository.GetAllBranchesAsync()));
-            SetAlignmentAdd();
-        }
-
-        private void SetAlignmentAdd()
-        {
-            if (Branches.Count == 0)
-            {
-                VerticalAlignmentAdd = VerticalAlignment.Center;
-                HorizontalAlignmentAdd = HorizontalAlignment.Center;
-            }
-            else
-            {
-                VerticalAlignmentAdd = VerticalAlignment.Stretch;
-                HorizontalAlignmentAdd = HorizontalAlignment.Stretch;
-            }
         }
     }
 }
