@@ -8,8 +8,10 @@ namespace Wms.Services.Window.WindowDialogs
     {
         public void Delete(Action<object> action)
         {
-           var  delete = new WindowDialog(new BranchDelete(action));
-           delete.CreateWindow();
+            //var  delete = new WindowDialog(new BranchDelete(action));
+            //delete.CreateWindow();
+            var delete = new WindowDialog(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action));
+            delete.CreateWindow();
         }
 
         public void Edit(Action<object> action) { }

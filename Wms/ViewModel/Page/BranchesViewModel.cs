@@ -1,14 +1,14 @@
-﻿using Nito.AsyncEx;
-using Wms.API.Models;
-using DevExpress.Mvvm;
-using Wms.UnitOfWorkAPI;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Wms.UnitOfWorkAPI.Contract;
+using DevExpress.Mvvm;
+using Nito.AsyncEx;
+using Wms.API.Models;
 using Wms.Services.Window.Contract;
-using System.Collections.ObjectModel;
 using Wms.Services.Window.WindowDialogs;
+using Wms.UnitOfWorkAPI;
+using Wms.UnitOfWorkAPI.Contract;
 
-namespace Wms.ViewModel
+namespace Wms.ViewModel.Page
 {
     public class BranchesViewModel : BaseViewModel
     {

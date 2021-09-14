@@ -147,6 +147,9 @@
   <data name="Customers" xml:space="preserve">
     <value>客户</value>
   </data>
+  <data name="DeleteBranchTittle" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Delivery" xml:space="preserve">
     <value>交货请求</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="Money" xml:space="preserve">
     <value>现金</value>
+  </data>
+  <data name="MsgDeleteBranch" xml:space="preserve">
+    <value>你真的想删除一个分支吗</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>非也。</value>
   </data>
   <data name="OnWay" xml:space="preserve">
     <value>在路上</value>
@@ -200,5 +209,8 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>仓库</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是的</value>
   </data>
 </root>

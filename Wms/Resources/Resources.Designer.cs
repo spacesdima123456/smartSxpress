@@ -151,6 +151,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete branch.
+        /// </summary>
+        public static string DeleteBranchTittle {
+            get {
+                return ResourceManager.GetString("DeleteBranchTittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Requests delivery .
         /// </summary>
         public static string Delivery {
@@ -210,6 +219,24 @@ namespace Wms.Resources {
         public static string Money {
             get {
                 return ResourceManager.GetString("Money", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Do you really want to delete a branch?.
+        /// </summary>
+        public static string MsgDeleteBranch {
+            get {
+                return ResourceManager.GetString("MsgDeleteBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace Wms.Resources {
         public static string Warehouses {
             get {
                 return ResourceManager.GetString("Warehouses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

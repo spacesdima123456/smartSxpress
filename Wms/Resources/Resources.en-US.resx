@@ -147,6 +147,9 @@
   <data name="Customers" xml:space="preserve">
     <value>Customers</value>
   </data>
+  <data name="DeleteBranchTittle" xml:space="preserve">
+    <value>Delete branch</value>
+  </data>
   <data name="Delivery" xml:space="preserve">
     <value>Requests delivery </value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="Money" xml:space="preserve">
     <value>Money</value>
+  </data>
+  <data name="MsgDeleteBranch" xml:space="preserve">
+    <value>Do you really want to delete a branch?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="OnWay" xml:space="preserve">
     <value>On the way</value>
@@ -200,5 +209,8 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>Warehouses</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

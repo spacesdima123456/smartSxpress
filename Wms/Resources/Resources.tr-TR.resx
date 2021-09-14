@@ -147,6 +147,9 @@
   <data name="Customers" xml:space="preserve">
     <value>Müşteriler</value>
   </data>
+  <data name="DeleteBranchTittle" xml:space="preserve">
+    <value>Kaldırmak</value>
+  </data>
   <data name="Delivery" xml:space="preserve">
     <value>Teslimat</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="Money" xml:space="preserve">
     <value>Para</value>
+  </data>
+  <data name="MsgDeleteBranch" xml:space="preserve">
+    <value>Gerçekten bir dalı silmek istiyor musunuz?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Hayır</value>
   </data>
   <data name="OnWay" xml:space="preserve">
     <value>Yolda</value>
@@ -200,5 +209,8 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>Depolar</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet</value>
   </data>
 </root>

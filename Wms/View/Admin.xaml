@@ -187,7 +187,7 @@
             Grid.Column="1" 
             Background="White"
             NavigationUIVisibility="Hidden" 
-            Source="{Binding Path=Source, Mode=OneWay, TargetNullValue='../Page/Main.xaml'}">
+            Source="{Binding Path=Source, Mode=OneWay, TargetNullValue='../View/Page/Main.xaml'}">
         </Frame>
         <dxwui:HamburgerMenu 
                 Grid.Row="1"
@@ -198,7 +198,7 @@
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
 
-            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../Page/Branches.xaml"/>
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../View/Page/Branches.xaml"/>
 
             <!--<dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />

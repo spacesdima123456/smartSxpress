@@ -1,8 +1,5 @@
-﻿namespace Wms.Page
+﻿namespace Wms.View.Page
 {
-    /// <summary>
-    /// Логика взаимодействия для Main.xaml
-    /// </summary>
     public partial class Main : System.Windows.Controls.Page
     {
         public Main()
