@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Wms.Controls.FormBranchControl"
+    x:Class="Wms.View.Controls.FormBranchControl"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
