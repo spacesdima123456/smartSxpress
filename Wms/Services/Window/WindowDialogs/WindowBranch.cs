@@ -1,19 +1,23 @@
 ﻿using System;
+using Wms.View.WindowDialog;
 using Wms.Services.Window.Contract;
-using Wms.WindowDialog;
 
 namespace Wms.Services.Window.WindowDialogs
 {
     public class WindowBranch : IWindowBranch
     {
+        public void Create()
+        {
+            CreateWindow(new DisplayAlertBranch()).Show();
+        }
+
         public void Delete(Action<object> action)
         {
-            //var  delete = new WindowDialog(new BranchDelete(action));
-            //delete.CreateWindow();
-            var delete = new WindowDialog(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action));
-            delete.CreateWindow();
+            CreateWindow(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action)).CreateWindow();
         }
 
         public void Edit(Action<object> action) { }
+
+        private static WindowDialog CreateWindow(System.Windows.Window window)=> new WindowDialog(window);
     }
 }

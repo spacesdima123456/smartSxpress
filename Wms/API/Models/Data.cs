@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Wms.API.Models
 {
@@ -9,5 +10,9 @@ namespace Wms.API.Models
 
         [JsonPropertyName("hts")]
         public Ht[] Hts { get; set; }
+
+        [JsonPropertyName("countries")]
+        public List<Countries> Countries { get; set; }
     }
+
 }

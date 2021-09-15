@@ -17,3 +17,4 @@ namespace Wms.API.Interface
         Task LogOutAsync([Header("apikey")] string token);
     }
 }
+

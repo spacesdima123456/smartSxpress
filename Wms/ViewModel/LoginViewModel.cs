@@ -2,8 +2,8 @@
 using Wms.API.Models;
 using DevExpress.Mvvm;
 using Wms.Localization;
-using System.Globalization;
 using System.Windows.Input;
+using System.Globalization;
 using System.Threading.Tasks;
 using Wms.Services.TokenVerify;
 using Wms.Services.Authorization;
@@ -78,11 +78,11 @@ namespace Wms.ViewModel
             _tokenVerify.VerifyApiToken();
         }
 
-
         private void CompletedVerify(object sender, LoginRes e)
         {
             _windowFactory.CreateWindow();
             Messenger.Default.Send(e);
+            App.SetDataKeyCheck(e);
             SetToken(e.ApiKey);
         }
 

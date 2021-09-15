@@ -63,7 +63,7 @@
                 </Style.Triggers>
             </Style>
         </StackPanel.Style>
-        <Button Width="60" Height="60" Margin="0 10 0 -30">
+        <Button Width="60" Height="60" Margin="0 10 0 -30" Command="{Binding Path=AddCommand}">
             <StackPanel HorizontalAlignment="Stretch">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 10" Text="+" Foreground="WhiteSmoke" FontSize="55"/>
             </StackPanel>

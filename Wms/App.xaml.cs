@@ -1,9 +1,10 @@
-﻿using System.Globalization;
-using System.Windows;
-using DevExpress.Mvvm;
-using DevExpress.Xpf.Core;
-using Wms.Localization;
+﻿using System.Windows;
+using Wms.API.Models;
 using Wms.Properties;
+using DevExpress.Mvvm;
+using Wms.Localization;
+using DevExpress.Xpf.Core;
+using System.Globalization;
 using Wms.Services.Updater;
 
 namespace Wms
@@ -13,6 +14,8 @@ namespace Wms
     /// </summary>
     public partial class App : Application
     {
+        public  static LoginRes Data { get; private set; }
+
         public App()
         {
             TranslationSource.Instance.CurrentCulture = new CultureInfo(Settings.Default.DefaultLanguage);
@@ -27,6 +30,10 @@ namespace Wms
                     Subtitle = "Powered by DevExpress",
                 }
             ).ShowOnStartup();
+        }
+        public static void SetDataKeyCheck(LoginRes data)
+        {
+            Data = data;
         }
     }
 }

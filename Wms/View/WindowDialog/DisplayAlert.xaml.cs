@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Input;
 using Wms.ViewModel.Dialog;
 
-namespace Wms.WindowDialog
+namespace Wms.View.WindowDialog
 {
-    public partial class DisplayAlert : Window
+    public sealed partial class DisplayAlert : DisplayAlertBase
     {
         private readonly Action<object> _okAction;
         private readonly Action<object> _cancelAction;
@@ -14,16 +14,6 @@ namespace Wms.WindowDialog
         {
             InitializeComponent();
             SetWindowStartupLocation();
-        }
-        private void SetWindowStartupLocation()
-        {
-            var curApp = Application.Current;
-            var mainWindow = curApp.MainWindow;
-            if (mainWindow != null)
-            {
-                Left = mainWindow.Left + (mainWindow.Width - ActualWidth) / 2;
-                Top = mainWindow.Top + (mainWindow.Height - ActualHeight) / 2;
-            }
         }
 
         public DisplayAlert(string tittle, string okText, string cancelText, string message):this()

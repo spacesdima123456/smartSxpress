@@ -1,12 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using DevExpress.Mvvm;
-using Nito.AsyncEx;
+﻿using Nito.AsyncEx;
 using Wms.API.Models;
-using Wms.Services.Window.Contract;
-using Wms.Services.Window.WindowDialogs;
+using DevExpress.Mvvm;
 using Wms.UnitOfWorkAPI;
+using System.Windows.Input;
 using Wms.UnitOfWorkAPI.Contract;
+using Wms.Services.Window.Contract;
+using System.Collections.ObjectModel;
+using Wms.Services.Window.WindowDialogs;
 
 namespace Wms.ViewModel.Page
 {
@@ -15,7 +15,6 @@ namespace Wms.ViewModel.Page
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWindowBranch _windowBranch;
         private ObservableCollection<Branches> _branches;
-
 
         public ObservableCollection<Branches> Branches
         {
@@ -30,6 +29,20 @@ namespace Wms.ViewModel.Page
                 await _unitOfWork.BranchRepository.DeleteBranchAsync(branches.Id);
                 Branches.Remove(branches);
             }));
+
+        private ICommand _addBranchCommand;
+        public ICommand AddCommand => _addBranchCommand??=new DelegateCommand(() =>
+        {
+            _windowBranch.Create();
+            Messenger.Default.Send(App.Data.Data.Customer);
+        });
+
+
+        public ICommand EditCommand => _addBranchCommand ??= new DelegateCommand(() =>
+        {
+            _windowBranch.Create();
+            Messenger.Default.Send(App.Data.Data.Customer);
+        });
 
         public BranchesViewModel()
         {
