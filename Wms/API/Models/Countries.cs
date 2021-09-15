@@ -14,6 +14,9 @@ namespace Wms.API.Models
         [JsonPropertyName("phoneCode")]
         [JsonConverter(typeof(IntToStringConvert))]
         public int PhoneCode { get; set; }
+
+        [JsonPropertyName("phoneMask")]
+        public string PhoneMask { get; set; }
     }
 
 }

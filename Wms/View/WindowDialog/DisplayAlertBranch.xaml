@@ -48,7 +48,7 @@
                 <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
-                <dxe:TextEdit Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=TelMask, Mode=OneWay}" MaskType="Simple"/>
+                <dxe:TextEdit Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Email">
                 <dxe:TextEdit Text="{Binding Path=Email}"/>

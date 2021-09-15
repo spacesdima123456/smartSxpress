@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Wms.API.Models;
 using DevExpress.Mvvm;
-using Wms.API.Models;
+using System.Collections.ObjectModel;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -76,13 +76,7 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(ConfirmPassword), ref _confirmPassword, value);
         }
 
-        private ObservableCollection<Countries> _countries;
-
-        public ObservableCollection<Countries> Countries
-        {
-            get => _countries;
-            set => Set(nameof(Countries), ref _countries, value);
-        }
+        public ObservableCollection<Countries> Countries { get; }
 
         private Countries _country;
         public Countries Country
@@ -91,15 +85,7 @@ namespace Wms.ViewModel.Dialog
             set
             {
                 Set(nameof(Country), ref _country, value);
-                TelMask = $"({value.PhoneCode}) 000-00-00-00";
             }
-        }
-
-        private string _telMask;
-        public  string TelMask
-        {
-            get => _telMask;
-            private set => Set(nameof(TelMask), ref _telMask, value);
         }
 
         public DisplayAlertBranchViewModel()
