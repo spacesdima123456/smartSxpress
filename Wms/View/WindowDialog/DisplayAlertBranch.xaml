@@ -1,6 +1,6 @@
 ﻿<base:DisplayAlertBase
         Width="560"
-        Height="420"
+        Height="440"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -19,10 +19,6 @@
         <vm:DisplayAlertBranchViewModel/>
     </base:DisplayAlertBase.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20*"/>
-        </Grid.RowDefinitions>
         <dxlc:LayoutControl Orientation="Vertical" ItemSpace="20" Grid.Row="0">
             <dxlc:LayoutItem Label="Company">
                 <dxe:TextEdit Text="{Binding Path=Company, Mode=TwoWay}"/>
@@ -37,10 +33,10 @@
                 <dxlc:LayoutItem Label="City">
                     <dxe:TextEdit Text="{Binding Path=City, Mode=TwoWay}"/>
                 </dxlc:LayoutItem>
-                <dxlc:LayoutItem Label="Zip">
+                <dxlc:LayoutItem Label="Zip" Width="100">
                     <dxe:TextEdit Text="{Binding Path=Zip, Mode=TwoWay}"/>
                 </dxlc:LayoutItem>
-                <dxlc:LayoutItem Label="State">
+                <dxlc:LayoutItem Label="State" Width="130">
                     <dxe:TextEdit Text="{Binding Path=State, Mode=TwoWay}"/>
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
@@ -59,10 +55,10 @@
             <dxlc:LayoutItem Label="Confirm password">
                 <dxe:TextEdit Text="{Binding Path=ConfirmPassword}" />
             </dxlc:LayoutItem>
+            <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 0" Height="30" ItemSpace="10">
+                <Button Content="Create" Width="100"/>
+                <Button Content="Close" Width="100" Click="Close"/>
+            </dxlc:LayoutGroup>
         </dxlc:LayoutControl>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Create" Height="30" Width="100" VerticalAlignment="Center" Margin="0 0 30 0"/>
-            <Button Content="Close" Height="30" Width="100" VerticalAlignment="Center" Click="Close"/>
-        </StackPanel>
     </Grid>
 </base:DisplayAlertBase>
