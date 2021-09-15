@@ -8,7 +8,7 @@
         xmlns:dxwuii="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
-        MinWidth="1300"
+        MinWidth="1310"
         MinHeight="730"
         xmlns:vm="clr-namespace:Wms.ViewModel"
         xmlns:lang="clr-namespace:Wms.Localization"
