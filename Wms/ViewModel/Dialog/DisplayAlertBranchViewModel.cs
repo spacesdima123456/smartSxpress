@@ -103,7 +103,7 @@ namespace Wms.ViewModel.Dialog
             get => _height;
             set => Set(nameof(Height), ref _height, value);
         }
-
+        
         public DisplayAlertBranchViewModel()
         {
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
