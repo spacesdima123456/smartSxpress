@@ -85,10 +85,7 @@ namespace Wms.ViewModel.Dialog
         public Countries Country
         {
             get => _country;
-            set
-            {
-                Set(nameof(Country), ref _country, value);
-            }
+            set => Set(nameof(Country), ref _country, value);
         }
 
         private Visibility _visibility;

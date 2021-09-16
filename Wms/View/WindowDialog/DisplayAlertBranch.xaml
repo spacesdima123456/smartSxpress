@@ -6,7 +6,6 @@
         Background="DarkGray"
         Title="DisplayAlertBranch"
         xmlns:lang="clr-namespace:Wms.Localization"
-        xmlns:vm="clr-namespace:Wms.ViewModel.Dialog"
         xmlns:base="clr-namespace:Wms.View.WindowDialog"
         x:Class="Wms.View.WindowDialog.DisplayAlertBranch"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,9 +15,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol">
-    <base:DisplayAlertBase.DataContext>
-        <vm:DisplayAlertBranchViewModel/>
-    </base:DisplayAlertBase.DataContext>
     <Grid>
         <dxlc:LayoutControl Orientation="Vertical" ItemSpace="20" Grid.Row="0">
             <dxlc:LayoutItem Label="Company">
@@ -42,10 +38,10 @@
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutItem Label="Country">
-                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" SelectedIndexChanged="OnSelectedIndexChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
-                <dxe:TextEdit Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple"/>
+                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Email">
                 <dxe:TextEdit Text="{Binding Path=Email}"/>
@@ -59,7 +55,7 @@
             </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 7" Height="30" ItemSpace="10">
-                <Button Content="{Binding Path=Content, Mode=OneWay}" Width="100"/>
+                <Button Content="{Binding Path=Content, Mode=OneWay, FallbackValue=''}" Width="100"/>
                 <Button Content="{lang:Lang Close}" Width="100" Click="Close"/>
             </dxlc:LayoutGroup>
         </dxlc:LayoutControl>

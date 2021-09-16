@@ -16,5 +16,10 @@ namespace Wms.View.WindowDialog
         {
             Close();
         }
+
+        private void OnSelectedIndexChanged(object sender, RoutedEventArgs e)
+        {
+            TxePhone.Clear();
+        }
     }
 }
