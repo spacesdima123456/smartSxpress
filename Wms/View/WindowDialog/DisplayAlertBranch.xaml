@@ -1,11 +1,11 @@
 ﻿<base:DisplayAlertBase
         Width="560"
-        Height="440"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="DarkGray"
         Title="DisplayAlertBranch"
+        Height="{Binding Path=Height, Mode=TwoWay}"
         xmlns:vm="clr-namespace:Wms.ViewModel.Dialog"
         xmlns:base="clr-namespace:Wms.View.WindowDialog"
         x:Class="Wms.View.WindowDialog.DisplayAlertBranch"
@@ -49,13 +49,15 @@
             <dxlc:LayoutItem Label="Email">
                 <dxe:TextEdit Text="{Binding Path=Email}"/>
             </dxlc:LayoutItem>
-            <dxlc:LayoutItem Label="Password">
+            <dxlc:LayoutGroup Orientation="Vertical" ItemSpace="20" Visibility="{Binding Path=Visibility, Mode=OneWay}">
+                <dxlc:LayoutItem Label="Password">
                 <dxe:TextEdit Text="{Binding Path=Password}" />
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Confirm password">
                 <dxe:TextEdit Text="{Binding Path=ConfirmPassword}" />
             </dxlc:LayoutItem>
-            <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 0" Height="30" ItemSpace="10">
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 7" Height="30" ItemSpace="10">
                 <Button Content="Create" Width="100"/>
                 <Button Content="Close" Width="100" Click="Close"/>
             </dxlc:LayoutGroup>

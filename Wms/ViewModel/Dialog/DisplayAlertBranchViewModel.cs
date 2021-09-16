@@ -1,6 +1,8 @@
 ﻿using Wms.API.Models;
 using DevExpress.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -34,8 +36,8 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(City), ref _city, value);
         }
 
-        private string _zip;
-        public string Zip
+        private int _zip;
+        public int Zip
         {
             get => _zip;
             set => Set(nameof(Zip), ref _zip, value);
@@ -88,10 +90,46 @@ namespace Wms.ViewModel.Dialog
             }
         }
 
+        private Visibility _visibility;
+        public Visibility Visibility
+        {
+            get => _visibility;
+            private set => Set(nameof(Visibility), ref _visibility, value);
+        }
+
+        private double _height;
+        public double Height
+        {
+            get => _height;
+            set => Set(nameof(Height), ref _height, value);
+        }
+
         public DisplayAlertBranchViewModel()
         {
-            Messenger.Default.Register<Customer>(this, (data) => Company = data.Company);
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
+
+            Messenger.Default.Register<Customer>(this, (customer) =>
+            {
+                Height = 440;
+                Company = customer.Company;
+                Visibility = Visibility.Visible;
+            });
+
+            Messenger.Default.Register<Branches>(this, (branches) =>
+            {
+                Height = 355;
+                Zip = branches.Zip;
+                Name = branches.Name;
+                City = branches.City;
+                Phone = branches.Phone;
+                State = branches.State;
+                Email = branches.Email;
+                Company = branches.Company;
+                Address = branches.Address;
+                Visibility = Visibility.Collapsed;
+                Country = Countries.FirstOrDefault(f => f.CountryCode == branches.Code);
+            });
+
         }
     }
 }

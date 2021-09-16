@@ -73,7 +73,7 @@
                 <DataTemplate>
                     <StackPanel Style="{StaticResource BranchBlocks}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button>
+                            <Button Command="{Binding DataContext.EditCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}">
                                 <StackPanel>
                                     <svgc:SvgViewbox Source="../../Icon/Svg/edit.svg"/>
                                 </StackPanel>

@@ -16,7 +16,10 @@ namespace Wms.Services.Window.WindowDialogs
             CreateWindow(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action)).CreateWindow();
         }
 
-        public void Edit(Action<object> action) { }
+        public void Edit(Action<object> action)
+        {
+            CreateWindow(new DisplayAlertBranch()).Show();
+        }
 
         private static WindowDialog CreateWindow(System.Windows.Window window)=> new WindowDialog(window);
     }

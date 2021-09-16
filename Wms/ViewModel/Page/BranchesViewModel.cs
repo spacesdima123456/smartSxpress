@@ -37,11 +37,11 @@ namespace Wms.ViewModel.Page
             Messenger.Default.Send(App.Data.Data.Customer);
         });
 
-
-        public ICommand EditCommand => _addBranchCommand ??= new DelegateCommand(() =>
+        private ICommand _editCommand;
+        public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>((branch) =>
         {
-            _windowBranch.Create();
-            Messenger.Default.Send(App.Data.Data.Customer);
+            _windowBranch.Edit(null);
+            Messenger.Default.Send(branch);
         });
 
         public BranchesViewModel()
