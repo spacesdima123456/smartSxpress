@@ -133,6 +133,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Create.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Current.
         /// </summary>
         public static string Current {
@@ -174,6 +183,15 @@ namespace Wms.Resources {
         public static string DeliveryServices {
             get {
                 return ResourceManager.GetString("DeliveryServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Done.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
             }
         }
         

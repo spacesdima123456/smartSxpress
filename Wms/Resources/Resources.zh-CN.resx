@@ -141,6 +141,9 @@
   <data name="Couriers" xml:space="preserve">
     <value>快递员</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
   <data name="Current" xml:space="preserve">
     <value>电流</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="DeliveryServices" xml:space="preserve">
     <value>送货服务</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>完成</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>邮件</value>

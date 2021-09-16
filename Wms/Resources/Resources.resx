@@ -141,6 +141,9 @@
   <data name="Couriers" xml:space="preserve">
     <value>Couriers</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="Current" xml:space="preserve">
     <value>Current</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="DeliveryServices" xml:space="preserve">
     <value>Delivery services</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>

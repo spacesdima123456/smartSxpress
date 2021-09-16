@@ -1,8 +1,9 @@
-﻿using Wms.API.Models;
-using DevExpress.Mvvm;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
+using Wms.API.Models;
 using System.Windows;
+using DevExpress.Mvvm;
+using static Wms.Helpers.Translator;
+using System.Collections.ObjectModel;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -36,8 +37,8 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(City), ref _city, value);
         }
 
-        private int _zip;
-        public int Zip
+        private int? _zip;
+        public int? Zip
         {
             get => _zip;
             set => Set(nameof(Zip), ref _zip, value);
@@ -103,22 +104,29 @@ namespace Wms.ViewModel.Dialog
             get => _height;
             set => Set(nameof(Height), ref _height, value);
         }
-        
+
+        private string _content;
+        public  string Content
+        {
+            get => _content;
+            private set => Set(nameof(Content), ref _content, value);
+        }
+
         public DisplayAlertBranchViewModel()
         {
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
-
+            
             Messenger.Default.Register<Customer>(this, (customer) =>
             {
                 Height = 440;
                 Company = customer.Company;
                 Visibility = Visibility.Visible;
+                Content = Translate("Create");
             });
 
             Messenger.Default.Register<Branches>(this, (branches) =>
             {
                 Height = 355;
-                Zip = branches.Zip;
                 Name = branches.Name;
                 City = branches.City;
                 Phone = branches.Phone;
@@ -126,7 +134,9 @@ namespace Wms.ViewModel.Dialog
                 Email = branches.Email;
                 Company = branches.Company;
                 Address = branches.Address;
+                Zip =  branches.Zip;
                 Visibility = Visibility.Collapsed;
+                Content = Translate("Done");
                 Country = Countries.FirstOrDefault(f => f.CountryCode == branches.Code);
             });
 

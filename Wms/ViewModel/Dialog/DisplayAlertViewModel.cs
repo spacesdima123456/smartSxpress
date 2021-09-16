@@ -1,6 +1,5 @@
-﻿using System.Globalization;
-using System.Resources;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using static Wms.Helpers.Translator;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -53,9 +52,6 @@ namespace Wms.ViewModel.Dialog
             private set => Set(nameof(Tittle), ref _tittle, value);
         }
 
-        private readonly CultureInfo _cultureInfo = new CultureInfo(Properties.Settings.Default.DefaultLanguage);
-        private readonly ResourceManager _manager = new ResourceManager(typeof(Resources.Resources));
-
         public DisplayAlertViewModel(string tittle, string okText, string cancelText, string message)
         {
             Tittle = Translate(tittle);
@@ -73,11 +69,6 @@ namespace Wms.ViewModel.Dialog
             ICommand okCommand, ICommand cancelCommand) : this(tittle, okText, cancelText, message, okCommand)
         {
             CancelCommand = cancelCommand;
-        }
-
-        private string Translate(string property)
-        {
-            return _manager.GetString(property, _cultureInfo);
         }
     }
 }

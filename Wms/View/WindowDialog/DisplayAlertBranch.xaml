@@ -5,6 +5,7 @@
         ResizeMode="NoResize"
         Background="DarkGray"
         Title="DisplayAlertBranch"
+        xmlns:lang="clr-namespace:Wms.Localization"
         xmlns:vm="clr-namespace:Wms.ViewModel.Dialog"
         xmlns:base="clr-namespace:Wms.View.WindowDialog"
         x:Class="Wms.View.WindowDialog.DisplayAlertBranch"
@@ -34,7 +35,7 @@
                     <dxe:TextEdit Text="{Binding Path=City, Mode=TwoWay}"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="Zip" Width="100">
-                    <dxe:TextEdit Text="{Binding Path=Zip, Mode=TwoWay}"/>
+                    <dxe:TextEdit Text="{Binding Path=Zip, Mode=TwoWay, FallbackValue=''}"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="State" Width="130">
                     <dxe:TextEdit Text="{Binding Path=State, Mode=TwoWay}"/>
@@ -58,8 +59,8 @@
             </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 7" Height="30" ItemSpace="10">
-                <Button Content="Create" Width="100"/>
-                <Button Content="Close" Width="100" Click="Close"/>
+                <Button Content="{Binding Path=Content, Mode=OneWay}" Width="100"/>
+                <Button Content="{lang:Lang Close}" Width="100" Click="Close"/>
             </dxlc:LayoutGroup>
         </dxlc:LayoutControl>
     </Grid>
