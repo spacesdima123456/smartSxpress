@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System;
+using System.Windows;
 using DevExpress.Xpf.Editors;
 using Wms.ViewModel.Dialog;
 
@@ -7,11 +7,11 @@ namespace Wms.View.WindowDialog
 {
     public sealed partial class DisplayAlertBranch : DisplayAlertBase
     {
-        public DisplayAlertBranch()
+        public DisplayAlertBranch(Action<object> action)
         {
             InitializeComponent();
             SetWindowStartupLocation();
-            DataContext = new DisplayAlertBranchViewModel();
+            DataContext = new DisplayAlertBranchViewModel(action);
         }
 
         private void Close(object sender, RoutedEventArgs e)
@@ -26,7 +26,7 @@ namespace Wms.View.WindowDialog
             {
                 if (!vm.IsEnabled && e.NewValue != e.OldValue)
                     vm.IsEnabled = true;
-                if (e.NewValue != e.OldValue)
+                if (sender is ComboBoxEdit && e.NewValue != e.OldValue)
                     TxePhone.Clear();
             }
         }

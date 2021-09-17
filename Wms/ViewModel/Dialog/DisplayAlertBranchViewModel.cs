@@ -1,14 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Wms.API.Models;
 using System.Windows;
 using DevExpress.Mvvm;
 using static Wms.Helpers.Translator;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Wms.ViewModel.Dialog
 {
     public class DisplayAlertBranchViewModel: BaseViewModel
     {
+        private readonly Action<object> _action;
+
         private string _company;
         public string Company
         {
@@ -116,8 +120,12 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(IsEnabled), ref _isEnabled, value);
         }
 
-        public DisplayAlertBranchViewModel()
+        private ICommand _doneCommand;
+        public  ICommand DoneCommand => _doneCommand??= new DelegateCommand(()=>_action.Invoke(this));
+
+        public DisplayAlertBranchViewModel(Action<object> action)
         {
+            _action = action;
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
             
             Messenger.Default.Register<Customer>(this, (customer) =>
