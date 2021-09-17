@@ -18,33 +18,33 @@
     <Grid>
         <dxlc:LayoutControl Orientation="Vertical" ItemSpace="20" Grid.Row="0">
             <dxlc:LayoutItem Label="Company">
-                <dxe:TextEdit Text="{Binding Path=Company, Mode=TwoWay}"/>
+                <dxe:TextEdit Text="{Binding Path=Company, Mode=TwoWay}" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Name">
-                <dxe:TextEdit Text="{Binding Path=Name, Mode=TwoWay}"/>
+                <dxe:TextEdit Text="{Binding Path=Name, Mode=TwoWay}" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Address">
-                <dxe:TextEdit Text="{Binding Path=Address, Mode=TwoWay}"/>
+                <dxe:TextEdit Text="{Binding Path=Address, Mode=TwoWay}" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutGroup ItemSpace="15">
                 <dxlc:LayoutItem Label="City">
-                    <dxe:TextEdit Text="{Binding Path=City, Mode=TwoWay}"/>
+                    <dxe:TextEdit Text="{Binding Path=City, Mode=TwoWay}" EditValueChanged="OnValueChanged"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="Zip" Width="100">
-                    <dxe:TextEdit Text="{Binding Path=Zip, Mode=TwoWay, FallbackValue=''}"/>
+                    <dxe:TextEdit Text="{Binding Path=Zip, Mode=TwoWay, FallbackValue=''}" EditValueChanged="OnValueChanged"/>
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="State" Width="130">
-                    <dxe:TextEdit Text="{Binding Path=State, Mode=TwoWay}"/>
+                    <dxe:TextEdit Text="{Binding Path=State, Mode=TwoWay}" EditValueChanged="OnValueChanged"/>
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutItem Label="Country">
-                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" SelectedIndexChanged="OnSelectedIndexChanged"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
-                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple"/>
+                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Email">
-                <dxe:TextEdit Text="{Binding Path=Email}"/>
+                <dxe:TextEdit Text="{Binding Path=Email}" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutGroup Orientation="Vertical" ItemSpace="20" Visibility="{Binding Path=Visibility, Mode=OneWay}">
                 <dxlc:LayoutItem Label="Password">
@@ -55,7 +55,7 @@
             </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 7" Height="30" ItemSpace="10">
-                <Button Content="{Binding Path=Content, Mode=OneWay, FallbackValue=''}" Width="100"/>
+                <Button Content="{Binding Path=Content, Mode=OneWay, FallbackValue=''}" Width="100" IsEnabled="{Binding Path=IsEnabled, Mode=OneWay}"/>
                 <Button Content="{lang:Lang Close}" Width="100" Click="Close"/>
             </dxlc:LayoutGroup>
         </dxlc:LayoutControl>

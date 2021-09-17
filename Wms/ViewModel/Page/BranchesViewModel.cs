@@ -7,6 +7,7 @@ using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
 using Wms.Services.Window.WindowDialogs;
+using System.Linq;
 
 namespace Wms.ViewModel.Page
 {
@@ -48,7 +49,11 @@ namespace Wms.ViewModel.Page
         {
             _unitOfWork = new UnitOfWork();
             _windowBranch = new WindowBranch();
-            Branches = new ObservableCollection<Branches>(AsyncContext.Run(async () => await _unitOfWork.BranchRepository.GetAllBranchesAsync()));
+            Branches = new ObservableCollection<Branches>(AsyncContext.Run(async () =>
+            {
+                var branches = await _unitOfWork.BranchRepository.GetAllBranchesAsync();
+                return branches ?? Enumerable.Empty<Branches>();
+            }));
         }
     }
 }

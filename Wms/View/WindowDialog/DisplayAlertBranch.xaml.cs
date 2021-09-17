@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Input;
+using DevExpress.Xpf.Editors;
 using Wms.ViewModel.Dialog;
 
 namespace Wms.View.WindowDialog
@@ -17,9 +19,16 @@ namespace Wms.View.WindowDialog
             Close();
         }
 
-        private void OnSelectedIndexChanged(object sender, RoutedEventArgs e)
+        private void OnValueChanged(object sender, EditValueChangedEventArgs e)
         {
-            TxePhone.Clear();
+            var vm = (DisplayAlertBranchViewModel) DataContext;
+            if (e.NewValue!=null && e.OldValue!=null)
+            {
+                if (!vm.IsEnabled && e.NewValue != e.OldValue)
+                    vm.IsEnabled = true;
+                if (e.NewValue != e.OldValue)
+                    TxePhone.Clear();
+            }
         }
     }
 }

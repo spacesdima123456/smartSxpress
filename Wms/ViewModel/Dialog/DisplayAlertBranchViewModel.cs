@@ -109,6 +109,13 @@ namespace Wms.ViewModel.Dialog
             private set => Set(nameof(Content), ref _content, value);
         }
 
+        private bool _isEnabled;
+        public  bool IsEnabled
+        {
+            get => _isEnabled;
+            set => Set(nameof(IsEnabled), ref _isEnabled, value);
+        }
+
         public DisplayAlertBranchViewModel()
         {
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
@@ -116,6 +123,7 @@ namespace Wms.ViewModel.Dialog
             Messenger.Default.Register<Customer>(this, (customer) =>
             {
                 Height = 440;
+                IsEnabled = true;
                 Company = customer.Company;
                 Visibility = Visibility.Visible;
                 Content = Translate("Create");
@@ -124,6 +132,8 @@ namespace Wms.ViewModel.Dialog
             Messenger.Default.Register<Branches>(this, (branches) =>
             {
                 Height = 355;
+                IsEnabled = false;
+                Zip =  branches.Zip;
                 Name = branches.Name;
                 City = branches.City;
                 Phone = branches.Phone;
@@ -131,12 +141,10 @@ namespace Wms.ViewModel.Dialog
                 Email = branches.Email;
                 Company = branches.Company;
                 Address = branches.Address;
-                Zip =  branches.Zip;
                 Visibility = Visibility.Collapsed;
                 Content = Translate("Done");
                 Country = Countries.FirstOrDefault(f => f.CountryCode == branches.Code);
             });
-
         }
     }
 }
