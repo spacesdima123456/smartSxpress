@@ -3,9 +3,9 @@ using System.Linq;
 using Wms.API.Models;
 using System.Windows;
 using DevExpress.Mvvm;
+using System.Windows.Input;
 using static Wms.Helpers.Translator;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -134,32 +134,40 @@ namespace Wms.ViewModel.Dialog
 
         private void ValidProperty()
         {
+            var error = "Property cannot be empty.";
+
             if (string.IsNullOrEmpty(Company))
-                AddError(nameof(Company), $"{nameof(Company)} property cannot be empty.");
+                AddError(nameof(Company), error);
 
             if (string.IsNullOrEmpty(Name))
-                AddError(nameof(Name), $"{nameof(Name)} property cannot be empty.");
+                AddError(nameof(Name), error);
 
             if (string.IsNullOrEmpty(Address))
-                AddError(nameof(Address), $"{nameof(Address)} property cannot be empty.");
+                AddError(nameof(Address), error);
+
+            //if (string.IsNullOrEmpty(Phone))
+            //    AddError(nameof(Phone), error);
 
             if (string.IsNullOrEmpty(City))
-                AddError(nameof(City), $"{nameof(City)} property cannot be empty.");
+                AddError(nameof(City), error);
 
             if (Zip == null)
-                AddError(nameof(Zip), $"{nameof(Zip)} property cannot be null.");
+                AddError(nameof(Zip), error);
 
             if (Country == null)
-                AddError(nameof(Country), $"{nameof(Country)} property cannot be null.");
+                AddError(nameof(Country), error);
 
             if (string.IsNullOrEmpty(Email))
-                AddError(nameof(Email), $"{nameof(Email)}  property cannot be empty.");
+                AddError(nameof(Email), error);
 
             if (Password == null)
-                AddError(nameof(Password), $"{nameof(Password)}  property cannot be empty.");
+                AddError(nameof(Password), error);
 
             if (ConfirmPassword == null)
-                AddError(nameof(ConfirmPassword), $"{nameof(ConfirmPassword)}  property cannot be empty.");
+                AddError(nameof(ConfirmPassword), error);
+
+            if (Country!=null && Country.CountryCode == "US" && string.IsNullOrEmpty(State))
+                AddError(nameof(State), error);
 
             if (ConfirmPassword != Password)
             {

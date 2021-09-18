@@ -18,7 +18,7 @@ namespace Wms.ViewModel
             return Errors.ContainsKey(propertyName) ? Errors[propertyName] : null;
         }
 
-        protected void AddError(string propertyName, string error)
+        protected void AddError(string propertyName, string error = "")
         {
             if (!Errors.ContainsKey(propertyName))
                 Errors[propertyName] = new List<string>();
