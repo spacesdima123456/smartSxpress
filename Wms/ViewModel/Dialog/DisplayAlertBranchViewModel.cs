@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Wms.ViewModel.Dialog
 {
-    public class DisplayAlertBranchViewModel: BaseViewModel
+    public class DisplayAlertBranchViewModel: ValidateViewModel
     {
         private readonly Action<object> _action;
 
@@ -120,8 +120,54 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(IsEnabled), ref _isEnabled, value);
         }
 
+
         private ICommand _doneCommand;
-        public  ICommand DoneCommand => _doneCommand??= new DelegateCommand(()=>_action.Invoke(this));
+        public  ICommand DoneCommand => _doneCommand??= new DelegateCommand(() =>
+        {
+            ClearErrors();
+            ValidProperty();
+            if (Errors.Count==0)
+            {
+                _action.Invoke(this);
+            }
+        });
+
+        private void ValidProperty()
+        {
+            if (string.IsNullOrEmpty(Company))
+                AddError(nameof(Company), $"{nameof(Company)} property cannot be empty.");
+
+            if (string.IsNullOrEmpty(Name))
+                AddError(nameof(Name), $"{nameof(Name)} property cannot be empty.");
+
+            if (string.IsNullOrEmpty(Address))
+                AddError(nameof(Address), $"{nameof(Address)} property cannot be empty.");
+
+            if (string.IsNullOrEmpty(City))
+                AddError(nameof(City), $"{nameof(City)} property cannot be empty.");
+
+            if (Zip == null)
+                AddError(nameof(Zip), $"{nameof(Zip)} property cannot be null.");
+
+            if (Country == null)
+                AddError(nameof(Country), $"{nameof(Country)} property cannot be null.");
+
+            if (string.IsNullOrEmpty(Email))
+                AddError(nameof(Email), $"{nameof(Email)}  property cannot be empty.");
+
+            if (Password == null)
+                AddError(nameof(Password), $"{nameof(Password)}  property cannot be empty.");
+
+            if (ConfirmPassword == null)
+                AddError(nameof(ConfirmPassword), $"{nameof(ConfirmPassword)}  property cannot be empty.");
+
+            if (ConfirmPassword != Password)
+            {
+                AddError(nameof(Password), $"Passwords don't match");
+                AddError(nameof(ConfirmPassword), $"Passwords don't match");
+            }
+
+        }
 
         public DisplayAlertBranchViewModel(Action<object> action)
         {

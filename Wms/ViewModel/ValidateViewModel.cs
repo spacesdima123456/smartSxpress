@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.Mvvm.Native;
 
 namespace Wms.ViewModel
 {
@@ -29,13 +30,21 @@ namespace Wms.ViewModel
             }
         }
 
-        protected void ClearErrors(string property)
+        protected void ClearError(string property)
         {
             if (Errors.ContainsKey(property))
             {
                 Errors.Remove(property);
                 OnErrorsChanged(property);
             }
+        }
+
+        protected void ClearErrors()
+        {
+            Errors.ForEach(f =>
+            {
+                ClearError(f.Key);
+            });
         }
 
         protected void OnErrorsChanged(string property)

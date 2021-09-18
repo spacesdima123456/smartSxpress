@@ -26,7 +26,7 @@ namespace Wms.ViewModel
             get => _email;
             set
             {
-                ClearErrors(nameof(Email));
+                ClearError(nameof(Email));
                 Set(nameof(Email), ref _email, value);
             }
         }
@@ -37,7 +37,7 @@ namespace Wms.ViewModel
             get => _password;
             set
             {
-                ClearErrors(nameof(Password));
+                ClearError(nameof(Password));
                 Set(nameof(Password), ref _password, value);
             }
         }
