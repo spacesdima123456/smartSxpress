@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Wms.API.Models
 {
-    public class LoginReq
+    public class Login
     {
         [JsonPropertyName("email")]
         public string Email { get; private set; }
@@ -14,7 +14,7 @@ namespace Wms.API.Models
         [JsonPropertyName("lng")]
         public string Language { get; private set; }
 
-        public LoginReq(string email, string password, string language)
+        public Login(string email, string password, string language)
         {
             if (string.IsNullOrEmpty(email))
                 throw new Exception($"{nameof(email)} is null or empty");

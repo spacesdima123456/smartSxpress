@@ -7,7 +7,7 @@ namespace Wms.Services.Authorization.Contract
     {
         bool IsAuth { get; }
         Task LogOutAsync();
-        Task LogInAsync(LoginReq login);
-        Task<LoginRes> ValidKeyAsync();
+        Task LogInAsync(Login login);
+        Task<Response> ValidKeyAsync();
     }
 }

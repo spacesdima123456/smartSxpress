@@ -2,7 +2,7 @@
 
 namespace Wms.API.Models
 {
-    public class LoginRes
+    public class Response
     {
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; }

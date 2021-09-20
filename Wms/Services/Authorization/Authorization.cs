@@ -21,7 +21,7 @@ namespace Wms.Services.Authorization
 
         public bool IsAuth => !string.IsNullOrEmpty(GetToken());
 
-        public async Task LogInAsync(LoginReq login)
+        public async Task LogInAsync(Login login)
         {
             var auth = await _unitOfWork.AuthorizationRepository.LogInAsync(login);
             if (auth != null)
@@ -35,7 +35,7 @@ namespace Wms.Services.Authorization
             _tokenStorage.SetToken("", "ApiKey");
         }
 
-        public async Task<LoginRes> ValidKeyAsync()
+        public async Task<Response> ValidKeyAsync()
         {
             return await _unitOfWork.AuthorizationRepository.ValidKeyAsync(GetToken());
         }

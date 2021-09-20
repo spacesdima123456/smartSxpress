@@ -10,7 +10,7 @@ namespace Wms.Services.TokenVerify
     public class TokenVerify : ITokenVerify
     {
         public event EventHandler VerifyError;
-        public event EventHandler<LoginRes> VerifySuccess;
+        public event EventHandler<Response> VerifySuccess;
         private readonly IAuthorization _authorization;
 
         public TokenVerify(IAuthorization authorization)

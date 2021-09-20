@@ -9,12 +9,9 @@ using Wms.Services.Updater;
 
 namespace Wms
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        public  static LoginRes Data { get; private set; }
+        public  static Response Data { get; private set; }
 
         public App()
         {
@@ -31,7 +28,7 @@ namespace Wms
                 }
             ).ShowOnStartup();
         }
-        public static void SetDataKeyCheck(LoginRes data)
+        public static void SetDataKeyCheck(Response data)
         {
             Data = data;
         }
