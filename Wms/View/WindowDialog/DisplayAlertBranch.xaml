@@ -4,7 +4,6 @@
         ResizeMode="NoResize"
         Background="DarkGray"
         WindowStyle="SingleBorderWindow"
-        Title="{Binding Path=Title, Mode=OneWay}"
         xmlns:lang="clr-namespace:Wms.Localization"
         xmlns:base="clr-namespace:Wms.View.WindowDialog"
         x:Class="Wms.View.WindowDialog.DisplayAlertBranch"
@@ -14,7 +13,8 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol">
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        Title="{Binding Path=Title, Mode=OneWay, FallbackValue='', TargetNullValue=''}">
     <base:DisplayAlertBase.Resources>
         <Style x:Key="LayoutState" TargetType="dxlc:LayoutItem">
             <Setter Property="Visibility" Value="Collapsed"/>
