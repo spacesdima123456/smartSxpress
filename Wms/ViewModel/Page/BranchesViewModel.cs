@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Refit;
+using System.Linq;
 using Nito.AsyncEx;
 using Wms.API.Models;
 using DevExpress.Mvvm;
@@ -8,8 +9,8 @@ using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
+using Wms.API.Models.Wms.API.Models;
 using Wms.Services.Window.WindowDialogs;
-
 
 namespace Wms.ViewModel.Page
 {
@@ -45,13 +46,34 @@ namespace Wms.ViewModel.Page
         });
 
         private ICommand _editCommand;
-        public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>((branch) =>
+        public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>( (branch) =>
         {
-            _windowBranch.Edit(b =>
-            {
-                // servic api
-                Branches = new ObservableCollection<Branches>(LoadBranches());
-            });
+            _windowBranch.Edit(async b =>
+                {
+                    try
+                    {
+                        var branchBase = new BranchBase
+                        {
+                            Zip = b.Zip,
+                            Name = b.Name,
+                            City = b.City,
+                            Email = b.Email,
+                            Phone = b.Phone,
+                            State = b.State,
+                            Address = b.Address,
+                            Company = b.Company,
+                            Code = b.Country.CountryCode,
+                        };
+                        await _unitOfWork.BranchRepository.EditBranchAsync(branch.Id, branchBase);
+                        Branches = new ObservableCollection<Branches>(LoadBranches());
+                        _windowBranch.Close();
+                    }
+                    catch (ApiException e)
+                    {
+                        var content = await e.GetContentAsAsync<Error>();
+                        b.HandleErrors(content);
+                    }
+                });
             Messenger.Default.Send(branch);
         });
 

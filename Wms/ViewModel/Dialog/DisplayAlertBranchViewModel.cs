@@ -11,7 +11,7 @@ namespace Wms.ViewModel.Dialog
 {
     public class DisplayAlertBranchViewModel: ValidateViewModel
     {
-        private readonly Action<object> _action;
+        private readonly Action<DisplayAlertBranchViewModel> _action;
 
         private string _company;
         public string Company
@@ -145,9 +145,6 @@ namespace Wms.ViewModel.Dialog
             if (string.IsNullOrEmpty(Address))
                 AddError(nameof(Address), error);
 
-            //if (string.IsNullOrEmpty(Phone))
-            //    AddError(nameof(Phone), error);
-
             if (string.IsNullOrEmpty(City))
                 AddError(nameof(City), error);
 
@@ -160,24 +157,32 @@ namespace Wms.ViewModel.Dialog
             if (string.IsNullOrEmpty(Email))
                 AddError(nameof(Email), error);
 
-            if (Password == null)
-                AddError(nameof(Password), error);
-
-            if (ConfirmPassword == null)
-                AddError(nameof(ConfirmPassword), error);
 
             if (Country!=null && Country.CountryCode == "US" && string.IsNullOrEmpty(State))
                 AddError(nameof(State), error);
 
-            if (ConfirmPassword != Password)
+            if (Visibility == Visibility.Visible)
             {
-                AddError(nameof(Password), $"Passwords don't match");
-                AddError(nameof(ConfirmPassword), $"Passwords don't match");
-            }
+                if (string.IsNullOrEmpty(Password))
+                    AddError(nameof(Password), error);
 
+                if (string.IsNullOrEmpty(ConfirmPassword))
+                    AddError(nameof(ConfirmPassword), error);
+
+                if (ConfirmPassword != Password)
+                {
+                    AddError(nameof(Password), $"Passwords don't match");
+                    AddError(nameof(ConfirmPassword), $"Passwords don't match");
+                }
+            }
         }
 
-        public DisplayAlertBranchViewModel(Action<object> action)
+        public new virtual void HandleErrors(Error error)
+        {
+            base.HandleErrors(error);
+        }
+
+        public DisplayAlertBranchViewModel(Action<DisplayAlertBranchViewModel> action)
         {
             _action = action;
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
