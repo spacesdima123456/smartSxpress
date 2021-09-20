@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using Wms.API.Models.Wms.API.Models;
 
 namespace Wms.API.Models
 {

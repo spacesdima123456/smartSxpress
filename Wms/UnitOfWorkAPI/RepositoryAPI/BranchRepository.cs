@@ -4,7 +4,6 @@ using Wms.API.Contract;
 using Wms.API.Interface;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Wms.API.Models.Wms.API.Models;
 using Wms.UnitOfWorkAPI.RepositoryAPI.Contract;
 
 namespace Wms.UnitOfWorkAPI.RepositoryAPI
@@ -34,6 +33,11 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI
         public Task<Error> EditBranchAsync(int id, BranchBase branch)
         {
             return _branch.EditBranchAsync(id, branch);
+        }
+
+        public Task CreateBranchAsync(BranchCreate branch)
+        {
+            return _branch.CreateBranchAsync(branch);
         }
     }
 }

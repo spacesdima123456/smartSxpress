@@ -8,7 +8,7 @@ namespace Wms.Services.Window.WindowDialogs
     public class WindowBranch : IWindowBranch
     {
         private  System.Windows.Window _window;
-        public void Create(Action<object> action)
+        public void Create(Action<DisplayAlertBranchViewModel> action)
         {
             CreateWindow(new DisplayAlertBranch(action)).Show();
         }

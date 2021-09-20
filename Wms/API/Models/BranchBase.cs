@@ -1,6 +1,4 @@
-﻿namespace Wms.API.Models
-{
-    using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
     namespace Wms.API.Models
     {
@@ -31,5 +29,3 @@
             public string Phone { get; set; }
         }
     }
-
-}

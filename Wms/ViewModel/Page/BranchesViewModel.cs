@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿
+using Refit;
 using System.Linq;
 using Nito.AsyncEx;
 using Wms.API.Models;
@@ -9,8 +10,9 @@ using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
-using Wms.API.Models.Wms.API.Models;
+using System.Threading.Tasks;
 using Wms.Services.Window.WindowDialogs;
+using Wms.ViewModel.Dialog;
 
 namespace Wms.ViewModel.Page
 {
@@ -37,10 +39,30 @@ namespace Wms.ViewModel.Page
         private ICommand _addBranchCommand;
         public ICommand AddCommand => _addBranchCommand??=new DelegateCommand(() =>
         {
-            _windowBranch.Create(b =>
+            _windowBranch.Create(async b =>
             {
-                // servic api
-                Branches = new ObservableCollection<Branches>(LoadBranches());
+                try
+                {
+                    await _unitOfWork.BranchRepository.CreateBranchAsync(new BranchCreate
+                    {
+                        Zip = b.Zip,
+                        Name = b.Name,
+                        City = b.City,
+                        Email = b.Email,
+                        Phone = b.Phone,
+                        State = b.State,
+                        Address = b.Address,
+                        Company = b.Company,
+                        Code = b.Country.CountryCode,
+                        Password = b.Password
+                    });
+                    Branches = new ObservableCollection<Branches>(LoadBranches());
+                    _windowBranch.Close();
+                }
+                catch (ApiException e)
+                {
+                    await HandleErrorsAsync(e, b);
+                }
             });
             Messenger.Default.Send(App.Data.Data.Customer);
         });
@@ -52,26 +74,13 @@ namespace Wms.ViewModel.Page
                 {
                     try
                     {
-                        var branchBase = new BranchBase
-                        {
-                            Zip = b.Zip,
-                            Name = b.Name,
-                            City = b.City,
-                            Email = b.Email,
-                            Phone = b.Phone,
-                            State = b.State,
-                            Address = b.Address,
-                            Company = b.Company,
-                            Code = b.Country.CountryCode,
-                        };
-                        await _unitOfWork.BranchRepository.EditBranchAsync(branch.Id, branchBase);
+                        await _unitOfWork.BranchRepository.EditBranchAsync(branch.Id, MakeBranch(b.Zip, b.Name, b.City, b.Email, b.Phone, b.State, b.Address, b.Company, b.Country.CountryCode));
                         Branches = new ObservableCollection<Branches>(LoadBranches());
                         _windowBranch.Close();
                     }
                     catch (ApiException e)
                     {
-                        var content = await e.GetContentAsAsync<Error>();
-                        b.HandleErrors(content);
+                       await HandleErrorsAsync(e, b);
                     }
                 });
             Messenger.Default.Send(branch);
@@ -81,6 +90,29 @@ namespace Wms.ViewModel.Page
         {
             _unitOfWork = new UnitOfWork();
             _windowBranch = new WindowBranch();
+        }
+
+        private BranchBase MakeBranch(int? zip, string name, string city, string email, string phone, string state,
+            string address, string company, string code)
+        {
+            return new BranchBase
+            {
+                Zip = zip,
+                Name = name,
+                City = city,
+                Email = email,
+                Phone = phone,
+                State = state,
+                Address = address,
+                Company = company,
+                Code = code,
+            };
+        }
+
+        private async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchViewModel vm)
+        {
+            var content = await e.GetContentAsAsync<Error>();
+            vm.HandleErrors(content);
         }
 
         private IEnumerable<Branches> LoadBranches()
