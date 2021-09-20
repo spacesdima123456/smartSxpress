@@ -120,6 +120,12 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(IsEnabled), ref _isEnabled, value);
         }
 
+        private string _tittle;
+        public string Title
+        {
+            get => _tittle;
+            private set => Set(nameof(Title), ref _tittle, value);
+        }
 
         private ICommand _doneCommand;
         public  ICommand DoneCommand => _doneCommand??= new DelegateCommand(() =>
@@ -189,7 +195,8 @@ namespace Wms.ViewModel.Dialog
             
             Messenger.Default.Register<Customer>(this, (customer) =>
             {
-                Height = 440;
+                Height = 480;
+                Title = "Create";
                 IsEnabled = true;
                 Company = customer.Company;
                 Visibility = Visibility.Visible;
@@ -198,7 +205,8 @@ namespace Wms.ViewModel.Dialog
 
             Messenger.Default.Register<Branches>(this, (branches) =>
             {
-                Height = 355;
+                Height = 395;
+                Title = "Edit";
                 IsEnabled = false;
                 Zip =  branches.Zip;
                 Name = branches.Name;
