@@ -29,5 +29,15 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI
         {
             await _branch.DeleteBranchAsync(id);
         }
+
+        public Task<Error> EditBranchAsync(int id, BranchBase branch)
+        {
+            return _branch.EditBranchAsync(id, branch);
+        }
+
+        public Task CreateBranchAsync(BranchCreate branch)
+        {
+            return _branch.CreateBranchAsync(branch);
+        }
     }
 }

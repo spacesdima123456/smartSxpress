@@ -1,15 +1,18 @@
-﻿using System.Linq;
+﻿using Refit;
+using System.Linq;
 using Nito.AsyncEx;
+using System.Windows;
 using Wms.API.Models;
 using DevExpress.Mvvm;
 using Wms.UnitOfWorkAPI;
 using System.Windows.Input;
+using Wms.ViewModel.Dialog;
+using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
 using Wms.Services.Window.WindowDialogs;
-
 
 namespace Wms.ViewModel.Page
 {
@@ -36,29 +39,72 @@ namespace Wms.ViewModel.Page
         private ICommand _addBranchCommand;
         public ICommand AddCommand => _addBranchCommand??=new DelegateCommand(() =>
         {
-            _windowBranch.Create(b =>
+            _windowBranch.Create(async b =>
             {
-                // servic api
-                Branches = new ObservableCollection<Branches>(LoadBranches());
+                try
+                {
+                    var branch = CreateBranch(b.Zip, b.Name, b.City, b.Email, b.Phone, b.State, b.Address, b.Company, b.Country.CountryCode, b.Password);
+                    await _unitOfWork.BranchRepository.CreateBranchAsync(branch);
+                    RefreshBranchAndCloseWindow();
+                }
+                catch (ApiException e)
+                {
+                    await HandleErrorsAsync(e, b);
+                }
             });
             Messenger.Default.Send(App.Data.Data.Customer);
         });
 
         private ICommand _editCommand;
-        public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>((branch) =>
+        public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>( (b) =>
         {
-            _windowBranch.Edit(b =>
-            {
-                // servic api
-                Branches = new ObservableCollection<Branches>(LoadBranches());
-            });
-            Messenger.Default.Send(branch);
+            _windowBranch.Edit(async e =>
+                {
+                    try
+                    {
+                        var branch = MakeBranch(e.Zip, e.Name, e.City, e.Email, e.Phone, e.State, e.Address, e.Company, e.Country.CountryCode);
+                        await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, branch);
+                        RefreshBranchAndCloseWindow();
+                    }
+                    catch (ApiException ex)
+                    {
+                       await HandleErrorsAsync(ex, e);
+                    }
+                });
+            Messenger.Default.Send(b);
         });
 
         public BranchesViewModel()
         {
             _unitOfWork = new UnitOfWork();
             _windowBranch = new WindowBranch();
+        }
+
+        private void RefreshBranchAndCloseWindow()
+        {
+            Branches = new ObservableCollection<Branches>(LoadBranches());
+            _windowBranch.Close();
+        }
+
+        private BranchBase MakeBranch(int? zip, string name, string city, string email, string phone, string state,
+            string address, string company, string code)
+        {
+            return new BranchBase { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code };
+        }
+
+        private BranchCreate CreateBranch(int? zip, string name, string city, string email, string phone, string state,
+            string address, string company, string code, string password)
+        {
+            return new BranchCreate { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code, Password = password };
+        }
+
+        private async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchViewModel vm)
+        {
+            var content = await e.GetContentAsAsync<Error>();
+            if (content.Errors != null)
+                vm.HandleErrors(content);
+            else
+                MessageBox.Show(content.Text);
         }
 
         private IEnumerable<Branches> LoadBranches()

@@ -9,8 +9,8 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI
     public class AuthorizationRepository : RepositoryBase, IAuthorizationRepository
     {
         public AuthorizationRepository(IRest rest) : base(rest) { }
-        public async Task<LoginRes> LogInAsync(LoginReq login) => await Rest.ExecuteRequest<IAuth>().LogInAsync(login);
+        public async Task<Response> LogInAsync(Login login) => await Rest.ExecuteRequest<IAuth>().LogInAsync(login);
         public async Task LogOutAsync(string token) => await Rest.ExecuteRequest<IAuth>().LogOutAsync(token);
-        public async Task<LoginRes> ValidKeyAsync(string token) => await Rest.ExecuteRequest<IAuth>().ValidTokenAsync(token);
+        public async Task<Response> ValidKeyAsync(string token) => await Rest.ExecuteRequest<IAuth>().ValidTokenAsync(token);
     }
 }

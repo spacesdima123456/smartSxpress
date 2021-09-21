@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Wms.API.Models;
 using System.Threading.Tasks;
-using Wms.API.Models;
+using System.Collections.Generic;
 
 namespace Wms.UnitOfWorkAPI.RepositoryAPI.Contract
 {
     public interface IBranchRepository 
     {
-        Task<IEnumerable<Branches>> GetAllBranchesAsync();
         Task DeleteBranchAsync(int id);
+        Task CreateBranchAsync(BranchCreate branch);
+        Task<IEnumerable<Branches>> GetAllBranchesAsync();
+        Task<Error> EditBranchAsync(int id, BranchBase branch);
     }
 }

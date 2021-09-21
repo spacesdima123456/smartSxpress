@@ -5,7 +5,7 @@ namespace Wms.Services.TokenVerify.Contract
 {
     public interface ITokenVerify
     {
-        event EventHandler<LoginRes> VerifySuccess;
+        event EventHandler<Response> VerifySuccess;
         event EventHandler VerifyError;
         void VerifyApiToken();
     }

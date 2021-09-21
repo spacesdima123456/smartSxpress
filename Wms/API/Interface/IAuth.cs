@@ -8,10 +8,10 @@ namespace Wms.API.Interface
     public interface IAuth
     {
         [Post("/auth/login")]
-        Task<LoginRes> LogInAsync([Body] LoginReq login);
+        Task<Response> LogInAsync([Body] Login login);
 
         [Get("/auth/keyCheck")]
-        Task<LoginRes> ValidTokenAsync([Header("apikey")] string token);
+        Task<Response> ValidTokenAsync([Header("apikey")] string token);
 
         [Get("/auth/logout")]
         Task LogOutAsync([Header("apikey")] string token);

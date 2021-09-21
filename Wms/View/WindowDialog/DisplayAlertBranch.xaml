@@ -1,20 +1,20 @@
 ﻿<base:DisplayAlertBase
         Width="560"
         mc:Ignorable="d"
-        WindowStyle="None"
         ResizeMode="NoResize"
         Background="DarkGray"
-        Title="DisplayAlertBranch"
+        WindowStyle="SingleBorderWindow"
         xmlns:lang="clr-namespace:Wms.Localization"
         xmlns:base="clr-namespace:Wms.View.WindowDialog"
         x:Class="Wms.View.WindowDialog.DisplayAlertBranch"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        Height="{Binding Path=Height, Mode=TwoWay, FallbackValue='440'}"
+        Height="{Binding Path=Height, Mode=TwoWay, FallbackValue='480'}"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol">
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        Title="{Binding Path=Title, Mode=OneWay, FallbackValue='', TargetNullValue=''}">
     <base:DisplayAlertBase.Resources>
         <Style x:Key="LayoutState" TargetType="dxlc:LayoutItem">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -51,17 +51,17 @@
                 <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged" />
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
-                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=OneWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple" EditValueChanged="OnValueChanged" CaretIndex="0"/>
+                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=TwoWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple" EditValueChanged="OnValueChanged" CaretIndex="0"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Email">
                 <dxe:TextEdit Text="{Binding Path=Email}" EditValueChanged="OnValueChanged"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutGroup Orientation="Vertical" ItemSpace="20" Visibility="{Binding Path=Visibility, Mode=OneWay}">
                 <dxlc:LayoutItem Label="Password">
-                    <dxe:PasswordBoxEdit Text="{Binding Path=Password}" />
+                    <dxe:PasswordBoxEdit Text="{Binding Path=Password,Mode=TwoWay}" />
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem Label="Confirm password">
-                    <dxe:PasswordBoxEdit Text="{Binding Path=ConfirmPassword}" />
+                    <dxe:PasswordBoxEdit Text="{Binding Path=ConfirmPassword, Mode=TwoWay}" />
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutGroup HorizontalAlignment="Center"  Orientation="Horizontal" Margin="0 0 0 7" Height="30" ItemSpace="10">

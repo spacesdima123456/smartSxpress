@@ -32,7 +32,7 @@ namespace Wms.ViewModel
 
         public AdminViewModel()
         {
-            Messenger.Default.Register<LoginRes>(this, (data) =>
+            Messenger.Default.Register<Response>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;
                 Company = data.Data.Customer.Company;

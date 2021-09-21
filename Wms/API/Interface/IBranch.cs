@@ -11,5 +11,13 @@ namespace Wms.API.Interface
 
         [Delete("/branches/remove/{id}")]
         Task DeleteBranchAsync(int id);
+
+        [Put("/branches/edit/{id}")]
+        [Headers("Content-Type: application/json")]
+        Task<Error> EditBranchAsync(int id, [Body] BranchBase branch);
+
+        [Post("/branches/add")]
+        [Headers("Content-Type: application/json")]
+        Task CreateBranchAsync(BranchCreate branch);
     }
 }

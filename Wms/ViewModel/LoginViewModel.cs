@@ -4,7 +4,6 @@ using DevExpress.Mvvm;
 using Wms.Localization;
 using System.Windows.Input;
 using System.Globalization;
-using System.Threading.Tasks;
 using Wms.Services.TokenVerify;
 using Wms.Services.Authorization;
 using Wms.Services.Window.Contract;
@@ -14,13 +13,14 @@ using AsyncCommand = DevExpress.Mvvm.AsyncCommand;
 
 namespace Wms.ViewModel
 {
-    public class LoginViewModel: ValidateViewModel
+    public class LoginViewModel : ValidateViewModel
     {
         private readonly ITokenVerify _tokenVerify;
         private readonly IWindowFactory _windowFactory;
         private readonly IAuthorization _authorization;
 
         private string _email;
+
         public string Email
         {
             get => _email;
@@ -30,8 +30,9 @@ namespace Wms.ViewModel
                 Set(nameof(Email), ref _email, value);
             }
         }
-            
+
         private string _password;
+
         public string Password
         {
             get => _password;
@@ -42,10 +43,19 @@ namespace Wms.ViewModel
             }
         }
 
+        private string _text;
+
+        public string Text
+        {
+            get => _text;
+            private set => Set(nameof(Text), ref _text, value);
+        }
+
         private ICommand _languageCommand;
-        public ICommand LanguageCommand => _languageCommand??=new DelegateCommand<string>(SetCulture);
+        public ICommand LanguageCommand => _languageCommand ??= new DelegateCommand<string>(SetCulture);
 
         private string _error;
+
         public string Error
         {
             get => _error;
@@ -53,21 +63,26 @@ namespace Wms.ViewModel
         }
 
         private ICommand _loginCommand;
+
         public ICommand LoginCommand => _loginCommand ??= new AsyncCommand(async () =>
         {
             try
             {
-                await _authorization.LogInAsync(new LoginReq(Email, Password, Properties.Settings.Default.DefaultLanguage));
+                await _authorization.LogInAsync(new Login(Email, Password,
+                    Properties.Settings.Default.DefaultLanguage));
                 _tokenVerify.VerifyApiToken();
             }
             catch (ApiException ex)
             {
-                await HandleErrorsAsync(ex);
+                var content = await ex.GetContentAsAsync<Error>();
+                HandleErrors(content);
             }
         });
 
         private ICommand _closeCommand;
-        public ICommand CloseCommand => _closeCommand ??=new DelegateCommand(() => System.Windows.Application.Current.Shutdown());
+
+        public ICommand CloseCommand =>
+            _closeCommand ??= new DelegateCommand(() => System.Windows.Application.Current.Shutdown());
 
         public LoginViewModel(IWindowFactory windowFactory)
         {
@@ -78,30 +93,12 @@ namespace Wms.ViewModel
             _tokenVerify.VerifyApiToken();
         }
 
-        private void CompletedVerify(object sender, LoginRes e)
+        private void CompletedVerify(object sender, Response e)
         {
             _windowFactory.CreateWindow();
             Messenger.Default.Send(e);
             App.SetDataKeyCheck(e);
             SetToken(e.ApiKey);
-        }
-
-        private async Task HandleErrorsAsync(ApiException ex)
-        {
-            var error = await ex.GetContentAsAsync<ValidationLogin>();
-            if (error != null)
-            {
-                if (error.Errors != null)
-                {
-                    if (error.Errors.Email != null)
-                        AddError(nameof(Email), error.Errors.Email.Emails);
-
-                    if (error.Errors.Password != null)
-                        AddError(nameof(Password), error.Errors.Password.Min);
-                }
-
-                Error = error.Text ?? "";
-            }
         }
 
         private static void SetCulture(string culture)
@@ -115,6 +112,13 @@ namespace Wms.ViewModel
         {
             Properties.Settings.Default.Token = token;
             Properties.Settings.Default.Save();
+        }
+
+        protected override void HandleErrors(Error error)
+        {
+            base.HandleErrors(error);
+            if (error.Code!=2)
+                Text = error.Text ?? "";
         }
     }
 }

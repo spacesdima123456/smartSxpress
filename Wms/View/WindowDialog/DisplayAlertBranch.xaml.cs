@@ -7,7 +7,7 @@ namespace Wms.View.WindowDialog
 {
     public sealed partial class DisplayAlertBranch : DisplayAlertBase
     {
-        public DisplayAlertBranch(Action<object> action)
+        public DisplayAlertBranch(Action<DisplayAlertBranchViewModel> action)
         {
             InitializeComponent();
             SetWindowStartupLocation();

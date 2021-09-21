@@ -1,11 +1,13 @@
 ﻿using System;
+using Wms.ViewModel.Dialog;
 
 namespace Wms.Services.Window.Contract
 {
     public interface IWindowBranch
     {
-        void Create(Action<object> action);
+        void Close();
         void Delete(Action<object> action);
-        void Edit(Action<object> action);
+        void Edit(Action<DisplayAlertBranchViewModel> action);
+        void Create(Action<DisplayAlertBranchViewModel> action);
     }
 }
