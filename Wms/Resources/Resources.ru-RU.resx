@@ -165,6 +165,9 @@
   <data name="Email" xml:space="preserve">
     <value>Логин</value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
   <data name="ForDelivery" xml:space="preserve">
     <value>На доставку</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="MsgDeleteBranch" xml:space="preserve">
     <value>Вы действительно хотите удалить филиал?</value>
+  </data>
+  <data name="MsgLogOut" xml:space="preserve">
+    <value>Вы уверены что хотите выйти?</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
@@ -195,8 +201,14 @@
   <data name="Pay" xml:space="preserve">
     <value>Оплата</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
   <data name="Redemption" xml:space="preserve">
     <value>Выкуп</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>Персонал</value>

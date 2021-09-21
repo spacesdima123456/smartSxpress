@@ -1,11 +1,16 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Wms.API.Models;
 using DevExpress.Mvvm;
+using Wms.UnitOfWorkAPI;
+using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
+        private readonly IUnitOfWork _unitOfWork;
+
         private string _source;
         public string Source
         {
@@ -30,8 +35,15 @@ namespace Wms.ViewModel
         private ICommand _pageCommand;
         public ICommand PageCommand => _pageCommand ??= new DelegateCommand<string>(source => Source = source);
 
+        public async  Task LogOutAsync()
+        {
+            await _unitOfWork.AuthorizationRepository.LogOutAsync(Properties.Settings.Default.Token);
+        }
+
         public AdminViewModel()
         {
+            _unitOfWork = new UnitOfWork();
+
             Messenger.Default.Register<Response>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;

@@ -3,6 +3,10 @@ using System.Windows;
 using System.Windows.Input;
 using Wms.Localization;
 using Wms.Properties;
+using Wms.Services.Window;
+using Wms.Services.Window.Contract;
+using Wms.Services.Window.WindowDialogs;
+using Wms.ViewModel;
 
 namespace Wms.View
 {
@@ -11,6 +15,8 @@ namespace Wms.View
     /// </summary>
     public partial class Admin : Window
     {
+        private IWindowFactory _window;
+        private IWindowLogOut _windowLogOut;
 
         public Admin()
         {
@@ -46,7 +52,21 @@ namespace Wms.View
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            TopPanel.Visibility = Visibility.Collapsed;
+            if (!TopPanel.IsMouseOver)
+                TopPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            if (_windowLogOut==null) 
+                _windowLogOut = new WindowLogOut();
+
+            _windowLogOut.LogOut(async o =>
+            {
+                await ((AdminViewModel) DataContext).LogOutAsync();
+                _window = new WindowFactory( this, new Login());
+                _window.CreateWindow();
+            });
         }
     }
 }

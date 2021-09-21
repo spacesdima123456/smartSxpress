@@ -205,6 +205,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Exit.
+        /// </summary>
+        public static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на For Delivery.
         /// </summary>
         public static string ForDelivery {
@@ -246,6 +255,15 @@ namespace Wms.Resources {
         public static string MsgDeleteBranch {
             get {
                 return ResourceManager.GetString("MsgDeleteBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Are you sure you want to log out?.
+        /// </summary>
+        public static string MsgLogOut {
+            get {
+                return ResourceManager.GetString("MsgLogOut", resourceCulture);
             }
         }
         
@@ -295,11 +313,29 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Redemption.
         /// </summary>
         public static string Redemption {
             get {
                 return ResourceManager.GetString("Redemption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

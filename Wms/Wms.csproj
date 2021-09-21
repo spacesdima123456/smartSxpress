@@ -28,6 +28,7 @@
     <None Remove="Icon\Svg\localization.svg" />
     <None Remove="Icon\Svg\orderItem.svg" />
     <None Remove="Icon\Svg\productGroup.svg" />
+    <None Remove="Icon\Svg\profile.svg" />
     <None Remove="Icon\Svg\settings.svg" />
     <None Remove="Icon\Svg\time.svg" />
     <None Remove="Icon\Svg\vendor.svg" />
@@ -90,6 +91,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\productGroup.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icon\Svg\profile.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\settings.svg">
