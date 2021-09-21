@@ -218,7 +218,7 @@ namespace Wms.ViewModel.Dialog
                 Address = branches.Address;
                 Visibility = Visibility.Collapsed;
                 Content = Translate("Done");
-                Country = Countries.FirstOrDefault(f => f.CountryCode == branches.Code);
+                Country = Countries.FirstOrDefault(f => f.Name == branches.Code);
             });
         }
     }
