@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using Wms.Localization;
 using Wms.Properties;
 
@@ -36,6 +37,16 @@ namespace Wms.View
             TranslationSource.Instance.CurrentCulture = new CultureInfo("zh-CN");
             Settings.Default.DefaultLanguage = "zh-CN";
             Settings.Default.Save();
+        }
+
+        private void OnSettings(object sender, MouseButtonEventArgs e)
+        {
+            TopPanel.Visibility = Visibility.Visible;
+        }
+
+        private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TopPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

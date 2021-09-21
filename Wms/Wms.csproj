@@ -20,6 +20,7 @@
     <None Remove="Icon\Svg\department.svg" />
     <None Remove="Icon\Svg\edit.svg" />
     <None Remove="Icon\Svg\employee.svg" />
+    <None Remove="Icon\Svg\exit.svg" />
     <None Remove="Icon\Svg\fakeIcon.svg" />
     <None Remove="Icon\Svg\geoPointMaps.svg" />
     <None Remove="Icon\Svg\iconPageNext.svg" />
@@ -27,6 +28,7 @@
     <None Remove="Icon\Svg\localization.svg" />
     <None Remove="Icon\Svg\orderItem.svg" />
     <None Remove="Icon\Svg\productGroup.svg" />
+    <None Remove="Icon\Svg\settings.svg" />
     <None Remove="Icon\Svg\time.svg" />
     <None Remove="Icon\Svg\vendor.svg" />
     <None Remove="Image\login.jfif" />
@@ -69,6 +71,9 @@
     <Resource Include="Icon\Svg\employee.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icon\Svg\exit.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icon\Svg\fakeIcon.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -85,6 +90,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\productGroup.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icon\Svg\settings.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icon\Svg\time.svg">

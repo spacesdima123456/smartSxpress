@@ -13,7 +13,7 @@
         xmlns:vm="clr-namespace:Wms.ViewModel"
         xmlns:lang="clr-namespace:Wms.Localization"
         Title="{lang:Lang Tittle }"
-        WindowState="Maximized">
+        WindowState="Maximized" PreviewMouseDown="OnPreviewMouseDown">
     <Window.DataContext>
         <vm:AdminViewModel/>
     </Window.DataContext>
@@ -74,6 +74,20 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="Height" Value="40"/>
         </Style>
+        <Style x:Key="BtnTopPanel" TargetType="dx:SimpleButton">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#212529"/>
+            <Setter Property="BorderBrush" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2a8ad4" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     <Grid Background="#212529">
         <Grid.ColumnDefinitions >
@@ -110,78 +124,28 @@
         <Grid
             Grid.Row="0"
             Grid.Column="1">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40*"/>
                 <ColumnDefinition Width="60*"/>
             </Grid.ColumnDefinitions>
             <Label 
+                Cursor="Hand"
                 FontSize="24" 
-                Content="{Binding Path=UserName, Mode=OneWay, FallbackValue=''}" 
                 Margin="-45 0 0 0" 
                 Foreground="White" 
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center" 
+                ContentStringFormat=" {0} ⯈"
+                PreviewMouseDown="OnSettings"
+                Content="{Binding Path=UserName, Mode=OneWay, FallbackValue=''}" />
         </Grid>
-        <!--<DockPanel 
-            Grid.Column="1" 
-            Grid.Row="0">
-            <Label 
-                FontSize="24" 
-                Content="{Binding Path=UserName, Mode=OneWay, FallbackValue=''}" 
-                Margin="-45 0 0 0" 
-                Foreground="White" 
-                VerticalAlignment="Center" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <dx:DropDownButton Content="Языки(TEST)" >
-                    <StackPanel>
-                        <Button Content="РУС" Click="ButtonBase_OnClick" />
-                        <Button Content="АНГ" Click="ButtonBase_OnClick1"/>
-                        <Button Content="China" Click="ButtonBase_OnClick3" />
-                    </StackPanel>
-                </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang Current}" Glyph="/Icon/Svg/time.svg" ArrowGlyph="/Icon/Svg/fakeIcon.svg" ArrowPadding="-40 0 0 0">
-                    <dx:WpfSvgPalette.Palette>
-                        <dx:WpfSvgPalette>
-                            <SolidColorBrush x:Key="Black" Color="White"/>
-                            <SolidColorBrush x:Key="Red" Color="White"/>
-                        </dx:WpfSvgPalette>
-                    </dx:WpfSvgPalette.Palette>
-                </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang OnWay}" Glyph="/Icon/Svg/country.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
-                    <dx:WpfSvgPalette.Palette>
-                        <dx:WpfSvgPalette>
-                            <SolidColorBrush x:Key="Blue" Color="White"/>
-                            <SolidColorBrush x:Key="Red" Color="White"/>
-                        </dx:WpfSvgPalette>
-                    </dx:WpfSvgPalette.Palette>
-                    <StackPanel>
-                        <Button  Content="{lang:Lang DeliveryServices}"/>
-                    </StackPanel>
-                </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang Bishkek}" Glyph="/Icon/Svg/geoPointMaps.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
-                    <dx:WpfSvgPalette.Palette>
-                        <dx:WpfSvgPalette>
-                            <SolidColorBrush x:Key="Blue" Color="White"/>
-                            <SolidColorBrush x:Key="Red" Color="White"/>
-                        </dx:WpfSvgPalette>
-                    </dx:WpfSvgPalette.Palette>
-                    <StackPanel>
-                        <Button Content="{lang:Lang Addition}"/>
-                    </StackPanel>
-                </dx:DropDownButton>
-                <dx:DropDownButton Content="{lang:Lang ForDelivery}" Glyph="/Icon/Svg/vendor.svg" ArrowGlyph="/Icon/Svg/actionSortingDescending.svg">
-                    <dx:WpfSvgPalette.Palette>
-                        <dx:WpfSvgPalette>
-                            <SolidColorBrush x:Key="Blue" Color="White"/>
-                        </dx:WpfSvgPalette>
-                    </dx:WpfSvgPalette.Palette>
-                    <StackPanel>
-                        <Button Content="{lang:Lang Redemption}"/>
-                        <Button Content="{lang:Lang DeliveryServices}"/>
-                    </StackPanel>
-                </dx:DropDownButton>
-            </StackPanel>
-        </DockPanel>-->
+        <StackPanel x:Name="TopPanel" Grid.Column="1"  Grid.Row="1" Background="#212529" ZIndex="1" Width="250" Height="140" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="-45 0 0 0" Visibility="Collapsed">
+            <Border BorderBrush="WhiteSmoke" BorderThickness="1" Width="249" Height="139">
+                <StackPanel>
+                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}" Content="Настройки" Margin="20 20  20 20" Glyph="../Icon/Svg/settings.svg"/>
+                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}" Content="Выход"  Margin="20 0 20 0"  Glyph="../Icon/Svg/exit.svg"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
         <Frame 
             Grid.Row="1" 
             Grid.Column="1" 
