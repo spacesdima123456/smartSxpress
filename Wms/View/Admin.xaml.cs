@@ -75,6 +75,7 @@ namespace Wms.View
         {
             if (_displayAlertSettings == null)
                 _displayAlertSettings = new DisplayAlertSettings();
+
             _displayAlertSettings.ShowDialog();
         }
     }
