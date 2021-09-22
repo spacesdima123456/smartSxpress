@@ -6,6 +6,7 @@ using Wms.Properties;
 using Wms.Services.Window;
 using Wms.Services.Window.Contract;
 using Wms.Services.Window.WindowDialogs;
+using Wms.View.WindowDialog;
 using Wms.ViewModel;
 
 namespace Wms.View
@@ -17,6 +18,7 @@ namespace Wms.View
     {
         private IWindowFactory _window;
         private IWindowLogOut _windowLogOut;
+        private DisplayAlertSettings _displayAlertSettings;
 
         public Admin()
         {
@@ -67,6 +69,13 @@ namespace Wms.View
                 _window = new WindowFactory( this, new Login());
                 _window.CreateWindow();
             });
+        }
+
+        private void ShowSettings(object sender, RoutedEventArgs e)
+        {
+            if (_displayAlertSettings == null)
+                _displayAlertSettings = new DisplayAlertSettings();
+            _displayAlertSettings.ShowDialog();
         }
     }
 }

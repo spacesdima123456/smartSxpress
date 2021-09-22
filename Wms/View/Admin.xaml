@@ -142,7 +142,7 @@
             <Border BorderBrush="WhiteSmoke" BorderThickness="1" Width="249" Height="199">
                 <StackPanel>
                     <dx:SimpleButton Style="{StaticResource BtnTopPanel}" Content="{lang:Lang Profile}" Margin="20 20  20 0" Glyph="../Icon/Svg/profile.svg"/>
-                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}"  Content="{lang:Lang Settings}" Margin="20 20  20 20" Glyph="../Icon/Svg/settings.svg"/>
+                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}"  Content="{lang:Lang Settings}" Margin="20 20  20 20" Glyph="../Icon/Svg/settings.svg" Click="ShowSettings"/>
                     <dx:SimpleButton Click="LogOut" Style="{StaticResource BtnTopPanel}" Content="{lang:Lang Exit}"  Margin="20 0 20 0"  Glyph="../Icon/Svg/exit.svg"/>
                 </StackPanel>
             </Border>

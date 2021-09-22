@@ -10,7 +10,7 @@ namespace Wms.View.WindowDialog
         public DisplayAlertBranch(Action<DisplayAlertBranchViewModel> action)
         {
             InitializeComponent();
-            SetWindowStartupLocation();
+            //SetWindowStartupLocation();
             DataContext = new DisplayAlertBranchViewModel(action);
         }
 

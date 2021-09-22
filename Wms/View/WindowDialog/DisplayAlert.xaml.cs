@@ -13,7 +13,7 @@ namespace Wms.View.WindowDialog
         public DisplayAlert()
         {
             InitializeComponent();
-            SetWindowStartupLocation();
+            //SetWindowStartupLocation();
         }
 
         public DisplayAlert(string tittle, string okText, string cancelText, string message):this()
