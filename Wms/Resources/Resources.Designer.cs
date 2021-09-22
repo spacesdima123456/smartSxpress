@@ -61,6 +61,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Accept.
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Accounts.
         /// </summary>
         public static string Accounts {
@@ -111,6 +120,15 @@ namespace Wms.Resources {
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на E-commerce.
+        /// </summary>
+        public static string Commerce {
+            get {
+                return ResourceManager.GetString("Commerce", resourceCulture);
             }
         }
         
@@ -291,6 +309,15 @@ namespace Wms.Resources {
         public static string Orders {
             get {
                 return ResourceManager.GetString("Orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Package.
+        /// </summary>
+        public static string Package {
+            get {
+                return ResourceManager.GetString("Package", resourceCulture);
             }
         }
         

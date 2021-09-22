@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Kabul etmek</value>
+  </data>
   <data name="Accounts" xml:space="preserve">
     <value>Hesaplar</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Kapatma</value>
+  </data>
+  <data name="Commerce" xml:space="preserve">
+    <value>E-ticaret</value>
   </data>
   <data name="Cost" xml:space="preserve">
     <value>Maliyet</value>
@@ -194,6 +200,9 @@
   </data>
   <data name="Orders" xml:space="preserve">
     <value>Sipariş</value>
+  </data>
+  <data name="Package" xml:space="preserve">
+    <value>Paket</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>

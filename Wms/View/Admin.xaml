@@ -163,15 +163,13 @@
                 PaneBackground="#212529"
                 AvailableViewStates="Inline">
 
-            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/invoice.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../View/Page/Branches.xaml"/>
+            <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../View/Page/Branches.xaml"/>
 
-            <!--<dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Customers}" ContentStringFormat=" {0} ⯈" Margin="0 15 0 0">
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Accounts}"  />
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Orders}"/>
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Pay}"/>
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Cost}"/>
+            <dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/productGroup.svg" Content="{lang:Lang Accept}" ContentStringFormat=" {0} ⯈" >
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Package}"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Commerce}"/>
             </dxwui:HamburgerSubMenu>
-            <dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈">
+            <!--<dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈">
                 <dxwui:HamburgerSubMenuNavigationButton Content="Китай"  />
                 <dxwui:HamburgerSubMenuNavigationButton Content="США"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="Турция"/>
