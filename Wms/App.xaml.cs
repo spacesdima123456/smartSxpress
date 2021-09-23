@@ -11,6 +11,7 @@ namespace Wms
 {
     public partial class App : Application
     {
+        public static Window Window { get; set; }
         public  static Response Data { get; private set; }
 
         public App()

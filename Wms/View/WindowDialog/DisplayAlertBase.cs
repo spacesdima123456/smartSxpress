@@ -13,7 +13,8 @@ namespace Wms.View.WindowDialog
         private void SetWindowStartupLocation()
         {
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
+            //Owner = Application.Current.MainWindow;
+            Owner = App.Window;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Wms.View
         public Admin()
         {
             InitializeComponent();
+            App.Window = this;
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
