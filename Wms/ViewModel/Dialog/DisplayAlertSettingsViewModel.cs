@@ -1,17 +1,17 @@
-﻿using  System.Linq;
+﻿using System.Linq;
+using DevExpress.Mvvm;
+using System.Diagnostics;
+using System.Windows.Input;
 using System.Drawing.Printing;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using DevExpress.Mvvm;
-using  static  Wms.Helpers.RegistryWin;
+using static  Wms.Helpers.RegistryWin;
 
 namespace Wms.ViewModel.Dialog
 {
     public class DisplayAlertSettingsViewModel : BaseViewModel
     {
-
         private string _printer;
-        public  string Printer
+        public string Printer
         {
             get => _printer;
             set
@@ -21,7 +21,6 @@ namespace Wms.ViewModel.Dialog
                     SetValue("Printer", value);
             }
         }
-
 
         private string _printerDocx;
         public string PrinterDocx
@@ -35,16 +34,22 @@ namespace Wms.ViewModel.Dialog
             }
         }
 
-        public ObservableCollection<string>  Printers { get; }
+        public ObservableCollection<string> Printers { get; }
 
-        //public  ICommand SaveSettingsCommand => new DelegateCommand(() =>
-        //{
-        //    if (!string.IsNullOrEmpty(Printer) && !string.IsNullOrEmpty(PrinterDocx))
-        //    {
-        //        SetValue("Printer", Printer);
-        //        SetValue("PrinterDocx", PrinterDocx);
-        //    }
-        //});
+        public ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
+        {
+            using var process = new Process();
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = "/C rundll32 printui.dll,PrintUIEntry /p /n \"" + printer + "\""
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+        });
 
         public DisplayAlertSettingsViewModel()
         {

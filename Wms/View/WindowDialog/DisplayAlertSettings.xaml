@@ -1,4 +1,4 @@
-﻿<window:DisplayAlertBase xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
+﻿<window:DisplayAlertBase xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
         Width="250"
         Height="190"
         mc:Ignorable="d"
@@ -16,34 +16,72 @@
     <window:DisplayAlertBase.DataContext>
         <vm:DisplayAlertSettingsViewModel/>
     </window:DisplayAlertBase.DataContext>
-    <StackPanel  VerticalAlignment="Center">
-        <StackPanel Width="200" Height="50">
-            <Label Content="Принтеры"/>
-            <dxe:ComboBoxEdit ItemsSource="{Binding Path=Printers, Mode=OneWay}" SelectedItem="{Binding Path=Printer, Mode=TwoWay}">
-                <dxe:ComboBoxEdit.Style>
-                    <Style TargetType="dxe:ComboBoxEdit">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=Printer, Mode=TwoWay}" Value="{x:Null}">
-                                <Setter Property="Text" Value="not selected"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </dxe:ComboBoxEdit.Style>
-            </dxe:ComboBoxEdit>
-        </StackPanel>
-        <StackPanel Width="200" Height="50">
-            <Label Content="Принтер для документов"/>
-            <dxe:ComboBoxEdit ItemsSource="{Binding Path=Printers, Mode=OneWay}" SelectedItem="{Binding Path=PrinterDocx, Mode=TwoWay}" >
-                <dxe:ComboBoxEdit.Style>
-                    <Style TargetType="dxe:ComboBoxEdit">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=PrinterDocx, Mode=TwoWay}" Value="{x:Null}">
-                                <Setter Property="Text" Value="not selected"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </dxe:ComboBoxEdit.Style>
-            </dxe:ComboBoxEdit>
-        </StackPanel>
+    <window:DisplayAlertBase.Resources>
+        <Style TargetType="{x:Type dx:SimpleButton}">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Margin" Value="5 16 0 0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Glyph" Value="../../Icon/Svg/settings.svg" />
+            <Setter Property="Command" Value="{Binding Path=PrinterDialogCommand}"/>
+            <Setter Property="dx:WpfSvgPalette.Palette">
+                <Setter.Value>
+                    <dx:WpfSvgPalette>
+                        <SolidColorBrush x:Key="White" Color="Black"/>
+                    </dx:WpfSvgPalette>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="PrinterPanel" TargetType="{x:Type StackPanel}">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
+    </window:DisplayAlertBase.Resources>
+    <StackPanel  VerticalAlignment="Center" Margin="0 0 0 5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Style="{StaticResource PrinterPanel}">
+                <Label Content="Принтеры"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Printers, Mode=OneWay}" SelectedItem="{Binding Path=Printer, Mode=TwoWay}">
+                    <dxe:ComboBoxEdit.Style>
+                        <Style TargetType="dxe:ComboBoxEdit">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Printer, Mode=TwoWay}" Value="{x:Null}">
+                                    <Setter Property="Text" Value="not selected"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxe:ComboBoxEdit.Style>
+                </dxe:ComboBoxEdit>
+            </StackPanel>
+            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=Printer}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1"  Style="{StaticResource PrinterPanel}">
+                <Label Content="Принтер для документов"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Printers, Mode=OneWay}" SelectedItem="{Binding Path=PrinterDocx, Mode=TwoWay}" >
+                    <dxe:ComboBoxEdit.Style>
+                        <Style TargetType="dxe:ComboBoxEdit">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=PrinterDocx, Mode=TwoWay}" Value="{x:Null}">
+                                    <Setter Property="Text" Value="not selected"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxe:ComboBoxEdit.Style>
+                </dxe:ComboBoxEdit>
+            </StackPanel>
+            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=PrinterDocx}"/>
+        </Grid>
     </StackPanel>
 </window:DisplayAlertBase>
