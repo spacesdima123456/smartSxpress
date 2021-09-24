@@ -138,7 +138,7 @@
         <StackPanel x:Name="TopPanel" Grid.Column="1"  Grid.Row="1" Background="#212529" ZIndex="1" Width="250" Height="200" VerticalAlignment="Top"  HorizontalAlignment="Left" Margin="-45 0 0 0" Visibility="Collapsed">
             <Border BorderBrush="WhiteSmoke" BorderThickness="1" Width="249" Height="199">
                 <StackPanel>
-                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}" Content="{lang:Lang Profile}" Margin="20 20  20 0" Glyph="../Icon/Svg/profile.svg"/>
+                    <dx:SimpleButton Style="{StaticResource BtnTopPanel}" Content="{lang:Lang Profile}" Margin="20 20  20 0" Glyph="../Icon/Svg/profile.svg" Command="{Binding Path=ProfileCommand}"/>
                     <dx:SimpleButton Style="{StaticResource BtnTopPanel}"  Content="{lang:Lang Settings}" Margin="20 20  20 20" Glyph="../Icon/Svg/settings.svg" Click="ShowSettings"/>
                     <dx:SimpleButton Click="LogOut" Style="{StaticResource BtnTopPanel}" Content="{lang:Lang Exit}"  Margin="20 0 20 0"  Glyph="../Icon/Svg/exit.svg"/>
                 </StackPanel>
@@ -163,7 +163,7 @@
             <dxwui:HamburgerMenuNavigationButton Glyph="/Icon/Svg/employee.svg" Content="{lang:Lang Branches}" Command="{Binding Path=PageCommand}" CommandParameter="../View/Page/Branches.xaml"/>
 
             <dxwui:HamburgerSubMenu  Glyph="/Icon/Svg/productGroup.svg" Content="{lang:Lang Accept}" ContentStringFormat=" {0} ⯈" >
-                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Package}"  />
+                <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Package}"  Command="{Binding Path=PageCommand}" CommandParameter="../View/Page/Package.xaml"/>
                 <dxwui:HamburgerSubMenuNavigationButton Content="{lang:Lang Commerce}"/>
             </dxwui:HamburgerSubMenu>
             <!--<dxwui:HamburgerSubMenu Glyph="/Icon/Svg/buyNow.svg" Content="{lang:Lang Redemption}" ContentStringFormat=" {0} ⯈">

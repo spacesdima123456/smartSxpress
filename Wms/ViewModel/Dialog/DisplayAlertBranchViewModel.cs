@@ -92,8 +92,9 @@ namespace Wms.ViewModel.Dialog
             get => _country;
             set
             {
-                State = string.Empty;
                 Set(nameof(Country), ref _country, value);
+                if(_country != null && _country.CountryCode!= "US")
+                    State = string.Empty;
             }
         }
 
@@ -198,33 +199,51 @@ namespace Wms.ViewModel.Dialog
             _action = action;
             Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
             
-            Messenger.Default.Register<Customer>(this, (customer) =>
+            Messenger.Default.Register<string>(this, (company) =>
             {
                 Height = 480;
                 Title = "Create";
                 IsEnabled = true;
-                Company = customer.Company;
+                Company = company;
                 Visibility = Visibility.Visible;
                 Content = Translate("Create");
             });
 
+            Messenger.Default.Register<Customer>(this,
+                (data) =>
+                {
+                    InitProperty(480, "Profile", false, data.Zip, data.Name, data.City, data.Phone, data.State,
+                        data.Email, data.Company, data.Address, Visibility.Visible, "Done", data.CountryName);
+                });
+
             Messenger.Default.Register<Branches>(this, (branches) =>
             {
-                Height = 395;
-                Title = "Edit";
-                IsEnabled = false;
-                Zip =  branches.Zip;
-                Name = branches.Name;
-                City = branches.City;
-                Phone = branches.Phone;
-                State = branches.State;
-                Email = branches.Email;
-                Company = branches.Company;
-                Address = branches.Address;
-                Visibility = Visibility.Collapsed;
-                Content = Translate("Done");
-                Country = Countries.FirstOrDefault(f => f.Name == branches.Code);
+                InitProperty(395, "Edit", false, branches.Zip, branches.Name, branches.City, branches.Phone,
+                    branches.State, branches.Email, branches.Company, branches.Address, Visibility.Collapsed, "Done",
+                    branches.Code);
             });
+        }
+
+        private void InitProperty(
+            int height, string title, bool isEnabled,
+            int? zip, string name, string city, string phone,
+            string state, string email, string company, string address, Visibility visibility, string content,
+            string country)
+        {
+            Zip = zip;
+            Name = name;
+            City = city;
+            Phone = phone;
+            Title = title;
+            State = state;
+            Email = email;
+            Height = height;
+            Company = company;
+            Address = address;
+            IsEnabled = isEnabled;
+            Visibility = visibility;
+            Content = Translate(content);
+            Country = Countries.FirstOrDefault(f => f.Name == country);
         }
     }
 }

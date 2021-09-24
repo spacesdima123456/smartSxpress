@@ -2,6 +2,7 @@
 using DevExpress.Mvvm;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using Wms.Services.Window.Contract;
 using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.ViewModel
@@ -9,6 +10,7 @@ namespace Wms.ViewModel
     public class AdminViewModel : BaseViewModel
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWindowBranch _windowBranch;
 
         private string _source;
         public string Source
@@ -39,9 +41,21 @@ namespace Wms.ViewModel
             await _unitOfWork.AuthorizationRepository.LogOutAsync(Properties.Settings.Default.Token);
         }
 
-        public AdminViewModel(IUnitOfWork unitOfWork)
+        private ICommand _profileCommand;
+        public ICommand ProfileCommand => _profileCommand ??= new DelegateCommand(() =>
+        {
+            _windowBranch.Create(vm =>
+            {
+
+            });
+            Messenger.Default.Send(App.Data.Data.Customer);
+        });
+
+        public AdminViewModel(IUnitOfWork unitOfWork, IWindowBranch windowBranch)
         {
             _unitOfWork = unitOfWork;
+            _windowBranch = windowBranch;
+
             Messenger.Default.Register<Response>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;

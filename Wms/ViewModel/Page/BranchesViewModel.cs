@@ -50,7 +50,7 @@ namespace Wms.ViewModel.Page
                     await HandleErrorsAsync(e, b);
                 }
             });
-            Messenger.Default.Send(App.Data.Data.Customer);
+            Messenger.Default.Send(App.Data.Data.Customer.Company);
         });
 
         private ICommand _editCommand;
