@@ -10,7 +10,6 @@ namespace Wms.ViewModel
 {
     public class ValidateViewModel : BaseViewModel, INotifyDataErrorInfo
     {
-
         public bool HasErrors => Errors.Any();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         protected readonly Dictionary<string, List<string>> Errors = new Dictionary<string, List<string>>();
@@ -40,7 +39,6 @@ namespace Wms.ViewModel
                 OnErrorsChanged(property);
             }
         }
-
         protected void ClearErrors()
         {
             Errors.ForEach(f =>
@@ -63,13 +61,13 @@ namespace Wms.ViewModel
             });
         }
 
-        private string ToUpperCaseFirstLetter(string str)
+        private static string ToUpperCaseFirstLetter(string str)
         {
             if (str.Length == 0)
                 return "";
             if (str.Length == 1)
                 return str.ToUpper();
-            return char.ToUpper(str[0]) + str.Substring(1);
+            return char.ToUpper(str[0]) + str.Remove(0, 1);
         }
 
         protected void OnErrorsChanged(string property)

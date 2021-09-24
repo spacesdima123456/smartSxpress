@@ -36,7 +36,7 @@ namespace Wms.ViewModel.Dialog
 
         public ObservableCollection<string> Printers { get; }
 
-        public ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
+        public static ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
         {
             using var process = new Process();
             var startInfo = new ProcessStartInfo

@@ -1,22 +1,19 @@
 ﻿<Window
+        MinWidth="1310"
+        MinHeight="730"
+        mc:Ignorable="d"
         x:Class="Wms.View.Admin"  
+        Title="{lang:Lang Tittle }"
+        xmlns:lang="clr-namespace:Wms.Localization"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        WindowState="Maximized" PreviewMouseDown="OnPreviewMouseDown"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dxwuii="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-        mc:Ignorable="d"
-        MinWidth="1310"
-        MinHeight="730"
-        xmlns:vm="clr-namespace:Wms.ViewModel"
-        xmlns:lang="clr-namespace:Wms.Localization"
-        Title="{lang:Lang Tittle }"
-        WindowState="Maximized" PreviewMouseDown="OnPreviewMouseDown">
-    <Window.DataContext>
-        <vm:AdminViewModel/>
-    </Window.DataContext>
+        DataContext="{Binding AdminViewModel, Source={StaticResource ViewModelLocator}}">
     <Window.Resources>
         <Style TargetType="{x:Type dxwui:HamburgerMenuNavigationButton}">
             <Setter Property="FontSize" Value="17"/>

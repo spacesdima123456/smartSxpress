@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-using Wms.API.Models;
+﻿using Wms.API.Models;
 using DevExpress.Mvvm;
-using Wms.UnitOfWorkAPI;
+using System.Windows.Input;
+using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.ViewModel
@@ -40,10 +39,9 @@ namespace Wms.ViewModel
             await _unitOfWork.AuthorizationRepository.LogOutAsync(Properties.Settings.Default.Token);
         }
 
-        public AdminViewModel()
+        public AdminViewModel(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
-
+            _unitOfWork = unitOfWork;
             Messenger.Default.Register<Response>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;

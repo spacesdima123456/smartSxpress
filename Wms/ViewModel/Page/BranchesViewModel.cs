@@ -4,7 +4,6 @@ using Nito.AsyncEx;
 using System.Windows;
 using Wms.API.Models;
 using DevExpress.Mvvm;
-using Wms.UnitOfWorkAPI;
 using System.Windows.Input;
 using Wms.ViewModel.Dialog;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
-using Wms.Services.Window.WindowDialogs;
 
 namespace Wms.ViewModel.Page
 {
@@ -74,10 +72,10 @@ namespace Wms.ViewModel.Page
             Messenger.Default.Send(b);
         });
 
-        public BranchesViewModel()
+        public BranchesViewModel(IUnitOfWork unitOfWork, IWindowBranch windowBranch)
         {
-            _unitOfWork = new UnitOfWork();
-            _windowBranch = new WindowBranch();
+            _unitOfWork = unitOfWork;
+            _windowBranch = windowBranch;
         }
 
         private void RefreshBranchAndCloseWindow()
@@ -86,19 +84,19 @@ namespace Wms.ViewModel.Page
             _windowBranch.Close();
         }
 
-        private BranchBase MakeBranch(int? zip, string name, string city, string email, string phone, string state,
+        private static BranchBase MakeBranch(int? zip, string name, string city, string email, string phone, string state,
             string address, string company, string code)
         {
             return new BranchBase { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code };
         }
 
-        private BranchCreate CreateBranch(int? zip, string name, string city, string email, string phone, string state,
+        private static BranchCreate CreateBranch(int? zip, string name, string city, string email, string phone, string state,
             string address, string company, string code, string password)
         {
             return new BranchCreate { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code, Password = password };
         }
 
-        private async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchViewModel vm)
+        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchViewModel vm)
         {
             var content = await e.GetContentAsAsync<Error>();
             if (content.Errors != null)

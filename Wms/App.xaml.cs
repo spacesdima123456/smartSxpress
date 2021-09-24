@@ -5,6 +5,7 @@ using DevExpress.Mvvm;
 using Wms.Localization;
 using DevExpress.Xpf.Core;
 using System.Globalization;
+using Wms.DependencyInjection;
 using Wms.Services.Updater;
 
 namespace Wms
@@ -32,6 +33,12 @@ namespace Wms
         public static void SetDataKeyCheck(Response data)
         {
             Data = data;
+        }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            IocKernel.Initialize(new IocConfiguration());
+
+            base.OnStartup(e);
         }
     }
 }

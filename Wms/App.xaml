@@ -1,7 +1,9 @@
 ﻿<Application x:Class="Wms.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             StartupUri="View/Login.xaml"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="View/Login.xaml">
+             xmlns:locator="clr-namespace:Wms.ViewModel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Application.Resources>
+        <locator:ViewModelLocator x:Key="ViewModelLocator"/>
     </Application.Resources>
 </Application>

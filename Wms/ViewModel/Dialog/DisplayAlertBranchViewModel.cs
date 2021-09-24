@@ -86,10 +86,15 @@ namespace Wms.ViewModel.Dialog
         public ObservableCollection<Countries> Countries { get; }
 
         private Countries _country;
+
         public Countries Country
         {
             get => _country;
-            set => Set(nameof(Country), ref _country, value);
+            set
+            {
+                State = string.Empty;
+                Set(nameof(Country), ref _country, value);
+            }
         }
 
         private Visibility _visibility;

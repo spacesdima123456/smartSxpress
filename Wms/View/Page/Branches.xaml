@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-      xmlns:page="clr-namespace:Wms.ViewModel.Page"
+      DataContext="{Binding BranchesViewModel, Source={StaticResource ViewModelLocator}}"
       Title="Branches">
     <Page.Resources>
         <Style TargetType="Label" x:Key="LblBranchInfo">
@@ -49,9 +49,9 @@
             <Setter  Property="Height" Value="220"/>
         </Style>
     </Page.Resources>
-        <Page.DataContext>
+        <!--<Page.DataContext>
         <page:BranchesViewModel/>
-        </Page.DataContext>
+        </Page.DataContext>-->
     <StackPanel >
         <StackPanel.Style>
             <Style TargetType="StackPanel">
