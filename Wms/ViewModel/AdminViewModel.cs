@@ -1,4 +1,5 @@
 ﻿using Refit;
+using AutoMapper;
 using Wms.API.Models;
 using DevExpress.Mvvm;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWindowSettings _windowSettings;
 
@@ -54,21 +56,13 @@ namespace Wms.ViewModel
                 {
                     try
                     {
-                        var account = new Account { Company = c.Company, Name = c.Name, Address = c.Address, City = c.City, State = c.State, Zip = c.Zip, Phone = c.Phone, Email = c.Email };
-                        var result = await _unitOfWork.AccountRepository.ChangeAccountAsync(account);
+                        var account = _mapper.Map<Account>(c);
+                        var result = await _unitOfWork.AccountRepository.ChangeAccountAsync(_mapper.Map<Account>(c));
                         if (result.Code == 1)
                         {
                             UserName = account.Name;
                             Company = account.Company;
-
-                            App.Data.Data.Customer.Zip = account.Zip;
-                            App.Data.Data.Customer.Name = account.Name;
-                            App.Data.Data.Customer.City = account.City;
-                            App.Data.Data.Customer.Phone = account.Phone;
-                            App.Data.Data.Customer.State = account.State;
-                            App.Data.Data.Customer.Email = account.Email;
-                            App.Data.Data.Customer.Company = account.Company;
-                            App.Data.Data.Customer.Address = account.Address;
+                            App.Data.Data.Customer = _mapper.Map(account, App.Data.Data.Customer);
                         }
                     }
                     catch (ApiException ex)
@@ -93,8 +87,9 @@ namespace Wms.ViewModel
                 MessageBox.Show(content.Text);
         }
 
-        public AdminViewModel(IUnitOfWork unitOfWork, IWindowSettings windowSettings)
+        public AdminViewModel(IUnitOfWork unitOfWork, IWindowSettings windowSettings, IMapper mapper)
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
             _windowSettings = windowSettings;
 

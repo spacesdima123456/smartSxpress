@@ -1,4 +1,6 @@
-﻿using Wms.ViewModel;
+﻿using AutoMapper;
+using Wms.Mapping;
+using Wms.ViewModel;
 using Ninject.Modules;
 using Wms.UnitOfWorkAPI;
 using Wms.ViewModel.Page;
@@ -16,6 +18,10 @@ namespace Wms.DependencyInjection
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
             Bind<IWindowBranch>().To<WindowBranch>().InSingletonScope();
             Bind<IWindowSettings>().To<WindowSettings>().InSingletonScope();
+
+            //mapper
+            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<AutoMapping>(); });
+            Bind<IMapper>().ToConstructor(c => new Mapper(mapperConfiguration)).InSingletonScope();
 
             //view models 
             Bind<AdminViewModel>().ToSelf().InTransientScope();

@@ -1,4 +1,5 @@
 ﻿using Refit;
+using AutoMapper;
 using System.Linq;
 using Nito.AsyncEx;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace Wms.ViewModel.Page
 {
     public class BranchesViewModel : BaseViewModel
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWindowBranch _windowBranch;
 
@@ -44,8 +46,7 @@ namespace Wms.ViewModel.Page
                     b.Validate();
                     if (!b.HasErrors)
                     {
-                        var branch = CreateBranch(b.Zip, b.Name, b.City, b.Email, b.Phone, b.State, b.Address, b.Company, b.Country.CountryCode, b.Password);
-                        await _unitOfWork.BranchRepository.CreateBranchAsync(branch);
+                        await _unitOfWork.BranchRepository.CreateBranchAsync(_mapper.Map<BranchCreate>(b));
                         RefreshBranchAndCloseWindow();
                     }
                 }
@@ -67,8 +68,7 @@ namespace Wms.ViewModel.Page
                         e.ValidateForm();
                         if (!e.HasErrors)
                         {
-                            var branch = MakeBranch(e.Zip, e.Name, e.City, e.Email, e.Phone, e.State, e.Address, e.Company, e.Country.CountryCode);
-                            await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, branch);
+                            await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, _mapper.Map<BranchBase>(e));
                             RefreshBranchAndCloseWindow();
                         }
                     }
@@ -80,8 +80,9 @@ namespace Wms.ViewModel.Page
             Messenger.Default.Send(b);
         });
 
-        public BranchesViewModel(IUnitOfWork unitOfWork, IWindowBranch windowBranch)
+        public BranchesViewModel(IUnitOfWork unitOfWork, IWindowBranch windowBranch, IMapper mapper)
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
             _windowBranch = windowBranch;
         }
@@ -90,18 +91,6 @@ namespace Wms.ViewModel.Page
         {
             Branches = new ObservableCollection<Branches>(LoadBranches());
             _windowBranch.Close();
-        }
-
-        private static BranchBase MakeBranch(int? zip, string name, string city, string email, string phone, string state,
-            string address, string company, string code)
-        {
-            return new BranchBase { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code };
-        }
-
-        private static BranchCreate CreateBranch(int? zip, string name, string city, string email, string phone, string state,
-            string address, string company, string code, string password)
-        {
-            return new BranchCreate { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code, Password = password };
         }
 
         private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchBaseViewModel vm)
