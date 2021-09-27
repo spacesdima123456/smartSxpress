@@ -2,6 +2,7 @@
 using DevExpress.Mvvm;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using Wms.Services.Window.Contract;
 using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.ViewModel
@@ -9,6 +10,7 @@ namespace Wms.ViewModel
     public class AdminViewModel : BaseViewModel
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWindowSettings _windowSettings;
 
         private string _source;
         public string Source
@@ -42,12 +44,21 @@ namespace Wms.ViewModel
         private ICommand _profileCommand;
         public ICommand ProfileCommand => _profileCommand ??= new DelegateCommand(() =>
         {
+            _windowSettings.ShowProfile(c =>
+            {
 
+                _windowSettings.HideProfileWindow();
+            }, p =>
+            {
+
+                _windowSettings.HideProfileWindow();
+            });
         });
 
-        public AdminViewModel(IUnitOfWork unitOfWork)
+        public AdminViewModel(IUnitOfWork unitOfWork, IWindowSettings windowSettings)
         {
             _unitOfWork = unitOfWork;
+            _windowSettings = windowSettings;
 
             Messenger.Default.Register<Response>(this, (data) =>
             {

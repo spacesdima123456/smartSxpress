@@ -41,9 +41,13 @@ namespace Wms.ViewModel.Page
             {
                 try
                 {
-                    var branch = CreateBranch(b.Zip, b.Name, b.City, b.Email, b.Phone, b.State, b.Address, b.Company, b.Country.CountryCode, b.Password);
-                    await _unitOfWork.BranchRepository.CreateBranchAsync(branch);
-                    RefreshBranchAndCloseWindow();
+                    b.Validate();
+                    if (!b.HasErrors)
+                    {
+                        var branch = CreateBranch(b.Zip, b.Name, b.City, b.Email, b.Phone, b.State, b.Address, b.Company, b.Country.CountryCode, b.Password);
+                        await _unitOfWork.BranchRepository.CreateBranchAsync(branch);
+                        RefreshBranchAndCloseWindow();
+                    }
                 }
                 catch (ApiException e)
                 {
@@ -60,9 +64,13 @@ namespace Wms.ViewModel.Page
                 {
                     try
                     {
-                        var branch = MakeBranch(e.Zip, e.Name, e.City, e.Email, e.Phone, e.State, e.Address, e.Company, e.Country.CountryCode);
-                        await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, branch);
-                        RefreshBranchAndCloseWindow();
+                        e.ValidateForm();
+                        if (!e.HasErrors)
+                        {
+                            var branch = MakeBranch(e.Zip, e.Name, e.City, e.Email, e.Phone, e.State, e.Address, e.Company, e.Country.CountryCode);
+                            await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, branch);
+                            RefreshBranchAndCloseWindow();
+                        }
                     }
                     catch (ApiException ex)
                     {
@@ -96,7 +104,7 @@ namespace Wms.ViewModel.Page
             return new BranchCreate { Zip = zip, Name = name, City = city, Email = email, Phone = phone, State = state, Address = address, Company = company, Code = code, Password = password };
         }
 
-        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchViewModel vm)
+        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchBaseViewModel vm)
         {
             var content = await e.GetContentAsAsync<Error>();
             if (content.Errors != null)

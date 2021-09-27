@@ -1,10 +1,10 @@
-﻿using Ninject.Modules;
+﻿using Wms.ViewModel;
+using Ninject.Modules;
+using Wms.UnitOfWorkAPI;
+using Wms.ViewModel.Page;
+using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
 using Wms.Services.Window.WindowDialogs;
-using Wms.UnitOfWorkAPI;
-using Wms.UnitOfWorkAPI.Contract;
-using Wms.ViewModel;
-using Wms.ViewModel.Page;
 
 namespace Wms.DependencyInjection
 {
@@ -15,6 +15,7 @@ namespace Wms.DependencyInjection
             //services
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
             Bind<IWindowBranch>().To<WindowBranch>().InSingletonScope();
+            Bind<IWindowSettings>().To<WindowSettings>().InSingletonScope();
 
             //view models 
             Bind<AdminViewModel>().ToSelf().InTransientScope();

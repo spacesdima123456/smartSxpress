@@ -8,7 +8,7 @@ namespace Wms.Services.Window.Contract
     {
         void Close();
         void Delete(Action<object> action);
-        void Edit(Branches branches, Action<DisplayAlertBranchViewModel> action);
-        void Create(Action<DisplayAlertBranchViewModel> action);
+        void Create(Action<DisplayAlertBranchBaseViewModel> action);
+        void Edit(Branches branches, Action<DisplayAlertBranchBaseViewModel> action);
     }
 }

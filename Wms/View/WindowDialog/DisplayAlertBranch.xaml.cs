@@ -13,11 +13,11 @@ namespace Wms.View.WindowDialog
             InitializeComponent();
         }
 
-        public DisplayAlertBranch(Action<DisplayAlertBranchViewModel> action): this()
+        public DisplayAlertBranch(Action<DisplayAlertBranchBaseViewModel> action): this()
         {
             DataContext = new DisplayAlertBranchViewModel(action);
         }
-        public DisplayAlertBranch(Branches branches, Action<DisplayAlertBranchViewModel> action) : this()
+        public DisplayAlertBranch(Branches branches, Action<DisplayAlertBranchBaseViewModel> action) : this()
         {
             DataContext = new DisplayAlertBranchViewModel(branches, action);
         }
@@ -30,9 +30,9 @@ namespace Wms.View.WindowDialog
         private void OnValueChanged(object sender, EditValueChangedEventArgs e)
         {
             var vm = (DisplayAlertBranchViewModel) DataContext;
-            if (e.NewValue!=null && e.OldValue!=null)
+            if (e.NewValue != null && e.OldValue != null)
             {
-                if (!vm.IsEnabled && e.NewValue != e.OldValue)
+                if (!vm.IsEnabled && e.NewValue != e.OldValue && !string.IsNullOrEmpty(e.OldValue.ToString()))
                     vm.IsEnabled = true;
                 if (sender is ComboBoxEdit && e.NewValue != e.OldValue)
                     TxePhone.Clear();

@@ -9,7 +9,7 @@ namespace Wms.Services.Window.WindowDialogs
     public class WindowBranch : IWindowBranch
     {
         private  System.Windows.Window _window;
-        public void Create(Action<DisplayAlertBranchViewModel> action)
+        public void Create(Action<DisplayAlertBranchBaseViewModel> action)
         {
             CreateWindow(new DisplayAlertBranch(action)).CreateWindow();
         }
@@ -19,7 +19,7 @@ namespace Wms.Services.Window.WindowDialogs
             CreateWindow(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action)).CreateWindow();
         }
 
-        public void Edit(Branches branches,Action<DisplayAlertBranchViewModel> action)
+        public void Edit(Branches branches, Action<DisplayAlertBranchBaseViewModel> action)
         {
             CreateWindow(new DisplayAlertBranch(branches, action)).CreateWindow();
         }

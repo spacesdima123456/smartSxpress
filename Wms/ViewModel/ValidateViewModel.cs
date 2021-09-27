@@ -39,6 +39,7 @@ namespace Wms.ViewModel
                 OnErrorsChanged(property);
             }
         }
+
         protected void ClearErrors()
         {
             Errors.ForEach(f =>
