@@ -194,35 +194,31 @@ namespace Wms.ViewModel.Dialog
             base.HandleErrors(error);
         }
 
-        public DisplayAlertBranchViewModel(Action<DisplayAlertBranchViewModel> action)
+
+        public DisplayAlertBranchViewModel()
+        {
+
+            Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
+        }
+
+        public DisplayAlertBranchViewModel(Action<DisplayAlertBranchViewModel> action):this()
         {
             _action = action;
-            Countries = new ObservableCollection<Countries>(App.Data.Data.Countries);
-            
-            Messenger.Default.Register<string>(this, (company) =>
-            {
-                Height = 480;
-                Title = "Create";
-                IsEnabled = true;
-                Company = company;
-                Visibility = Visibility.Visible;
-                Content = Translate("Create");
-            });
 
-            Messenger.Default.Register<Customer>(this,
-                (data) =>
-                {
-                    InitProperty(480, "Profile", false, data.Zip, data.Name, data.City, data.Phone, data.State,
-                        data.Email, data.Company, data.Address, Visibility.Visible, "Done", data.CountryName);
-                });
-
-            Messenger.Default.Register<Branches>(this, (branches) =>
-            {
-                InitProperty(395, "Edit", false, branches.Zip, branches.Name, branches.City, branches.Phone,
-                    branches.State, branches.Email, branches.Company, branches.Address, Visibility.Collapsed, "Done",
-                    branches.Code);
-            });
+            InitProperty(480, "Create", true, null, string.Empty, string.Empty, string.Empty,
+                string.Empty, string.Empty, App.Data.Data.Customer.Company, string.Empty, Visibility.Visible, "Create",
+                string.Empty);
         }
+
+        public DisplayAlertBranchViewModel(Branches branches, Action<DisplayAlertBranchViewModel> action) : this()
+        {
+            _action = action;
+
+            InitProperty(395, "Edit", false, branches.Zip, branches.Name, branches.City, branches.Phone,
+                branches.State, branches.Email, branches.Company, branches.Address, Visibility.Collapsed, "Done",
+                branches.Code);
+        }
+
 
         private void InitProperty(
             int height, string title, bool isEnabled,

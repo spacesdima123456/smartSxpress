@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Windows;
-using DevExpress.Xpf.Editors;
+using Wms.API.Models;
 using Wms.ViewModel.Dialog;
+using DevExpress.Xpf.Editors;
 
 namespace Wms.View.WindowDialog
 {
     public sealed partial class DisplayAlertBranch : DisplayAlertBase
     {
-        public DisplayAlertBranch(Action<DisplayAlertBranchViewModel> action)
+        public DisplayAlertBranch()
         {
             InitializeComponent();
-            //SetWindowStartupLocation();
+        }
+
+        public DisplayAlertBranch(Action<DisplayAlertBranchViewModel> action): this()
+        {
             DataContext = new DisplayAlertBranchViewModel(action);
+        }
+        public DisplayAlertBranch(Branches branches, Action<DisplayAlertBranchViewModel> action) : this()
+        {
+            DataContext = new DisplayAlertBranchViewModel(branches, action);
         }
 
         private void Close(object sender, RoutedEventArgs e)

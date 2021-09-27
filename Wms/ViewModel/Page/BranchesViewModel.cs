@@ -56,7 +56,7 @@ namespace Wms.ViewModel.Page
         private ICommand _editCommand;
         public ICommand EditCommand => _editCommand ??= new DelegateCommand<Branches>( (b) =>
         {
-            _windowBranch.Edit(async e =>
+            _windowBranch.Edit(b,async e =>
                 {
                     try
                     {

@@ -2,6 +2,7 @@
 using Wms.ViewModel.Dialog;
 using Wms.View.WindowDialog;
 using Wms.Services.Window.Contract;
+using Wms.API.Models;
 
 namespace Wms.Services.Window.WindowDialogs
 {
@@ -10,7 +11,7 @@ namespace Wms.Services.Window.WindowDialogs
         private  System.Windows.Window _window;
         public void Create(Action<DisplayAlertBranchViewModel> action)
         {
-            CreateWindow(new DisplayAlertBranch(action)).Show();
+            CreateWindow(new DisplayAlertBranch(action)).CreateWindow();
         }
 
         public void Delete(Action<object> action)
@@ -18,9 +19,9 @@ namespace Wms.Services.Window.WindowDialogs
             CreateWindow(new DisplayAlert("DeleteBranchTittle", "Yes", "No", "MsgDeleteBranch", action)).CreateWindow();
         }
 
-        public void Edit(Action<DisplayAlertBranchViewModel> action)
+        public void Edit(Branches branches,Action<DisplayAlertBranchViewModel> action)
         {
-            CreateWindow(new DisplayAlertBranch(action)).Show();
+            CreateWindow(new DisplayAlertBranch(branches, action)).CreateWindow();
         }
 
         private WindowDialog CreateWindow(System.Windows.Window window)
@@ -33,5 +34,6 @@ namespace Wms.Services.Window.WindowDialogs
         {
             _window.Close();
         }
+
     }
 }
