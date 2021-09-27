@@ -1,9 +1,12 @@
-﻿using Wms.API.Models;
+﻿using Refit;
+using Wms.API.Models;
 using DevExpress.Mvvm;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Wms.ViewModel.Dialog;
 using System.Threading.Tasks;
-using Wms.Services.Window.Contract;
 using Wms.UnitOfWorkAPI.Contract;
+using Wms.Services.Window.Contract;
 
 namespace Wms.ViewModel
 {
@@ -44,16 +47,51 @@ namespace Wms.ViewModel
         private ICommand _profileCommand;
         public ICommand ProfileCommand => _profileCommand ??= new DelegateCommand(() =>
         {
-            _windowSettings.ShowProfile(c =>
+            _windowSettings.ShowProfile(async c=>
             {
+                c.ValidateForm();
+                if (!c.HasErrors)
+                {
+                    try
+                    {
+                        var account = new Account { Company = c.Company, Name = c.Name, Address = c.Address, City = c.City, State = c.State, Zip = c.Zip, Phone = c.Phone, Email = c.Email };
+                        var result = await _unitOfWork.AccountRepository.ChangeAccountAsync(account);
+                        if (result.Code == 1)
+                        {
+                            UserName = account.Name;
+                            Company = account.Company;
 
-                _windowSettings.HideProfileWindow();
+                            App.Data.Data.Customer.Zip = account.Zip;
+                            App.Data.Data.Customer.Name = account.Name;
+                            App.Data.Data.Customer.City = account.City;
+                            App.Data.Data.Customer.Phone = account.Phone;
+                            App.Data.Data.Customer.State = account.State;
+                            App.Data.Data.Customer.Email = account.Email;
+                            App.Data.Data.Customer.Company = account.Company;
+                            App.Data.Data.Customer.Address = account.Address;
+                        }
+                    }
+                    catch (ApiException ex)
+                    {
+                        await HandleErrorsAsync(ex, c);
+                    }
+                }
+
             }, p =>
             {
-
                 _windowSettings.HideProfileWindow();
             });
         });
+
+
+        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchBaseViewModel vm)
+        {
+            var content = await e.GetContentAsAsync<Error>();
+            if (content.Errors != null)
+                vm.HandleErrors(content);
+            else
+                MessageBox.Show(content.Text);
+        }
 
         public AdminViewModel(IUnitOfWork unitOfWork, IWindowSettings windowSettings)
         {

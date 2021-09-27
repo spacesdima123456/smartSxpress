@@ -20,5 +20,8 @@ namespace Wms.UnitOfWorkAPI
 
         private AuthorizationRepository _authorization;
         public IAuthorizationRepository AuthorizationRepository => _authorization??=new AuthorizationRepository(_rest);
+
+        private AccountRepository _accountRepository;
+        public IAccountRepository AccountRepository => _accountRepository??=new AccountRepository(_rest);
     }
 }
