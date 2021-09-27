@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-using AutoMapper;
-using DevExpress.Mvvm.Native;
+﻿using AutoMapper;
 using Wms.API.Models;
 using Wms.ViewModel.Dialog;
 

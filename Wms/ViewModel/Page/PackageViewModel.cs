@@ -5,6 +5,6 @@ namespace Wms.ViewModel.Page
 {
     public class PackageViewModel: BaseViewModel
     {
-        public ObservableCollection<Countries> Countries => new ObservableCollection<Countries>(App.Data.Data.Countries);
+        public static ObservableCollection<Countries> Countries => new ObservableCollection<Countries>(App.Data.Data.Countries);
     }
 }
