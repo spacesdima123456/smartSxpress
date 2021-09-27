@@ -48,7 +48,7 @@
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutItem Label="Country">
-                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged" />
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged" IsEnabled="False"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
                 <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=TwoWay}" EditValueChanged="OnValueChanged" />

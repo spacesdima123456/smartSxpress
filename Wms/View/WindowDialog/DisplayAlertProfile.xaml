@@ -44,10 +44,10 @@
                 </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
             <dxlc:LayoutItem Label="Country">
-                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged" />
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=Countries, Mode=OneWay}" SelectedItem="{Binding Path=Country, Mode=TwoWay}" DisplayMember="Name" EditValueChanged="OnValueChanged" IsEnabled="False"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Phone">
-                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=TwoWay}" Mask="{Binding Path=Country.PhoneMask, Mode=OneWay}" MaskType="Simple" EditValueChanged="OnValueChanged" CaretIndex="0"/>
+                <dxe:TextEdit x:Name="TxePhone" Text="{Binding Path=Phone, Mode=TwoWay}"  EditValueChanged="OnValueChanged" CaretIndex="0"/>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="Email">
                 <dxe:TextEdit Text="{Binding Path=Email}" EditValueChanged="OnValueChanged"/>
