@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using DevExpress.Mvvm;
-using DevExpress.Mvvm.Native;
+using System.Windows.Input;
 
 namespace Wms.ViewModel.Dialog
 {
@@ -15,7 +14,7 @@ namespace Wms.ViewModel.Dialog
 
         public virtual ICommand ChangePasswordCommand => _changePasswordCommand ??= new DelegateCommand(() =>
         {
-            ClearPasswordErrors();
+            ClearErrors();
             ValidatePassword();
             if (Errors.Count == 0)
             {
@@ -26,7 +25,7 @@ namespace Wms.ViewModel.Dialog
         private ICommand _doneCommand;
         public override ICommand DoneCommand => _doneCommand ??= new DelegateCommand(() =>
         {
-            ClearFormErrors();
+            ClearErrors();
             ValidateForm();
             if (Errors.Count == 0)
             {
@@ -53,19 +52,6 @@ namespace Wms.ViewModel.Dialog
                 Visibility.Visible,
                 "Done",
                 App.Data.Data.Customer.CountryName);
-        }
-
-        protected void ClearFormErrors()
-        {
-           
-            string[] properties = { "Company", "Name", "Address", "City", "Zip", "State", "Phone", "Email" };
-            properties.ForEach(ClearError);
-        }
-
-        protected void ClearPasswordErrors()
-        {
-            string[] properties = { "Password", "ConfirmPassword" };
-            properties.ForEach(ClearError);
         }
     }
 }

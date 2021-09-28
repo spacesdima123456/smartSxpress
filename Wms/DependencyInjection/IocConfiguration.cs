@@ -15,7 +15,7 @@ namespace Wms.DependencyInjection
         public override void Load()
         {
             //services
-            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
             Bind<IWindowBranch>().To<WindowBranch>().InSingletonScope();
             Bind<IWindowSettings>().To<WindowSettings>().InSingletonScope();
 
