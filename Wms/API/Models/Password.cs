@@ -4,7 +4,7 @@ namespace Wms.API.Models
 {
     public class Password
     {
-        [JsonPropertyName("min")]
-        public string Min { get; set; }
+        [JsonPropertyName("password")]
+        public string UserPassword { get; set; }
     }
 }

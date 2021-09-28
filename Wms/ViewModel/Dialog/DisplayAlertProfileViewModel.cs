@@ -15,6 +15,7 @@ namespace Wms.ViewModel.Dialog
 
         public virtual ICommand ChangePasswordCommand => _changePasswordCommand ??= new DelegateCommand(() =>
         {
+            ClearPasswordErrors();
             ValidatePassword();
             if (Errors.Count == 0)
             {
@@ -25,7 +26,7 @@ namespace Wms.ViewModel.Dialog
         private ICommand _doneCommand;
         public override ICommand DoneCommand => _doneCommand ??= new DelegateCommand(() =>
         {
-            ClearErrors();
+            ClearFormErrors();
             ValidateForm();
             if (Errors.Count == 0)
             {

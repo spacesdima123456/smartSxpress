@@ -71,9 +71,23 @@ namespace Wms.ViewModel
                     }
                 }
 
-            }, p =>
+            }, async p=>
             {
-                _windowSettings.HideProfileWindow();
+                try
+                {
+                    var password = await _unitOfWork.AccountRepository.ChangePasswordAsync(new Password { UserPassword = p.Password });
+                    if (password.Code == 1)
+                    {
+                        await _unitOfWork.AuthorizationRepository.LogOutAsync(Properties.Settings.Default.Token);
+                        _windowSettings.HideProfileWindow();
+                        _windowSettings.ShowLoginPage();
+                    }
+
+                }
+                catch (ApiException ex)
+                {
+                    await HandleErrorsAsync(ex, p);
+                }
             });
         });
 

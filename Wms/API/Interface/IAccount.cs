@@ -12,6 +12,6 @@ namespace Wms.API.Interface
 
         [Put("/profile/changePassword")]
         [Headers("Content-Type: application/json")]
-        Task<Error> ChangePasswordAsync([Body] string password);
+        Task<Error> ChangePasswordAsync([Body] Password password);
     }
 }

@@ -11,6 +11,6 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI
         private readonly IAccount _account;
         public AccountRepository(IRest rest) : base(rest)=> _account = rest.ExecuteRequest<IAccount>();
         public  Task<Error> ChangeAccountAsync(Account account)=> _account.ChangeAccountAsync(account);
-        public Task<Error> ChangePasswordAsync(string password)=> _account.ChangePasswordAsync(password);
+        public Task<Error> ChangePasswordAsync(Password password)=> _account.ChangePasswordAsync(password);
     }
 }
