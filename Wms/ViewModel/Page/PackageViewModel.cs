@@ -37,7 +37,14 @@ namespace Wms.ViewModel.Page
         {
             var item = Boxes.LastOrDefault();
             if (item!=null && item.Height > 0 && item.Length > 0 && item.Weight > 0 && item.Width > 0)
-                Boxes.Add(new Boxes { Number = Boxes.Count + 1 });
+                Boxes.Add(new Boxes { Number = Boxes.Max(m=>m.Number) + 1 });
+        });
+
+        private ICommand _removeBoxCommand;
+        public ICommand RemoveBoxCommand => _removeBoxCommand ??= new DelegateCommand<Boxes>((box) =>
+        {
+            if (Boxes.Count>1)
+                Boxes.Remove(box);
         });
 
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
@@ -50,8 +57,7 @@ namespace Wms.ViewModel.Page
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
             DocTypeSender = DocTypes[0];
             CountryRecipient = countriesRecipient[0];
-            Boxes = new ObservableCollection<Boxes>();
-            Boxes.Add(new Boxes { Number = 1 });
+            Boxes = new ObservableCollection<Boxes> {new Boxes {Number = 1}};
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
         }
     }
