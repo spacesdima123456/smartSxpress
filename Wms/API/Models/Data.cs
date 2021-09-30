@@ -13,6 +13,9 @@ namespace Wms.API.Models
 
         [JsonPropertyName("countries")]
         public List<Countries> Countries { get; set; }
+
+        [JsonPropertyName("docTypes")]
+        public List<DocType> DocType { get; set; }
     }
 
 }
