@@ -133,7 +133,7 @@
                         <DataGridTextColumn Header="Длинна"  Binding="{Binding Path=Length, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
                         <DataGridTextColumn Header="Ширина"  Binding="{Binding Path=Width, Converter={StaticResource DoubleConverter }, ConverterParameter='1'}"/>
                         <DataGridTextColumn Header="Вес"  Binding="{Binding Path=Weight, Converter={StaticResource DoubleConverter }, ConverterParameter='2'}"/>
-                        <DataGridTemplateColumn Header="Delete">
+                        <DataGridTemplateColumn Header="">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Opacity="1" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveBoxCommand}" CommandParameter="{Binding}">
