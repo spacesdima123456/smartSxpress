@@ -4,6 +4,7 @@
       x:Class="Wms.View.Page.Package"
       xmlns:vm="clr-namespace:Wms.ViewModel.Page"
       xmlns:converter="clr-namespace:Wms.Converter"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -11,45 +12,75 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
+      xmlns:bindings="clr-namespace:Wms.Infrastructure.Bindings">
     <Page.DataContext>
         <vm:PackageViewModel/>
     </Page.DataContext>
     <Page.Resources>
         <converter:UrlToDoubleConverter x:Key="DoubleConverter"/>
         <Style TargetType="{x:Type dxlc:LayoutItem}">
-            <Setter  Property="FontSize" Value="15"/>
-            <Setter  Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
         <Style TargetType="{x:Type GroupBox}">
-            <Setter  Property="FontSize" Value="17"/>
-            <Setter  Property="FontWeight" Value="Bold"/>
-            <Setter  Property="Margin" Value="35 0 35 20"/>
-            <Setter  Property="BorderBrush" Value="Black"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Background" Value="#AFAFAF"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 0 35 0"/>
+            <Setter Property="BorderBrush" Value="Black"/>
         </Style>
         <Style TargetType="{x:Type dxlc:LayoutControl}">
-            <Setter Property="ItemSpace" Value="15"/>
+            <Setter Property="ItemSpace" Value="10"/>
             <Setter Property="Orientation" Value="Vertical"/>
         </Style>
         <Style TargetType="{x:Type dxlc:LayoutGroup}">
-            <Setter Property="ItemSpace" Value="15"/>
+            <Setter Property="ItemSpace" Value="10"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GroupBox" TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style x:Key="DataGrid" TargetType="DataGrid" >
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="230"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+        </Style>
+        <Style x:Key="LblWeight" TargetType="Label">
+            <Setter Property="FontSize" Value="15"/>
         </Style>
     </Page.Resources>
     <Grid Margin="10 40 40 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="550"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="550"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Sender" Grid.Column="1" Grid.Row="0" BorderThickness="2" Background="#AFAFAF">
+            <GroupBox Header="Sender" Grid.Column="1" Grid.Row="0" Style="{StaticResource GroupBox}">
                 <StackPanel>
-                    <GroupBox Header="Doc" Margin="35 10 35 20">
+                    <GroupBox Header="Doc" Margin="15 10 15 20">
                         <dxlc:LayoutControl >
                             <dxlc:LayoutItem Label="Type: ">
                                 <dxe:ComboBoxEdit SelectedItem="{Binding Path=DocTypeSender, Mode=OneWay}" ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type"/>
@@ -59,7 +90,7 @@
                             </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
-                    <GroupBox Header="Address" Margin="35 0 35 28">
+                    <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
                                 <dxe:TextEdit/>
@@ -90,30 +121,35 @@
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-            <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Top" Margin="0 15 0 0">
-            <DataGrid dx:ThemeManager.ThemeName="office2016white" x:Name="DtgBox" Height="230" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+        <GroupBox  Header="Package info" Grid.Column="2" Grid.Row="0" Style="{StaticResource GroupBox}">
+            <StackPanel Margin="15 10 15 20">
+                <DataGrid x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Коробка" Width="75" Binding="{Binding Path=Number}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Высота" Width="75" Binding="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
-                        <DataGridTextColumn Header="Длинна" Width="75" Binding="{Binding Path=Length, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
-                        <DataGridTextColumn Header="Ширина"  Width="75" Binding="{Binding Path=Width, Converter={StaticResource DoubleConverter }, ConverterParameter='1'}"/>
-                        <DataGridTextColumn Header="Вес" Width="90" Binding="{Binding Path=Weight, Converter={StaticResource DoubleConverter }, ConverterParameter='2'}"/>
-                        <DataGridTemplateColumn Header="Delete" Width="75">
+                        <DataGridTextColumn Header="Коробка" Binding="{Binding Path=Number}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Высота"  Binding="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
+                        <DataGridTextColumn Header="Длинна"  Binding="{Binding Path=Length, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
+                        <DataGridTextColumn Header="Ширина"  Binding="{Binding Path=Width, Converter={StaticResource DoubleConverter }, ConverterParameter='1'}"/>
+                        <DataGridTextColumn Header="Вес"  Binding="{Binding Path=Weight, Converter={StaticResource DoubleConverter }, ConverterParameter='2'}"/>
+                        <DataGridTemplateColumn Header="Delete">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveBoxCommand}" CommandParameter="{Binding}">
-                                    <svgc:SvgViewbox Source="../../Icon/Svg/close.svg"/>
-                                </Button>
-                            </DataTemplate>
+                                    <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Opacity="1" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveBoxCommand}" CommandParameter="{Binding}">
+                                        <svgc:SvgViewbox Source="../../Icon/Svg/close.svg"/>
+                                    </Button>
+                                </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Content="+" FontSize="45"  Background="#AFAFAF" Padding="0 -16 0 0" Width="40" Height="40" Command="{Binding Path=AddBoxCommand}" Margin="0 20 0 0"/>
+                <Button Content="+" FontSize="45" BorderThickness="0"  Background="#AFAFAF" Padding="0 -16 0 0" Width="40" Height="40" Command="{Binding Path=AddBoxCommand}" Margin="0 20 0 0"/>
+                <Label Content="{Binding Path=PhysicalWeight, Mode=OneWay}" Foreground="{Binding Path=PhysWeightColor, Mode=OneWay}"  ContentStringFormat="Физический вес: {0}"/>
+                <Label Content="{Binding Path=VolumetricWeight, Mode=OneWay}" Foreground="{Binding Path=VolumWeightColor, Mode=OneWay}" Style="{StaticResource LblWeight}" ContentStringFormat="Объемный вес: {0}" />
+                <Label></Label>
             </StackPanel>
-            <GroupBox Header="Recipient" Grid.Column="3" Grid.Row="0" BorderThickness="2" Background="#AFAFAF">
+        </GroupBox>
+        <GroupBox Header="Recipient" Grid.Column="3" Grid.Row="0" Style="{StaticResource GroupBox}">
                 <StackPanel>
-                    <GroupBox Header="Doc" Margin="35 10 35 20">
+                    <GroupBox Header="Doc" Margin="15 10 15 20">
                         <dxlc:LayoutControl >
                             <dxlc:LayoutItem Label="Type: ">
                                 <dxe:ComboBoxEdit ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type" SelectedItem="{Binding Path=DocTypeRecipient, Mode=OneWay}"  IsEnabled="False"/>
@@ -123,7 +159,7 @@
                             </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
-                    <GroupBox Header="Address" Margin="35 0 35 28">
+                    <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
                                 <dxe:TextEdit/>

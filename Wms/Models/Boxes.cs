@@ -4,6 +4,11 @@ namespace Wms.Models
 {
     public class Boxes: BaseViewModel
     {
+        //public int Number { get; set; }
+        //public double? Length { get; set; }
+        //public double? Width { get; set; }
+        //public double? Height { get; set; }
+        //public double? Weight { get; set; }
         private int _number;
         public int Number
         {
@@ -21,8 +26,8 @@ namespace Wms.Models
         private double? _width;
         public double? Width
         {
-            get=> _width;
-            set=> Set(nameof(Width), ref _width, value);
+            get => _width;
+            set => Set(nameof(Width), ref _width, value);
         }
 
         private double? _height;
@@ -38,7 +43,5 @@ namespace Wms.Models
             get => _weight;
             set => Set(nameof(Weight), ref _weight, value);
         }
-
-        public Boxes() { }
     }
 }

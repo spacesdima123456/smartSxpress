@@ -15,7 +15,7 @@ namespace Wms.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var pattern = @"\A[1-9]{1,9}(?:[.,][0-9]{1," + parameter + @"})?\z";
+            var pattern = @"\A[0-9]{1,9}(?:[.,][0-9]{1," + parameter + @"})?\z";
             if (value != null && Regex.IsMatch(value.ToString(), pattern, RegexOptions.IgnoreCase))
             {
                 var isNumber = Double.TryParse(value.ToString().Replace(".", ","), out var number);
