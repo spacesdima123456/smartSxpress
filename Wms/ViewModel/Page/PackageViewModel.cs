@@ -130,7 +130,7 @@ namespace Wms.ViewModel.Page
             PhysWeightColor = Brushes.Black;
 
             if (PhysicalWeight > VolumetricWeight)
-                PhysWeightColor = Brushes.Red;
+                PhysWeightColor = Brushes.Green;
 
             if (PhysicalWeight < VolumetricWeight)
                 VolumWeightColor = Brushes.Red;
