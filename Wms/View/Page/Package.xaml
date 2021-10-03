@@ -24,7 +24,7 @@
         <Style TargetType="{x:Type dxlc:LayoutItem}" BasedOn="{StaticResource {x:Type Control}}">
         </Style>
         <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type Control}}">
-            <Setter Property="Margin" Value="0 0 30 0"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="Background" Value="#AFAFAF"/>
         </Style>
@@ -65,12 +65,12 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </Page.Resources>
-    <Grid Margin="-15 20 0 0">
+    <Grid Margin="0 10 0 0" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="520"/>
-                <ColumnDefinition Width="520"/>
-                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="500"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
