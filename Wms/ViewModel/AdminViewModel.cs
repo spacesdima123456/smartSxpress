@@ -1,4 +1,5 @@
 ﻿using Refit;
+using System;
 using AutoMapper;
 using Wms.API.Models;
 using DevExpress.Mvvm;
@@ -8,11 +9,14 @@ using Wms.ViewModel.Dialog;
 using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Wms.ViewModel
 {
     public class AdminViewModel : BaseViewModel
     {
+        public EventHandler<KeyEventArgs> OnKeyDownEven;
+
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWindowSettings _windowSettings;
@@ -106,12 +110,18 @@ namespace Wms.ViewModel
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _windowSettings = windowSettings;
+            OnKeyDownEven += OnKeyDown;
 
             Messenger.Default.Register<Response>(this, (data) =>
             {
                 UserName = data.Data.Customer.Name;
                 Company = data.Data.Customer.Company;
             });
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Messenger.Default.Send(e);
         }
     }
 }

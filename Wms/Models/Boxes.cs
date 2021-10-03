@@ -1,21 +1,7 @@
-﻿using Wms.ViewModel;
-
-namespace Wms.Models
+﻿namespace Wms.Models
 {
-    public class Boxes: BaseViewModel
+    public class Boxes: BoxesBase
     {
-        //public int Number { get; set; }
-        //public double? Length { get; set; }
-        //public double? Width { get; set; }
-        //public double? Height { get; set; }
-        //public double? Weight { get; set; }
-        private int _number;
-        public int Number
-        {
-            get => _number;
-            set => Set(nameof(Number), ref _number, value);
-        }
-
         private double? _length;
         public double? Length
         {

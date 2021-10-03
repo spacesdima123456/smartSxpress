@@ -1,5 +1,5 @@
 ﻿<Page 
-      Title="Package"
+    Title="Package"
       mc:Ignorable="d" 
       x:Class="Wms.View.Page.Package"
       xmlns:vm="clr-namespace:Wms.ViewModel.Page"
@@ -16,6 +16,8 @@
         <vm:PackageViewModel/>
     </Page.DataContext>
     <Page.Resources>
+        <converter:ToStringConverter x:Key="StrConverter"/>
+        <converter:ToIntConverter x:Key="IntConverter"/>
         <converter:UrlToDoubleConverter x:Key="DoubleConverter"/>
         <Style TargetType="{x:Type Control}">
             <Setter Property="FontSize" Value="15"/>
@@ -50,16 +52,18 @@
         <Style x:Key="GroupBox" TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
-        <Style x:Key="DataGrid" TargetType="DataGrid" >
-            <Setter Property="Width" Value="Auto"/>
-            <Setter Property="Height" Value="230"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <!--<Setter Property="Width" Value="Auto"/>-->
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="ColumnWidth" Value="*"/>
+            <!--<Setter Property="ColumnWidth" Value="*"/>-->
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="AutoGenerateColumns" Value="False"/>
+        </Style>
+        <Style x:Key="DataGrid" TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}" >
+            <Setter Property="Height" Value="230"/>
         </Style>
         <Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -68,13 +72,14 @@
     <Grid Margin="0 10 0 0" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="520"/>
-                <ColumnDefinition Width="520"/>
-                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="518"/>
+                <ColumnDefinition Width="518"/>
+                <ColumnDefinition Width="518"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
             <GroupBox Header="Sender" Grid.Column="1" Grid.Row="0" Style="{StaticResource GroupBox}">
@@ -82,27 +87,27 @@
                     <GroupBox Header="Doc" Margin="15 10 15 20">
                         <dxlc:LayoutControl >
                             <dxlc:LayoutItem Label="Type: ">
-                                <dxe:ComboBoxEdit SelectedItem="{Binding Path=DocTypeSender, Mode=OneWay}" ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type"/>
+                                <dxe:ComboBoxEdit SelectedItem="{Binding Path=DocTypeSender, Mode=TwoWay}" ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="#:">
-                                <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.DocId, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
                     <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit Text="{Binding Path=Sender.Name, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Address:">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit  Text="{Binding Path=Sender.Address, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="City:">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit  Text="{Binding Path=Sender.City, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Zip:">
-                                    <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.Zip, Mode=TwoWay}"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="State:">
                                 <dxlc:LayoutItem.Style>
@@ -115,7 +120,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </dxlc:LayoutItem.Style>
-                                    <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.State, Mode=TwoWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup Orientation="Horizontal">
@@ -123,7 +128,7 @@
                                     <dxe:ComboBoxEdit SelectedItem="{Binding Path=CountrySender, Mode=OneWay}" ItemsSource="{Binding Path=CountriesSender, Mode=OneWay}" DisplayMember="Name" IsEnabled="False"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Phone:">
-                                    <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.Phone, Mode=TwoWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
@@ -132,14 +137,14 @@
             </GroupBox>
         <GroupBox  Header="Package info" Grid.Column="2" Grid.Row="0" Style="{StaticResource GroupBox}">
             <StackPanel Margin="15 10 15 20">
-                <DataGrid  x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}">
+                <DataGrid  x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}" Loaded="DtgLoaded">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Коробка" Binding="{Binding Path=Number}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Высота"  Binding="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
                         <DataGridTextColumn Header="Длинна"  Binding="{Binding Path=Length, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
                         <DataGridTextColumn Header="Ширина"  Binding="{Binding Path=Width, Converter={StaticResource DoubleConverter }, ConverterParameter='1'}"/>
                         <DataGridTextColumn Header="Вес"  Binding="{Binding Path=Weight, Converter={StaticResource DoubleConverter }, ConverterParameter='2'}"/>
-                        <DataGridTemplateColumn Header="">
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Opacity="1" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveBoxCommand}" CommandParameter="{Binding}">
@@ -164,24 +169,24 @@
                                 <dxe:ComboBoxEdit ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type" SelectedItem="{Binding Path=DocTypeRecipient, Mode=OneWay}"  IsEnabled="False"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="#:">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.DocId, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
                     <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.Name, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Address:">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.Address, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="City:">
-                                <dxe:TextEdit/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.City, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Zip:">
-                                    <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.Zip, Mode=TwoWay}"/>
                                 </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="State:">
                                 <dxlc:LayoutItem.Style>
@@ -194,7 +199,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </dxlc:LayoutItem.Style>
-                                <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.State, Mode=TwoWay}"/>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup Orientation="Horizontal">
@@ -202,12 +207,40 @@
                                     <dxe:ComboBoxEdit ItemsSource="{Binding Path=CountriesRecipient, Mode=OneWay}" SelectedItem="{Binding Path=CountryRecipient, Mode=TwoWay}" DisplayMember="Name"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Phone:">
-                                    <dxe:TextEdit/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.Phone, Mode=TwoWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
+        <Grid  Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Content" Grid.Row="0">
+                <DataGrid x:Name="DtgContent" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Contents, Mode=TwoWay}"  Margin="10 10 10 10" Loaded="DtgLoaded">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Коробка" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="HTS code" Binding="{Binding HtsCode, Mode=TwoWay, Converter={StaticResource StrConverter}}" />
+                        <DataGridTextColumn Width="450" Header="Наименование" Binding="{Binding Name, Mode=TwoWay, Converter={StaticResource StrConverter}}"/>
+                        <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}}"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2' }"/>
+                        <DataGridTextColumn Header="Общее" IsReadOnly="True" Binding="{Binding Total, Mode=OneWay}"/>
+                        <DataGridTemplateColumn Width="20">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Opacity="1" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveContentCommand}" CommandParameter="{Binding}">
+                                        <svgc:SvgViewbox Source="../../Icon/Svg/close.svg"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 20 0 20"/>
         </Grid>
+    </Grid>
 </Page>

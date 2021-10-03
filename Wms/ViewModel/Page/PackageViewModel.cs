@@ -17,16 +17,32 @@ namespace Wms.ViewModel.Page
         public DocType DocTypeSender
         {
             get => _docTypeSender;
-            set => Set(nameof(DocTypeSender), ref _docTypeSender, value);
+            set
+            {
+                Sender.DocTypeId = value.Id;
+                Set(nameof(DocTypeSender), ref _docTypeSender, value);
+            }
         }
 
-        public static DocType DocTypeRecipient => App.Data.Data.DocType[1];
+        public  DocType DocTypeRecipient
+        {
+            get
+            {
+                var docTypeRecipient  = App.Data.Data.DocType[1];
+                Recipient.DocTypeId = docTypeRecipient.Id;
+                return docTypeRecipient;
+            }
+        }
 
         private Countries _countryRecipient;
         public Countries CountryRecipient
         {
             get => _countryRecipient;
-            set => Set(nameof(CountryRecipient), ref _countryRecipient, value);
+            set
+            {
+                Recipient.CountryId = value.CountryCode;
+                Set(nameof(CountryRecipient), ref _countryRecipient, value);
+            }
         }
 
         private BindingList<Boxes> _boxes;
@@ -34,6 +50,20 @@ namespace Wms.ViewModel.Page
         {
             get => _boxes;
             set => Set(nameof(Boxes), ref _boxes, value);
+        }
+
+        private Sender _sender;
+        public Sender Sender
+        {
+            get => _sender??=new Sender();
+            set => Set(nameof(Sender), ref _sender, value);
+        }
+
+        private Sender _recipient;
+        public Sender Recipient
+        {
+            get => _recipient??=new Sender();
+            set => Set(nameof(Recipient), ref _recipient, value);
         }
 
         private ICommand _addBoxCommand;
@@ -48,16 +78,27 @@ namespace Wms.ViewModel.Page
         private ICommand _removeBoxCommand;
         public ICommand RemoveBoxCommand => _removeBoxCommand ??= new DelegateCommand<Boxes>((box) =>
         {
-            var index = 1;
-            if (Boxes.Count>1)
-                Boxes.Remove(box);
+            RemoveItemBindingList(box, Boxes);
+        });
 
-            Boxes.ForEach(f=> { 
+        private ICommand _removeContentCommand;
+        public ICommand RemoveContentCommand => _removeContentCommand ??= new DelegateCommand<Content>((content) =>
+        {
+            RemoveItemBindingList(content, Contents);
+        });
+
+        private void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
+        {
+            var index = 1;
+            if (bindingList.Count > 1)
+                bindingList.Remove(item);
+
+            bindingList.ForEach(f =>
+            {
                 f.Number = index;
                 index++;
             });
-
-        });
+        }
 
         private double? _physicalWeight;
         public double? PhysicalWeight
@@ -87,19 +128,40 @@ namespace Wms.ViewModel.Page
             private set => Set(nameof(VolumWeightColor), ref _volumWeightColor, value);
         }
 
+        private BindingList<Content> _contents;
+        public BindingList<Content> Contents
+        {
+            get => _contents;
+            set => Set(nameof(Contents), ref _contents, value);
+        }
+
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
 
         public static  ObservableCollection<DocType> DocTypes => new ObservableCollection<DocType>(App.Data.Data.DocType);
-        public static Countries CountrySender => CountriesSender.FirstOrDefault(f => f.Name == App.Data.Data.Customer.CountryName);
+
+        public  Countries CountrySender
+        {
+            get
+            {
+                var country = CountriesSender.FirstOrDefault(f => f.Name == App.Data.Data.Customer.CountryName);
+                Sender.CountryId = country?.CountryCode;
+                return country;
+            }
+        }
         public static ObservableCollection<Countries> CountriesSender => new ObservableCollection<Countries>(App.Data.Data.Countries);
+
         public PackageViewModel()
         {
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
             DocTypeSender = DocTypes[0];
             CountryRecipient = countriesRecipient[0];
             Boxes = new BindingList<Boxes> {new Boxes {Number = 1}};
+            Contents = new BindingList<Content>{new Content{Number = 1}};
+
             Boxes.ListChanged += ListChanged;
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
+
+            Messenger.Default.Register<KeyEventArgs>(this, AddContent);
         }
 
         private void ListChanged(object sender, ListChangedEventArgs e)
@@ -134,6 +196,13 @@ namespace Wms.ViewModel.Page
 
             if (PhysicalWeight < VolumetricWeight)
                 VolumWeightColor = Brushes.Red;
+        }
+
+        private void AddContent(KeyEventArgs key)
+        {
+            var item = Contents.LastOrDefault();
+            if (item != null && (key.Key == Key.Down && item.Price!=null && item.Price>0 && item.Count!=null && item.Count>0 && !string.IsNullOrWhiteSpace(item.HtsCode) && !string.IsNullOrWhiteSpace(item.Name)))
+                Contents.Add(new Content { Number = Contents.Count + 1 });
         }
     }
 }

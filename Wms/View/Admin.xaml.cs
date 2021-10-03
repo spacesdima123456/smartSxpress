@@ -1,10 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using Wms.ViewModel;
+using System.Windows;
 using Wms.Services.Window;
+using System.Windows.Input;
+using Wms.View.WindowDialog;
 using Wms.Services.Window.Contract;
 using Wms.Services.Window.WindowDialogs;
-using Wms.View.WindowDialog;
-using Wms.ViewModel;
 
 namespace Wms.View
 {
@@ -50,6 +50,11 @@ namespace Wms.View
                 _displayAlertSettings = new DisplayAlertSettings();
 
             _displayAlertSettings.ShowDialog();
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            ((AdminViewModel)DataContext).OnKeyDownEven.Invoke(sender, e);
         }
     }
 }
