@@ -17,13 +17,13 @@
     </Page.DataContext>
     <Page.Resources>
         <converter:UrlToDoubleConverter x:Key="DoubleConverter"/>
-        <Style TargetType="{x:Type dxlc:LayoutItem}">
+        <Style TargetType="{x:Type Control}">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
-        <Style TargetType="{x:Type GroupBox}">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="FontWeight" Value="DemiBold"/>
+        <Style TargetType="{x:Type dxlc:LayoutItem}" BasedOn="{StaticResource {x:Type Control}}">
+        </Style>
+        <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type Control}}">
             <Setter Property="Margin" Value="0 0 30 0"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="Background" Value="#AFAFAF"/>
@@ -35,10 +35,8 @@
         <Style TargetType="{x:Type dxlc:LayoutGroup}">
             <Setter Property="ItemSpace" Value="10"/>
         </Style>
-        <Style TargetType="DataGridCell">
+        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type Control}}">
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -62,9 +60,6 @@
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
             <Setter Property="AutoGenerateColumns" Value="False"/>
-        </Style>
-        <Style x:Key="LblWeight" TargetType="Label">
-            <Setter Property="FontSize" Value="15"/>
         </Style>
         <Style TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -157,7 +152,7 @@
                 </DataGrid>
                 <Button Content="+" FontSize="45" BorderThickness="0"  Background="#AFAFAF" Padding="0 -16 0 0" Width="40" Height="40" Command="{Binding Path=AddBoxCommand}" Margin="0 20 0 0"/>
                 <Label Content="{Binding Path=PhysicalWeight, Mode=OneWay}" Foreground="{Binding Path=PhysWeightColor, Mode=OneWay}"  ContentStringFormat="Физический вес: {0}"/>
-                <Label Content="{Binding Path=VolumetricWeight, Mode=OneWay}" Foreground="{Binding Path=VolumWeightColor, Mode=OneWay}" Style="{StaticResource LblWeight}" ContentStringFormat="Объемный вес: {0}" />
+                <Label Content="{Binding Path=VolumetricWeight, Mode=OneWay}" Foreground="{Binding Path=VolumWeightColor, Mode=OneWay}" ContentStringFormat="Объемный вес: {0}" />
                 <Label></Label>
             </StackPanel>
         </GroupBox>
