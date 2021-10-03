@@ -68,9 +68,9 @@
     <Grid Margin="0 10 0 0" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="500"/>
-                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="520"/>
+                <ColumnDefinition Width="520"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
