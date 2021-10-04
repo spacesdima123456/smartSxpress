@@ -222,12 +222,12 @@
             <GroupBox Header="Content" Grid.Row="0">
                 <DataGrid x:Name="DtgContent" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Contents, Mode=TwoWay}"  Margin="10 10 10 10" Loaded="DtgLoaded">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Коробка" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
                         <DataGridTextColumn Header="HTS code" Binding="{Binding HtsCode, Mode=TwoWay, Converter={StaticResource StrConverter}}" />
                         <DataGridTextColumn Width="450" Header="Наименование" Binding="{Binding Name, Mode=TwoWay, Converter={StaticResource StrConverter}}"/>
                         <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}}"/>
                         <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2' }"/>
-                        <DataGridTextColumn Header="Общее" IsReadOnly="True" Binding="{Binding Total, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Итого" IsReadOnly="True" Binding="{Binding Total, Mode=OneWay}"/>
                         <DataGridTemplateColumn Width="20">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -240,7 +240,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
-            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 20 0 20"/>
+            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 15 0 40"/>
         </Grid>
     </Grid>
 </Page>

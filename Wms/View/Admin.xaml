@@ -1,6 +1,6 @@
 ﻿<Window
-        MinWidth="1310"
-        MinHeight="730"
+        MinWidth="1920"
+        MinHeight="1080"
         mc:Ignorable="d"
         PreviewKeyUp="OnKeyDown"
         x:Class="Wms.View.Admin"  
