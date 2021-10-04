@@ -51,11 +51,6 @@ namespace Wms.View
 
             _displayAlertSettings.ShowDialog();
         }
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            ((AdminViewModel)DataContext).OnKeyDownEven.Invoke(sender, e);
-        }
     }
 }
 

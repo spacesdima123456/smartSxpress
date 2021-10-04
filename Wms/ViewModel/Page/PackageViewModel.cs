@@ -87,6 +87,14 @@ namespace Wms.ViewModel.Page
             RemoveItemBindingList(content, Contents);
         });
 
+        private ICommand _addContentCommand;
+        public ICommand AddContentCommand => _addContentCommand ??= new DelegateCommand<KeyEventArgs>((key) =>
+        {
+            var item = Contents.LastOrDefault();
+            if (item != null && key.Key == Key.Down && item.Price != null && item.Price > 0 && item.Count != null && item.Count > 0 && item.Ht!=null)
+                Contents.Add(new Content { Number = Contents.Count + 1 });
+        });
+
         private void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
         {
             var index = 1;
@@ -137,6 +145,8 @@ namespace Wms.ViewModel.Page
 
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
 
+        public ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
+
         public static  ObservableCollection<DocType> DocTypes => new ObservableCollection<DocType>(App.Data.Data.DocType);
 
         public  Countries CountrySender
@@ -156,12 +166,10 @@ namespace Wms.ViewModel.Page
             DocTypeSender = DocTypes[0];
             CountryRecipient = countriesRecipient[0];
             Boxes = new BindingList<Boxes> {new Boxes {Number = 1}};
-            Contents = new BindingList<Content>{new Content{Number = 1}};
+            Contents = new BindingList<Content>{new Content{Number = 1, Ht = Hts.FirstOrDefault()}};
 
             Boxes.ListChanged += ListChanged;
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
-
-            Messenger.Default.Register<KeyEventArgs>(this, AddContent);
         }
 
         private void ListChanged(object sender, ListChangedEventArgs e)
@@ -196,13 +204,6 @@ namespace Wms.ViewModel.Page
 
             if (PhysicalWeight < VolumetricWeight)
                 VolumWeightColor = Brushes.Red;
-        }
-
-        private void AddContent(KeyEventArgs key)
-        {
-            var item = Contents.LastOrDefault();
-            if (item != null && (key.Key == Key.Down && item.Price!=null && item.Price>0 && item.Count!=null && item.Count>0 && !string.IsNullOrWhiteSpace(item.HtsCode) && !string.IsNullOrWhiteSpace(item.Name)))
-                Contents.Add(new Content { Number = Contents.Count + 1 });
         }
     }
 }

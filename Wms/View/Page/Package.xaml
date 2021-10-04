@@ -16,7 +16,6 @@
         <vm:PackageViewModel/>
     </Page.DataContext>
     <Page.Resources>
-        <converter:ToStringConverter x:Key="StrConverter"/>
         <converter:ToIntConverter x:Key="IntConverter"/>
         <converter:UrlToDoubleConverter x:Key="DoubleConverter"/>
         <Style TargetType="{x:Type Control}">
@@ -53,9 +52,9 @@
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
         <Style TargetType="{x:Type DataGrid}">
-            <!--<Setter Property="Width" Value="Auto"/>-->
+            <Setter Property="Width" Value="Auto"/>
             <Setter Property="FontSize" Value="14"/>
-            <!--<Setter Property="ColumnWidth" Value="*"/>-->
+            <Setter Property="ColumnWidth" Value="*"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
@@ -137,7 +136,7 @@
             </GroupBox>
         <GroupBox  Header="Package info" Grid.Column="2" Grid.Row="0" Style="{StaticResource GroupBox}">
             <StackPanel Margin="15 10 15 20">
-                <DataGrid  x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}" Loaded="DtgLoaded">
+                <DataGrid  x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Коробка" Binding="{Binding Path=Number}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Высота"  Binding="{Binding Path=Height, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='1'}"/>
@@ -220,15 +219,21 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <GroupBox Header="Content" Grid.Row="0">
-                <DataGrid x:Name="DtgContent" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Contents, Mode=TwoWay}"  Margin="10 10 10 10" Loaded="DtgLoaded">
+                <DataGrid x:Name="DtgContent" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Contents, Mode=TwoWay}"  Margin="10 10 10 10" PreviewKeyDown="OnPreviewKeyDown">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="HTS code" Binding="{Binding HtsCode, Mode=TwoWay, Converter={StaticResource StrConverter}}" />
-                        <DataGridTextColumn Width="450" Header="Наименование" Binding="{Binding Name, Mode=TwoWay, Converter={StaticResource StrConverter}}"/>
-                        <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}}"/>
-                        <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2' }"/>
-                        <DataGridTextColumn Header="Итого" IsReadOnly="True" Binding="{Binding Total, Mode=OneWay}"/>
-                        <DataGridTemplateColumn Width="20">
+                        <DataGridTextColumn Width="70" Header="#" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
+                        <DataGridTextColumn  Width="125" Header="HTS code" IsReadOnly="True" Binding="{Binding Path=Ht.Hts, Mode=TwoWay}" />
+                        <DataGridTemplateColumn Width="*" Header="Наименование">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <dxe:ComboBoxEdit ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Hts}" SelectedItem="{Binding Path=Ht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Desc"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="85" Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2', UpdateSourceTrigger=PropertyChanged }"/>
+                        <DataGridTextColumn Width="110" Header="Итого" IsReadOnly="False" Binding="{Binding Total, Mode=OneWay}"/>
+                        <DataGridTemplateColumn Width="70">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="13" BorderThickness="0" Background="WhiteSmoke" Opacity="1" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveContentCommand}" CommandParameter="{Binding}">

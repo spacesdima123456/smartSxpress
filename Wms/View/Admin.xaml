@@ -2,7 +2,6 @@
         MinWidth="1920"
         MinHeight="1080"
         mc:Ignorable="d"
-        PreviewKeyUp="OnKeyDown"
         x:Class="Wms.View.Admin"  
         Title="{lang:Lang Tittle }"
         xmlns:lang="clr-namespace:Wms.Localization"

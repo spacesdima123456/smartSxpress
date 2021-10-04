@@ -6,8 +6,10 @@ namespace Wms.API.Models
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
+
         [JsonPropertyName("hts")]
         public string Hts { get; set; }
+
         [JsonPropertyName("desc")]
         public string Desc { get; set; }
     }

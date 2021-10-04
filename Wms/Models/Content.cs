@@ -1,19 +1,14 @@
-﻿namespace Wms.Models
+﻿using Wms.API.Models;
+
+namespace Wms.Models
 {
     public class Content: BoxesBase
     {
-        private string _htsCode;
-        public string HtsCode
+        private Ht _ht;
+        public Ht Ht
         {
-            get => _htsCode;
-            set => Set(nameof(HtsCode), ref _htsCode, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => Set(nameof(Name), ref _name, value);
+            get => _ht;
+            set => Set(nameof(Ht), ref _ht, value);
         }
 
         private int? _count;
