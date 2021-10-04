@@ -214,7 +214,7 @@
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-        <Grid  Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2">
+        <Grid  Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
