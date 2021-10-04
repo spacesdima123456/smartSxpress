@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Wms.API.Models
 {
-    public class Sender: BaseViewModel
+    public class Sender: ValidateViewModel
     {
         private int _docTypeId;
         [JsonPropertyName("docTypeId")]
@@ -53,9 +53,9 @@ namespace Wms.API.Models
             set => Set(nameof(State), ref _state, value);
         }
 
-        private int _zip;
+        private int? _zip;
         [JsonPropertyName("zip")]
-        public int Zip
+        public int? Zip
         {
             get => _zip;
             set => Set(nameof(Zip), ref _zip, value);
@@ -75,6 +75,14 @@ namespace Wms.API.Models
         {
             get => _countryId;
             set => Set(nameof(CountryId), ref _countryId, value);
+        }
+
+        public void Validate()
+        {
+            ClearErrors();
+
+            if (string.IsNullOrWhiteSpace(Address))
+                AddError(nameof(Address), "Address is null or white space ");
         }
     }
 }

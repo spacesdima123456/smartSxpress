@@ -95,6 +95,15 @@ namespace Wms.ViewModel.Page
                 Contents.Add(new Content { Number = Contents.Count + 1 });
         });
 
+
+        private ICommand _saveCommand;
+        public ICommand SaveCommand => _saveCommand ??= new DelegateCommand(() =>
+        {
+            Sender.Validate();
+            Recipient.Validate();
+
+        });
+
         private void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
         {
             var index = 1;

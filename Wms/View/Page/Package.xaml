@@ -223,13 +223,14 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="70" Header="#" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
                         <DataGridTextColumn  Width="125" Header="HTS code" IsReadOnly="True" Binding="{Binding Path=Ht.Hts, Mode=TwoWay}" />
-                        <DataGridTemplateColumn Width="*" Header="Наименование">
+                        <DataGridTemplateColumn Width="390" Header="HTS Description">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <dxe:ComboBoxEdit ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Hts}" SelectedItem="{Binding Path=Ht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Desc"/>
+                                    <dxe:ComboBoxEdit ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Hts}" SelectedItem="{Binding Path=Ht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FilterCondition="Contains" ImmediatePopup="True" IncrementalFiltering="True" ValidateOnTextInput="False" DisplayMember="Desc"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="*" Header="Наименование"/>
                         <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Width="85" Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2', UpdateSourceTrigger=PropertyChanged }"/>
                         <DataGridTextColumn Width="110" Header="Итого" IsReadOnly="False" Binding="{Binding Total, Mode=OneWay}"/>
@@ -245,7 +246,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
-            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 15 0 40"/>
+            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 15 0 40" Command="{Binding Path=SaveCommand, Mode=OneTime}"/>
         </Grid>
     </Grid>
 </Page>
