@@ -8,14 +8,11 @@ using Wms.UnitOfWorkAPI.RepositoryAPI.Contract;
 
 namespace Wms.UnitOfWorkAPI.RepositoryAPI
 {
-    public class BranchRepository : RepositoryBase, IBranchRepository
+    public class BranchRepository : IBranchRepository
     {
         private readonly IBranch _branch;
 
-        public BranchRepository(IRest rest) : base(rest)
-        {
-            _branch = Rest.ExecuteRequest<IBranch>();
-        }
+        public BranchRepository(IRest rest) => _branch = rest.ExecuteRequest<IBranch>();
 
         public async Task<IEnumerable<Branches>> GetAllBranchesAsync()
         {
@@ -25,19 +22,10 @@ namespace Wms.UnitOfWorkAPI.RepositoryAPI
             return Enumerable.Empty<Branches>();
         }
 
-        public async Task DeleteBranchAsync(int id)
-        {
-            await _branch.DeleteBranchAsync(id);
-        }
+        public async Task DeleteBranchAsync(int id)=> await _branch.DeleteBranchAsync(id);
+        public Task CreateBranchAsync(BranchCreate branch)=> _branch.CreateBranchAsync(branch);
 
-        public Task<Error> EditBranchAsync(int id, BranchBase branch)
-        {
-            return _branch.EditBranchAsync(id, branch);
-        }
+        public Task<Error> EditBranchAsync(int id, BranchBase branch)=> _branch.EditBranchAsync(id, branch);
 
-        public Task CreateBranchAsync(BranchCreate branch)
-        {
-            return _branch.CreateBranchAsync(branch);
-        }
     }
 }

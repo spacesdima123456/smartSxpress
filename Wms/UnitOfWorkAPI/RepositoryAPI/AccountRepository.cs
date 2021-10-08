@@ -6,10 +6,10 @@ using Wms.UnitOfWorkAPI.RepositoryAPI.Contract;
 
 namespace Wms.UnitOfWorkAPI.RepositoryAPI
 {
-    public class AccountRepository : RepositoryBase, IAccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly IAccount _account;
-        public AccountRepository(IRest rest) : base(rest)=> _account = rest.ExecuteRequest<IAccount>();
+        public AccountRepository(IRest rest) => _account = rest.ExecuteRequest<IAccount>();
         public  Task<Error> ChangeAccountAsync(Account account)=> _account.ChangeAccountAsync(account);
         public Task<Error> ChangePasswordAsync(Password password)=> _account.ChangePasswordAsync(password);
     }
