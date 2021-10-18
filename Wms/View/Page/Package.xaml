@@ -230,7 +230,13 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Width="*" Header="Наименование"/>
+                        <DataGridTextColumn Width="*" Header="Наименование" Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type Control}}">
+                                    <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Кол-во" Binding="{Binding Count, Mode=TwoWay, Converter={StaticResource IntConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Width="85" Header="Цена" Binding="{Binding Price, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter='2', UpdateSourceTrigger=PropertyChanged }"/>
                         <DataGridTextColumn Width="110" Header="Итого" IsReadOnly="False" Binding="{Binding Total, Mode=OneWay}"/>

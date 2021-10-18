@@ -40,6 +40,13 @@ namespace Wms.Models
             private set => Set(nameof(Total), ref _total, value);
         }
 
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => Set(nameof(Name), ref _name, value);
+        }
+
         private void CalcTotal()
         {
             Total = Count * Price;
