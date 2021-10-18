@@ -19,7 +19,10 @@ namespace Wms.Converter
             if (!Regex.IsMatch((string)value, @"^[0-9]+$", RegexOptions.IgnoreCase))
                 return DependencyProperty.UnsetValue;
             // ReSharper disable once PossibleInvalidCastException
-            return System.Convert.ToInt32(value);
+            var val = System.Convert.ToInt32(value);
+            if (val>0)
+                return System.Convert.ToInt32(value);
+            return DependencyProperty.UnsetValue;
         }
     }
 }
