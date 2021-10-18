@@ -214,11 +214,6 @@ namespace Wms.ViewModel.Dialog
 
         }
 
-        public new virtual void HandleErrors(Error error)
-        {
-            base.HandleErrors(error);
-        }
-
         protected void InitProperty(
             int height, string title, bool isEnabled,
             int? zip, string name, string city, string phone,

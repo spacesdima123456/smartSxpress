@@ -114,10 +114,10 @@ namespace Wms.ViewModel
             Properties.Settings.Default.Save();
         }
 
-        protected override void HandleErrors(Error error)
+        public override void HandleErrors(Error error)
         {
             base.HandleErrors(error);
-            if (error.Code!=2)
+            if (error.Code != 2)
                 Text = error.Text ?? "";
         }
     }

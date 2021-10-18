@@ -2,16 +2,14 @@
 using AutoMapper;
 using System.Linq;
 using Nito.AsyncEx;
-using System.Windows;
 using Wms.API.Models;
 using DevExpress.Mvvm;
 using System.Windows.Input;
-using Wms.ViewModel.Dialog;
-using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
+using static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
 {
@@ -32,8 +30,11 @@ namespace Wms.ViewModel.Page
         public ICommand OpenWindowDeleteBranchCommand => _openWindowDeleteBranchCommand ??= new DelegateCommand<Branches>((branches) => _windowBranch.Delete(
             async o =>
             {
-                await _unitOfWork.BranchRepository.DeleteBranchAsync(branches.Id);
-                Branches.Remove(branches);
+                var success = await _unitOfWork.BranchRepository.DeleteBranchAsync(branches.Id);
+                if (success.Code==1)
+                    Branches.Remove(branches);
+                else
+                    HandleGeneralErrors(success);
             }));
 
         private ICommand _addBranchCommand;
@@ -46,8 +47,11 @@ namespace Wms.ViewModel.Page
                     b.Validate();
                     if (!b.HasErrors)
                     {
-                        await _unitOfWork.BranchRepository.CreateBranchAsync(_mapper.Map<BranchCreate>(b));
-                        RefreshBranchAndCloseWindow();
+                       var success = await _unitOfWork.BranchRepository.CreateBranchAsync(_mapper.Map<BranchCreate>(b));
+                       if (success.Code==1)
+                           RefreshBranchAndCloseWindow();
+                       else
+                           HandleGeneralErrors(success);
                     }
                 }
                 catch (ApiException e)
@@ -68,8 +72,11 @@ namespace Wms.ViewModel.Page
                         e.ValidateForm();
                         if (!e.HasErrors)
                         {
-                            await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, _mapper.Map<BranchBase>(e));
-                            RefreshBranchAndCloseWindow();
+                           var success = await _unitOfWork.BranchRepository.EditBranchAsync(b.Id, _mapper.Map<BranchBase>(e));
+                           if (success.Code==1)
+                               RefreshBranchAndCloseWindow();
+                           else
+                               HandleGeneralErrors(success);
                         }
                     }
                     catch (ApiException ex)
@@ -93,21 +100,14 @@ namespace Wms.ViewModel.Page
             _windowBranch.Close();
         }
 
-        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchBaseViewModel vm)
-        {
-            var content = await e.GetContentAsAsync<Error>();
-            if (content.Errors != null)
-                vm.HandleErrors(content);
-            else
-                MessageBox.Show(content.Text);
-        }
-
         private IEnumerable<Branches> LoadBranches()
         {
             return AsyncContext.Run(async () =>
             {
-                var branches = await _unitOfWork.BranchRepository.GetAllBranchesAsync();
-                return branches ?? Enumerable.Empty<Branches>();
+                var branch = await _unitOfWork.BranchRepository.GetAllBranchesAsync();
+                if (branch.Code!=1)
+                    HandleGeneralErrors(branch);
+                return branch.Branches ?? Enumerable.Empty<Branches>();
             });
         }
     }

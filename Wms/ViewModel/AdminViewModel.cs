@@ -2,12 +2,11 @@
 using AutoMapper;
 using Wms.API.Models;
 using DevExpress.Mvvm;
-using System.Windows.Forms;
 using System.Windows.Input;
-using Wms.ViewModel.Dialog;
 using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
+using static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel
 {
@@ -57,13 +56,15 @@ namespace Wms.ViewModel
                     try
                     {
                         var account = _mapper.Map<Account>(c);
-                        var result = await _unitOfWork.AccountRepository.ChangeAccountAsync(_mapper.Map<Account>(c));
-                        if (result.Code == 1)
+                        var success = await _unitOfWork.AccountRepository.ChangeAccountAsync(_mapper.Map<Account>(c));
+                        if (success.Code == 1)
                         {
                             UserName = account.Name;
                             Company = account.Company;
                             App.Data.Data.Customer = _mapper.Map(account, App.Data.Data.Customer);
                         }
+                        else
+                            HandleGeneralErrors(success);
                     }
                     catch (ApiException ex)
                     {
@@ -75,14 +76,15 @@ namespace Wms.ViewModel
             {
                 try
                 {
-                    var password = await _unitOfWork.AccountRepository.ChangePasswordAsync(new Password { UserPassword = p.Password });
-                    if (password.Code == 1)
+                    var success = await _unitOfWork.AccountRepository.ChangePasswordAsync(new Password { UserPassword = p.Password });
+                    if (success.Code == 1)
                     {
                         await _unitOfWork.AuthorizationRepository.LogOutAsync(Properties.Settings.Default.Token);
                         _windowSettings.HideProfileWindow();
                         _windowSettings.ShowLoginPage();
                     }
-
+                    else
+                        HandleGeneralErrors(success);
                 }
                 catch (ApiException ex)
                 {
@@ -90,16 +92,6 @@ namespace Wms.ViewModel
                 }
             });
         });
-
-
-        private static async Task HandleErrorsAsync(ApiException e, DisplayAlertBranchBaseViewModel vm)
-        {
-            var content = await e.GetContentAsAsync<Error>();
-            if (content.Errors != null)
-                vm.HandleErrors(content);
-            else
-                MessageBox.Show(content.Text);
-        }
 
         public AdminViewModel(IUnitOfWork unitOfWork, IWindowSettings windowSettings, IMapper mapper)
         {

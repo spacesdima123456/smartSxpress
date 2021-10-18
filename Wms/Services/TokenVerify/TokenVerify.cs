@@ -22,16 +22,11 @@ namespace Wms.Services.TokenVerify
         {
             if (_authorization.IsAuth)
             {
-                try
-                {
-                    var data = AsyncContext.Run(async () => await _authorization.ValidKeyAsync());
-                    if (data != null)
-                        VerifySuccess?.Invoke(this, data);
-                }
-                catch (ApiException ex)
-                {
-                    VerifyError?.Invoke(ex, EventArgs.Empty);
-                }
+                var data = AsyncContext.Run(async () => await _authorization.ValidKeyAsync());
+                if (!string.IsNullOrEmpty(data.ApiKey))
+                    VerifySuccess?.Invoke(this, data);
+                else
+                    VerifyError?.Invoke(this, EventArgs.Empty);
             }
         }
     }

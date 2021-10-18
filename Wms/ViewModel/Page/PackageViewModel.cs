@@ -104,7 +104,7 @@ namespace Wms.ViewModel.Page
 
         });
 
-        private void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
+        private static void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
         {
             var index = 1;
             if (bindingList.Count > 1)
@@ -153,8 +153,7 @@ namespace Wms.ViewModel.Page
         }
 
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
-
-        public ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
+        public static ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
 
         public static  ObservableCollection<DocType> DocTypes => new ObservableCollection<DocType>(App.Data.Data.DocType);
 

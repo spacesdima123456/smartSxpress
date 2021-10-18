@@ -48,7 +48,7 @@ namespace Wms.ViewModel
             });
         }
 
-        protected virtual void HandleErrors(Error error)
+        public virtual void HandleErrors(Error error)
         {
             error.Errors.ForEach(f =>
             {
