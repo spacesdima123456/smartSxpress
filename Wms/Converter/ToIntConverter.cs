@@ -21,7 +21,7 @@ namespace Wms.Converter
             // ReSharper disable once PossibleInvalidCastException
             var val = System.Convert.ToInt32(value);
             if (val>0)
-                return System.Convert.ToInt32(value);
+                return val;
             return DependencyProperty.UnsetValue;
         }
     }
