@@ -71,6 +71,7 @@ namespace Wms.ViewModel
             return char.ToUpper(str[0]) + str.Remove(0, 1);
         }
 
+
         protected void OnErrorsChanged(string property)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(property));

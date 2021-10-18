@@ -3,6 +3,7 @@ using System.Windows;
 using Wms.Services.Window;
 using System.Windows.Input;
 using Wms.View.WindowDialog;
+using System.Windows.Navigation;
 using Wms.Services.Window.Contract;
 using Wms.Services.Window.WindowDialogs;
 
@@ -18,6 +19,14 @@ namespace Wms.View
         {
             InitializeComponent();
             App.Window = this;
+        }
+
+        private void HandleNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void OnSettings(object sender, MouseButtonEventArgs e)

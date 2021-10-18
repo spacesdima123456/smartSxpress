@@ -148,6 +148,7 @@
             Grid.Row="1" 
             Grid.Column="1" 
             Background="White"
+            Navigating="HandleNavigating"
             NavigationUIVisibility="Hidden" 
             Source="{Binding Path=Source, Mode=OneWay, TargetNullValue='../View/Page/Main.xaml'}">
         </Frame>
