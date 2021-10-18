@@ -91,7 +91,7 @@ namespace Wms.ViewModel.Page
         public ICommand AddContentCommand => _addContentCommand ??= new DelegateCommand<KeyEventArgs>((key) =>
         {
             var item = Contents.LastOrDefault();
-            if (item != null && key.Key == Key.Down && item.Price != null && item.Price > 0 && item.Count != null && item.Count > 0 && item.Ht!=null)
+            if (item != null && key.Key == Key.Down && item.Price != null && item.Price > 0 && item.Count != null && item.Count >= 0 && item.Ht!=null)
                 Contents.Add(new Content { Number = Contents.Count + 1 });
         });
 
