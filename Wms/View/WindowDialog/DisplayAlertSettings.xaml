@@ -83,5 +83,26 @@
             </StackPanel>
             <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=PrinterDocx}"/>
         </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1"  Style="{StaticResource PrinterPanel}">
+                <Label Content="Порт весов"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=ComPorts, Mode=OneWay}">
+                    <dxe:ComboBoxEdit.Style>
+                        <Style TargetType="dxe:ComboBoxEdit">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=ComPort, Mode=TwoWay}" Value="{x:Null}">
+                                    <Setter Property="Text" Value="not selected"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxe:ComboBoxEdit.Style>
+                </dxe:ComboBoxEdit>
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </window:DisplayAlertBase>

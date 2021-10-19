@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DevExpress.Mvvm;
+using System.IO.Ports;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Drawing.Printing;
@@ -34,7 +35,20 @@ namespace Wms.ViewModel.Dialog
             }
         }
 
+        private string _comPort;
+        public string ComPort
+        {
+            get => _comPort;
+            set
+            {
+                Set(nameof(ComPort), ref _comPort, value);
+                if (!string.IsNullOrEmpty(value))
+                    SetValue("ComPort", value);
+            }
+        }
+
         public ObservableCollection<string> Printers { get; }
+        public ObservableCollection<string> ComPorts { get; }
 
         public static ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
         {
@@ -54,8 +68,10 @@ namespace Wms.ViewModel.Dialog
         public DisplayAlertSettingsViewModel()
         {
             Printers = new ObservableCollection<string>(PrinterSettings.InstalledPrinters.OfType<string>());
+            ComPorts = new ObservableCollection<string>(SerialPort.GetPortNames());
             PrinterDocx = GetValue("PrinterDocx");
             Printer = GetValue("Printer");
+            ComPort = GetValue("ComPort");
         }
     }
 }

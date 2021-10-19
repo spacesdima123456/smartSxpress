@@ -45,6 +45,7 @@
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.0" />
     <PackageReference Include="Refit" Version="6.0.94" />
     <PackageReference Include="SharpVectors" Version="1.7.6" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
