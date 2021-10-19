@@ -17,7 +17,7 @@
         <vm:DisplayAlertSettingsViewModel/>
     </window:DisplayAlertBase.DataContext>
     <window:DisplayAlertBase.Resources>
-        <Style TargetType="{x:Type dx:SimpleButton}">
+        <Style x:Key="SmpBtn" TargetType="{x:Type dx:SimpleButton}">
             <Setter Property="Width" Value="20"/>
             <Setter Property="Height" Value="22"/>
             <Setter Property="Margin" Value="5 16 0 0"/>
@@ -59,7 +59,17 @@
                     </dxe:ComboBoxEdit.Style>
                 </dxe:ComboBoxEdit>
             </StackPanel>
-            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=Printer}"/>
+            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=Printer}">
+                <dx:SimpleButton.Style>
+                    <Style TargetType="dx:SimpleButton" BasedOn="{StaticResource SmpBtn}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Printer, Mode=TwoWay}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dx:SimpleButton.Style>
+            </dx:SimpleButton>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -81,7 +91,17 @@
                     </dxe:ComboBoxEdit.Style>
                 </dxe:ComboBoxEdit>
             </StackPanel>
-            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=PrinterDocx}"/>
+            <dx:SimpleButton Grid.Column="2" CommandParameter="{Binding Path=PrinterDocx}">
+                <dx:SimpleButton.Style>
+                    <Style TargetType="dx:SimpleButton" BasedOn="{StaticResource SmpBtn}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=PrinterDocx, Mode=TwoWay}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dx:SimpleButton.Style>
+            </dx:SimpleButton>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
