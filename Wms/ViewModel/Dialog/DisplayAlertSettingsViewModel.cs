@@ -15,36 +15,21 @@ namespace Wms.ViewModel.Dialog
         public string Printer
         {
             get => _printer;
-            set
-            {
-                Set(nameof(Printer), ref _printer, value);
-                if (!string.IsNullOrEmpty(value))
-                    SetValue("Printer", value);
-            }
+            set => Set(nameof(Printer), ref _printer, value);
         }
 
         private string _printerDocx;
         public string PrinterDocx
         {
             get => _printerDocx;
-            set
-            {
-                Set(nameof(PrinterDocx), ref _printerDocx, value);
-                if (!string.IsNullOrEmpty(value))
-                    SetValue("PrinterDocx", value);
-            }
+            set=> Set(nameof(PrinterDocx), ref _printerDocx, value);
         }
 
         private string _comPort;
         public string ComPort
         {
             get => _comPort;
-            set
-            {
-                Set(nameof(ComPort), ref _comPort, value);
-                if (!string.IsNullOrEmpty(value))
-                    SetValue("ComPort", value);
-            }
+            set => Set(nameof(ComPort),ref _comPort, value);
         }
 
         public ObservableCollection<string> Printers { get; }
@@ -72,6 +57,12 @@ namespace Wms.ViewModel.Dialog
             PrinterDocx = GetValue("PrinterDocx");
             Printer = GetValue("Printer");
             ComPort = GetValue("ComPort");
+        }
+        private void Set(string property, ref string field, string value)
+        {
+            base.Set(property, ref field, value);
+            if (!string.IsNullOrEmpty(value))
+                SetValue(property, value);
         }
     }
 }
