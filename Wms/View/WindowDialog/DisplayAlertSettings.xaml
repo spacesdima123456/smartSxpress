@@ -1,6 +1,6 @@
 ﻿<window:DisplayAlertBase xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
         Width="250"
-        Height="190"
+        Height="260"
         mc:Ignorable="d"
         Title="Настройки"
         Closing="OnClosed"
@@ -91,11 +91,32 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1"  Style="{StaticResource PrinterPanel}">
                 <Label Content="Порт весов"/>
-                <dxe:ComboBoxEdit ItemsSource="{Binding Path=ComPorts, Mode=OneWay}">
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=ComPorts, Mode=OneWay}" SelectedItem="{Binding Path=ComPort, Mode=TwoWay}">
                     <dxe:ComboBoxEdit.Style>
                         <Style TargetType="dxe:ComboBoxEdit">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=ComPort, Mode=TwoWay}" Value="{x:Null}">
+                                    <Setter Property="Text" Value="not selected"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxe:ComboBoxEdit.Style>
+                </dxe:ComboBoxEdit>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1"  Style="{StaticResource PrinterPanel}">
+                <Label Content="Тип весов"/>
+                <dxe:ComboBoxEdit ItemsSource="{Binding Path=TypeOfScales, Mode=OneWay}" SelectedItem="{Binding Path=TypeScale, Mode=TwoWay}">
+                    <dxe:ComboBoxEdit.Style>
+                        <Style TargetType="dxe:ComboBoxEdit">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=TypeScale, Mode=TwoWay}" Value="{x:Null}">
                                     <Setter Property="Text" Value="not selected"/>
                                 </DataTrigger>
                             </Style.Triggers>

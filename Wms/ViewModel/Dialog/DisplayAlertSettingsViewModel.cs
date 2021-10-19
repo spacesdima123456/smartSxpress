@@ -32,8 +32,16 @@ namespace Wms.ViewModel.Dialog
             set => Set(nameof(ComPort),ref _comPort, value);
         }
 
+        private string _typeScale;
+        public string TypeScale
+        {
+            get => _typeScale;
+            set => Set(nameof(TypeScale), ref _typeScale, value);
+        }
+
         public ObservableCollection<string> Printers { get; }
         public ObservableCollection<string> ComPorts { get; }
+        public ObservableCollection<string> TypeOfScales => new ObservableCollection<string> { "CAS" };
 
         public static ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
         {
@@ -54,10 +62,12 @@ namespace Wms.ViewModel.Dialog
         {
             Printers = new ObservableCollection<string>(PrinterSettings.InstalledPrinters.OfType<string>());
             ComPorts = new ObservableCollection<string>(SerialPort.GetPortNames());
-            PrinterDocx = GetValue("PrinterDocx");
-            Printer = GetValue("Printer");
-            ComPort = GetValue("ComPort");
+            PrinterDocx = GetValue(nameof(PrinterDocx));
+            TypeScale = GetValue(nameof(TypeScale));
+            Printer = GetValue(nameof(Printer));
+            ComPort = GetValue(nameof(ComPort));
         }
+
         private void Set(string property, ref string field, string value)
         {
             base.Set(property, ref field, value);
