@@ -1,5 +1,5 @@
 ﻿<window:DisplayAlertBase xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
-        Width="265"
+        Width="240"
         Height="250"
         mc:Ignorable="d"
         Title="Настройки"
@@ -38,7 +38,7 @@
             <Setter Property="Orientation" Value="Vertical"/>
         </Style>
         <Style TargetType="{x:Type dxe:ComboBoxEdit}">
-            <Setter Property="Width" Value="205"/>
+            <Setter Property="Width" Value="180"/>
         </Style>
     </window:DisplayAlertBase.Resources>
     <Grid  Margin="10 0 0 0">
