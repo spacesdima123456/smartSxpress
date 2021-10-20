@@ -16,6 +16,9 @@ namespace Wms.API.Models
 
         [JsonPropertyName("docTypes")]
         public List<DocType> DocType { get; set; }
+
+        [JsonPropertyName("scaleTypes")]
+        public List<ScaleType> ScaleTypes { get; set; }
     }
 
 }
