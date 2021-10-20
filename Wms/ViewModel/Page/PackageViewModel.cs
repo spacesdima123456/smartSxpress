@@ -152,6 +152,20 @@ namespace Wms.ViewModel.Page
             set => Set(nameof(Contents), ref _contents, value);
         }
 
+        private bool _isEnabledAddressSender;
+        public bool IsEnabledAddressSender
+        {
+            get => _isEnabledAddressSender;
+            private set => Set(nameof(IsEnabledAddressSender), ref _isEnabledAddressSender, value);
+        }
+
+        private bool _isEnabledAddressRecipient;
+        public bool IsEnabledAddressRecipient
+        {
+            get => _isEnabledAddressRecipient;
+            private set => Set(nameof(IsEnabledAddressRecipient), ref _isEnabledAddressRecipient, value);
+        }
+
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
         public static ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
 

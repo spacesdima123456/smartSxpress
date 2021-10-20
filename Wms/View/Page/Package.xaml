@@ -96,17 +96,17 @@
                     <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
-                            <dxe:TextEdit Text="{Binding Path=Sender.Name, Mode=TwoWay}"/>
+                            <dxe:TextEdit Text="{Binding Path=Sender.Name, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Address:">
-                            <dxe:TextEdit  Text="{Binding Path=Sender.Address, Mode=TwoWay}"/>
+                            <dxe:TextEdit  Text="{Binding Path=Sender.Address, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="City:">
-                            <dxe:TextEdit  Text="{Binding Path=Sender.City, Mode=TwoWay}"/>
+                            <dxe:TextEdit  Text="{Binding Path=Sender.City, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Zip:">
-                                <dxe:TextEdit Text="{Binding Path=Sender.Zip, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.Zip, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="State:">
                                 <dxlc:LayoutItem.Style>
@@ -119,7 +119,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </dxlc:LayoutItem.Style>
-                                <dxe:TextEdit Text="{Binding Path=Sender.State, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.State, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup Orientation="Horizontal">
@@ -127,7 +127,7 @@
                                     <dxe:ComboBoxEdit SelectedItem="{Binding Path=CountrySender, Mode=OneWay}" ItemsSource="{Binding Path=CountriesSender, Mode=OneWay}" DisplayMember="Name" IsEnabled="False"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Phone:">
-                                <dxe:TextEdit Text="{Binding Path=Sender.Phone, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Sender.Phone, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressSender, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
@@ -175,17 +175,17 @@
                     <GroupBox Header="Address" Margin="15 0 15 28">
                         <dxlc:LayoutControl>
                             <dxlc:LayoutItem Label="Name: ">
-                            <dxe:TextEdit Text="{Binding Path=Recipient.Name, Mode=TwoWay}"/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.Name, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Address:">
-                            <dxe:TextEdit Text="{Binding Path=Recipient.Address, Mode=TwoWay}"/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.Address, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="City:">
-                            <dxe:TextEdit Text="{Binding Path=Recipient.City, Mode=TwoWay}"/>
+                            <dxe:TextEdit Text="{Binding Path=Recipient.City, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup>
                                 <dxlc:LayoutItem Label="Zip:">
-                                <dxe:TextEdit Text="{Binding Path=Recipient.Zip, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.Zip, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="State:">
                                 <dxlc:LayoutItem.Style>
@@ -198,15 +198,15 @@
                                         </Style.Triggers>
                                     </Style>
                                 </dxlc:LayoutItem.Style>
-                                <dxe:TextEdit Text="{Binding Path=Recipient.State, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.State, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
                             <dxlc:LayoutGroup Orientation="Horizontal">
                                 <dxlc:LayoutItem Label="Country:">
-                                    <dxe:ComboBoxEdit ItemsSource="{Binding Path=CountriesRecipient, Mode=OneWay}" SelectedItem="{Binding Path=CountryRecipient, Mode=TwoWay}" DisplayMember="Name"/>
+                                <dxe:ComboBoxEdit ItemsSource="{Binding Path=CountriesRecipient, Mode=OneWay}" SelectedItem="{Binding Path=CountryRecipient, Mode=TwoWay}" DisplayMember="Name" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                                 <dxlc:LayoutItem Label="Phone:">
-                                <dxe:TextEdit Text="{Binding Path=Recipient.Phone, Mode=TwoWay}"/>
+                                <dxe:TextEdit Text="{Binding Path=Recipient.Phone, Mode=TwoWay}" IsEnabled="{Binding Path=IsEnabledAddressRecipient, Mode=OneWay}"/>
                                 </dxlc:LayoutItem>
                             </dxlc:LayoutGroup>
                         </dxlc:LayoutControl>
