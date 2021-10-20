@@ -41,7 +41,7 @@ namespace Wms.ViewModel.Dialog
 
         public ObservableCollection<string> Printers { get; }
         public ObservableCollection<string> ComPorts { get; }
-        public ObservableCollection<string> TypeOfScales => new ObservableCollection<string> { "CAS" };
+        public ObservableCollection<string> TypeOfScales { get; }
 
         public static ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
         {
@@ -61,6 +61,7 @@ namespace Wms.ViewModel.Dialog
         public DisplayAlertSettingsViewModel()
         {
             Printers = new ObservableCollection<string>(PrinterSettings.InstalledPrinters.OfType<string>());
+            TypeOfScales = new ObservableCollection<string>(App.Data.Data.ScaleTypes.Select(s=>s.Type));
             ComPorts = new ObservableCollection<string>(SerialPort.GetPortNames());
             PrinterDocx = GetValue(nameof(PrinterDocx));
             TypeScale = GetValue(nameof(TypeScale));

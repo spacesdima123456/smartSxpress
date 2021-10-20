@@ -139,6 +139,9 @@
                                 <DataTrigger Binding="{Binding Path=TypeScale, Mode=TwoWay}" Value="{x:Null}">
                                     <Setter Property="Text" Value="not selected"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=ComPort, Mode=TwoWay}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </dxe:ComboBoxEdit.Style>
