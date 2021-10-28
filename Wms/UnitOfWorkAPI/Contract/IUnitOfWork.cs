@@ -1,11 +1,12 @@
-﻿using Wms.UnitOfWorkAPI.RepositoryAPI.Contract;
+﻿using Wms.API.Interface;
 
 namespace Wms.UnitOfWorkAPI.Contract
 {
     public interface IUnitOfWork
     {
-        IBranchRepository BranchRepository { get; }
-        IAccountRepository AccountRepository { get; }
-        IAuthorizationRepository AuthorizationRepository { get; }
+        IBranch BranchRepository { get; }
+        IPackage PackageRepository { get; }
+        IAccount AccountRepository { get; }
+        IAuth AuthorizationRepository { get; }
     }
 }

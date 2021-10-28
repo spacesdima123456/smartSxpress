@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Wms.Models;
 using System.Linq;
 using Wms.API.Models;
@@ -8,11 +9,14 @@ using System.Windows.Input;
 using System.ComponentModel;
 using DevExpress.Mvvm.Native;
 using System.Collections.ObjectModel;
+using Wms.UnitOfWorkAPI.Contract;
 
 namespace Wms.ViewModel.Page
 {
     public class PackageViewModel: BaseViewModel
     {
+        private readonly IUnitOfWork _unitOfWork;
+
         private DocType _docTypeSender;
         public DocType DocTypeSender
         {
@@ -40,7 +44,7 @@ namespace Wms.ViewModel.Page
             get => _countryRecipient;
             set
             {
-                Recipient.CountryId = value.CountryCode;
+                Recipient.CountryCode = value.CountryCode;
                 Set(nameof(CountryRecipient), ref _countryRecipient, value);
             }
         }
@@ -96,11 +100,43 @@ namespace Wms.ViewModel.Page
         });
 
 
-        private ICommand _saveCommand;
-        public ICommand SaveCommand => _saveCommand ??= new DelegateCommand(() =>
+        private ObservableCollection<string> _docNumSenders;
+        public ObservableCollection<string> DocNumSenders
         {
-            Sender.Validate();
-            Recipient.Validate();
+            get => _docNumSenders;
+            private set => Set(nameof(DocNumSenders), ref _docNumSenders, value);
+        }
+
+        //private string _searchDocNumSender;
+        //public string SearchDocNumSender
+        //{
+        //    get => _searchDocNumSender;
+        //    set
+        //    {
+        //        Set(nameof(SearchDocNumSender), ref _searchDocNumSender, value);
+
+        //        //var test =  _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("recipient", Sender.DocTypeId, Sender.DocId).Result;
+
+        //        //DocNumSenders = new ObservableCollection<string>(test.Data);
+        //    }
+        //}
+
+        private ICommand _searchCustomersDocs;
+        public ICommand SearchCustomersDocs => _searchCustomersDocs??=new AsyncCommand(async () =>
+        {
+            var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", 2, "AN12437890");
+            DocNumSenders = new ObservableCollection<string>(documents.Data);
+        });
+
+
+
+        private ICommand _saveCommand;
+        public ICommand SaveCommand => _saveCommand ??= new AsyncCommand(async () =>
+        {
+            //Sender.Validate();
+            //Recipient.Validate();
+            //var test = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("recipient", Sender.DocTypeId, Sender.DocId); ТЕСТ
+            //var test2 = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", 2, "AN12437890"); ТЕСТ
 
         });
 
@@ -176,13 +212,13 @@ namespace Wms.ViewModel.Page
             get
             {
                 var country = CountriesSender.FirstOrDefault(f => f.Name == App.Data.Data.Customer.CountryName);
-                Sender.CountryId = country?.CountryCode;
+                Sender.CountryCode = country?.CountryCode;
                 return country;
             }
         }
         public static ObservableCollection<Countries> CountriesSender => new ObservableCollection<Countries>(App.Data.Data.Countries);
 
-        public PackageViewModel()
+        public PackageViewModel(IUnitOfWork unitOfWork)
         {
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
             DocTypeSender = DocTypes[0];
@@ -192,6 +228,7 @@ namespace Wms.ViewModel.Page
 
             Boxes.ListChanged += ListChanged;
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
+            _unitOfWork = unitOfWork;
         }
 
         private void ListChanged(object sender, ListChangedEventArgs e)

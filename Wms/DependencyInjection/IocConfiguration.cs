@@ -25,6 +25,7 @@ namespace Wms.DependencyInjection
 
             //view models 
             Bind<AdminViewModel>().ToSelf().InTransientScope();
+            Bind<PackageViewModel>().ToSelf().InTransientScope();
             Bind<BranchesViewModel>().ToSelf().InTransientScope();
         }
     }

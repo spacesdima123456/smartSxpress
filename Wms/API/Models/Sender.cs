@@ -13,9 +13,9 @@ namespace Wms.API.Models
             set => Set(nameof(DocTypeId), ref _docTypeId, value);
         }
 
-        private int? _docId;
+        private string _docId;
         [JsonPropertyName("docId")]
-        public int? DocId
+        public string DocId
         {
             get => _docId;
             set => Set(nameof(DocId), ref _docId, value);
@@ -69,12 +69,12 @@ namespace Wms.API.Models
             set => Set(nameof(Phone), ref _phone, value);
         }
 
-        private string _countryId;
-        [JsonPropertyName("countryId")]
-        public string CountryId
+        private string _countryCode;
+        [JsonPropertyName("countryCode")]
+        public string CountryCode
         {
-            get => _countryId;
-            set => Set(nameof(CountryId), ref _countryId, value);
+            get => _countryCode;
+            set => Set(nameof(CountryCode), ref _countryCode, value);
         }
 
         public void Validate()

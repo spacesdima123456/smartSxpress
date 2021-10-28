@@ -35,10 +35,7 @@ namespace Wms.Services.Authorization
             _tokenStorage.SetToken("", "ApiKey");
         }
 
-        public async Task<Response> ValidKeyAsync()
-        {
-            return await _unitOfWork.AuthorizationRepository.ValidKeyAsync(GetToken());
-        }
+        public async Task<Response> ValidKeyAsync()=> await _unitOfWork.AuthorizationRepository.ValidTokenAsync(GetToken());
 
         private string GetToken() => _tokenStorage.GetToken("ApiKey");
     }

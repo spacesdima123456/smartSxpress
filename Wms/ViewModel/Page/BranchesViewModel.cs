@@ -104,7 +104,7 @@ namespace Wms.ViewModel.Page
         {
             return AsyncContext.Run(async () =>
             {
-                var branch = await _unitOfWork.BranchRepository.GetAllBranchesAsync();
+                var branch = await _unitOfWork.BranchRepository.GetAllBranchAsync();
                 if (branch.Code!=1)
                     HandleGeneralErrors(branch);
                 return branch.Branches ?? Enumerable.Empty<Branches>();
