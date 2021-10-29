@@ -28,5 +28,12 @@ namespace Wms.Helpers
                 }
             }
         }
+
+        public static async Task HandleGeneralErrorsAsync(ApiException e)
+        {
+            var content = await e.GetContentAsAsync<Error>();
+            if (content!=null)
+                HandleGeneralErrors(content);
+        }
     }
 }

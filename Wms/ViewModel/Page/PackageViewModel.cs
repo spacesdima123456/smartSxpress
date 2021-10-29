@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Refit;
+using System;
 using Wms.Models;
 using System.Linq;
 using Wms.API.Models;
 using DevExpress.Mvvm;
-using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.ComponentModel;
 using DevExpress.Mvvm.Native;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using  static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
 {
@@ -70,6 +73,20 @@ namespace Wms.ViewModel.Page
             set => Set(nameof(Recipient), ref _recipient, value);
         }
 
+        private Brush _physWeightColor;
+        public Brush PhysWeightColor
+        {
+            get => _physWeightColor;
+            private set => Set(nameof(PhysWeightColor), ref _physWeightColor, value);
+        }
+
+        private Brush _volumWeightColor;
+        public Brush VolumWeightColor
+        {
+            get => _volumWeightColor;
+            private set => Set(nameof(VolumWeightColor), ref _volumWeightColor, value);
+        }
+
         private ICommand _addBoxCommand;
         public ICommand AddBoxCommand => _addBoxCommand??=new DelegateCommand(() =>
         {
@@ -99,39 +116,8 @@ namespace Wms.ViewModel.Page
                 Contents.Add(new Content { Number = Contents.Count + 1 });
         });
 
-
-        private ObservableCollection<string> _docNumSenders;
-        public ObservableCollection<string> DocNumSenders
-        {
-            get => _docNumSenders;
-            private set => Set(nameof(DocNumSenders), ref _docNumSenders, value);
-        }
-
-        //private string _searchDocNumSender;
-        //public string SearchDocNumSender
-        //{
-        //    get => _searchDocNumSender;
-        //    set
-        //    {
-        //        Set(nameof(SearchDocNumSender), ref _searchDocNumSender, value);
-
-        //        //var test =  _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("recipient", Sender.DocTypeId, Sender.DocId).Result;
-
-        //        //DocNumSenders = new ObservableCollection<string>(test.Data);
-        //    }
-        //}
-
-        private ICommand _searchCustomersDocs;
-        public ICommand SearchCustomersDocs => _searchCustomersDocs??=new AsyncCommand(async () =>
-        {
-            var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", 2, "AN12437890");
-            DocNumSenders = new ObservableCollection<string>(documents.Data);
-        });
-
-
-
         private ICommand _saveCommand;
-        public ICommand SaveCommand => _saveCommand ??= new AsyncCommand(async () =>
+        public ICommand SaveCommand => _saveCommand ??= new DelegateCommand(() =>
         {
             //Sender.Validate();
             //Recipient.Validate();
@@ -140,18 +126,20 @@ namespace Wms.ViewModel.Page
 
         });
 
-        private static void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where  T: BoxesBase
-        {
-            var index = 1;
-            if (bindingList.Count > 1)
-                bindingList.Remove(item);
-
-            bindingList.ForEach(f =>
+        private ICommand _selectedRecipientCommand;
+        public ICommand SelectedRecipientCommand => _selectedRecipientCommand ??= new AsyncCommand<string>(
+            async (docNum) => 
             {
-                f.Number = index;
-                index++;
+                var recipient = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("recipient", Recipient.DocTypeId, docNum);
+                Recipient = recipient.Data;
             });
-        }
+
+        private ICommand _selectedSenderCommand;
+        public ICommand SelectedSenderCommand => _selectedSenderCommand ??= new AsyncCommand<string>(async (docNum) =>
+            {
+                var sender = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("sender", Sender.DocTypeId, docNum);
+                Sender = sender.Data;
+            });
 
         private double? _physicalWeight;
         public double? PhysicalWeight
@@ -165,27 +153,6 @@ namespace Wms.ViewModel.Page
         {
             get => _volumetricWeight;
             private set => Set(nameof(VolumetricWeight), ref _volumetricWeight, value);
-        }
-
-        private Brush _physWeightColor;
-        public Brush PhysWeightColor
-        {
-            get => _physWeightColor;
-            private set => Set(nameof(PhysWeightColor), ref _physWeightColor, value);
-        }
-
-        private Brush _volumWeightColor;
-        public Brush VolumWeightColor
-        {
-            get => _volumWeightColor;
-            private set => Set(nameof(VolumWeightColor), ref _volumWeightColor, value);
-        }
-
-        private BindingList<Content> _contents;
-        public BindingList<Content> Contents
-        {
-            get => _contents;
-            set => Set(nameof(Contents), ref _contents, value);
         }
 
         private bool _isEnabledAddressSender;
@@ -202,10 +169,32 @@ namespace Wms.ViewModel.Page
             private set => Set(nameof(IsEnabledAddressRecipient), ref _isEnabledAddressRecipient, value);
         }
 
+        private BindingList<Content> _contents;
+        public BindingList<Content> Contents
+        {
+            get => _contents;
+            set => Set(nameof(Contents), ref _contents, value);
+        }
+
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
         public static ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
 
+        private ObservableCollection<string> _docNumSenders;
+        public ObservableCollection<string> DocNumSenders
+        {
+            get => _docNumSenders;
+            private set => Set(nameof(DocNumSenders), ref _docNumSenders, value);
+        }
+
+        private ObservableCollection<string> _docNumRecipients;
+        public ObservableCollection<string> DocNumRecipients
+        {
+            get => _docNumRecipients;
+            private set => Set(nameof(DocNumRecipients), ref _docNumRecipients, value);
+        }
+
         public static  ObservableCollection<DocType> DocTypes => new ObservableCollection<DocType>(App.Data.Data.DocType);
+        public static ObservableCollection<Countries> CountriesSender => new ObservableCollection<Countries>(App.Data.Data.Countries);
 
         public  Countries CountrySender
         {
@@ -216,7 +205,7 @@ namespace Wms.ViewModel.Page
                 return country;
             }
         }
-        public static ObservableCollection<Countries> CountriesSender => new ObservableCollection<Countries>(App.Data.Data.Countries);
+
 
         public PackageViewModel(IUnitOfWork unitOfWork)
         {
@@ -243,6 +232,36 @@ namespace Wms.ViewModel.Page
             CalcVolumetricWeight();
         }
 
+        public async Task SearchVariantDocSendersAsync(string text)
+        {
+            try
+            {
+                var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("senderDocIdVariants", Sender.DocTypeId, text);
+                if (documents.Code == 1)
+                    DocNumSenders = new ObservableCollection<string>(documents.Data);
+            }
+            catch (ApiException e)
+            {
+                DocNumSenders = new ObservableCollection<string>();
+                await HandleGeneralErrorsAsync(e);
+            }
+        }
+
+        public async Task SearchVariantDocRecipientsAsync(string text)
+        {
+            try
+            {
+                var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", Recipient.DocTypeId, text);
+                if (documents.Code == 1)
+                    DocNumRecipients = new ObservableCollection<string>(documents.Data);
+            }
+            catch (ApiException e)
+            {
+                await HandleGeneralErrorsAsync(e);
+            }
+        }
+
+
         private  void CalcPhysicalWeight()
         {
             PhysicalWeight = Math.Round(Convert.ToDouble(Boxes.Sum(s => s.Weight)));
@@ -263,6 +282,18 @@ namespace Wms.ViewModel.Page
 
             if (PhysicalWeight < VolumetricWeight)
                 VolumWeightColor = Brushes.Red;
+        }
+        private static void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where T : BoxesBase
+        {
+            var index = 1;
+            if (bindingList.Count > 1)
+                bindingList.Remove(item);
+
+            bindingList.ForEach(f =>
+            {
+                f.Number = index;
+                index++;
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Wms.ViewModel.Page;
 using System.Windows.Input;
+using DevExpress.Xpf.Editors;
 
 namespace Wms.View.Page
 {
@@ -23,5 +24,17 @@ namespace Wms.View.Page
         {
            ((PackageViewModel)DataContext).AddContentCommand.Execute(e);
         }
+
+
+        private async void OnQuerySubmittedSender(object sender, AutoSuggestEditQuerySubmittedEventArgs e)
+        {
+            await ((PackageViewModel) DataContext).SearchVariantDocSendersAsync(e.Text);
+        }
+
+        private async void OnQuerySubmittedRecipients(object sender, AutoSuggestEditQuerySubmittedEventArgs e)
+        {
+            await((PackageViewModel)DataContext).SearchVariantDocRecipientsAsync(e.Text);
+        }
+
     }
 }

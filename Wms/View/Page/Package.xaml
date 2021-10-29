@@ -87,14 +87,14 @@
                                 <dxe:ComboBoxEdit SelectedItem="{Binding Path=DocTypeSender, Mode=TwoWay}" ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="#:">
-                                <!--<dxe:TextEdit Text="{Binding Path=Sender.DocId, Mode=TwoWay}"/>-->
-                                <dxe:ComboBoxEdit ItemsSource="{Binding Path=DocNumSenders, Mode=OneWay}" FilterCondition="Contains" ImmediatePopup="True" IncrementalFiltering="True" ValidateOnTextInput="False">
+                                <dxe:AutoSuggestEdit
+                                    NullText="Введите номер документа..."
+                                    ItemsSource="{Binding Path=DocNumSenders, Mode=OneWay}" QuerySubmitted="OnQuerySubmittedSender" >
                                 <dxmvvm:Interaction.Behaviors>
-                                    <dxmvvm:EventToCommand EventName="ProcessNewValue" Command="{Binding SearchCustomersDocs}" UseDispatcher="True"/>
+                                    <dxmvvm:EventToCommand EventName="EditValueChanged" Command="{Binding SelectedSenderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxe:AutoSuggestEdit}}, Path=Text}" UseDispatcher="True"/>
                                 </dxmvvm:Interaction.Behaviors>
-                            </dxe:ComboBoxEdit>
-
-                        </dxlc:LayoutItem>
+                            </dxe:AutoSuggestEdit>
+                            </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
                     <GroupBox Header="Address" Margin="15 0 15 28">
@@ -172,8 +172,15 @@
                                 <dxe:ComboBoxEdit ItemsSource="{Binding Path=DocTypes, Mode=OneWay}" DisplayMember="Type" SelectedItem="{Binding Path=DocTypeRecipient, Mode=OneWay}"  IsEnabled="False"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="#:">
-                            <dxe:TextEdit Text="{Binding Path=Recipient.DocId, Mode=TwoWay}"/>
-                            </dxlc:LayoutItem>
+                            <!--<dxe:TextEdit Text="{Binding Path=Recipient.DocId, Mode=TwoWay}"/>-->
+                            <dxe:AutoSuggestEdit
+                                NullText="Введите номер документа..."
+                                ItemsSource="{Binding Path=DocNumRecipients, Mode=OneWay}" QuerySubmitted="OnQuerySubmittedRecipients">
+                                <dxmvvm:Interaction.Behaviors>
+                                    <dxmvvm:EventToCommand EventName="EditValueChanged" Command="{Binding SelectedRecipientCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxe:AutoSuggestEdit}}, Path=Text}" UseDispatcher="True"/>
+                                </dxmvvm:Interaction.Behaviors>
+                            </dxe:AutoSuggestEdit>
+                        </dxlc:LayoutItem>
                         </dxlc:LayoutControl>
                     </GroupBox>
                     <GroupBox Header="Address" Margin="15 0 15 28">
