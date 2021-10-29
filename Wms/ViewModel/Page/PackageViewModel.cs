@@ -121,9 +121,6 @@ namespace Wms.ViewModel.Page
         {
             //Sender.Validate();
             //Recipient.Validate();
-            //var test = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<Sender>("recipient", Sender.DocTypeId, Sender.DocId); ТЕСТ
-            //var test2 = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", 2, "AN12437890"); ТЕСТ
-
         });
 
         private ICommand _selectedRecipientCommand;
@@ -167,6 +164,20 @@ namespace Wms.ViewModel.Page
         {
             get => _isEnabledAddressRecipient;
             private set => Set(nameof(IsEnabledAddressRecipient), ref _isEnabledAddressRecipient, value);
+        }
+
+        private bool _immediatePopupSender;
+        public bool ImmediatePopupSender
+        {
+            get => _immediatePopupSender;
+            private  set=> Set(nameof(ImmediatePopupSender), ref _immediatePopupSender, value);
+        }
+
+        private bool _immediatePopupRecipient;
+        public bool ImmediatePopupRecipient
+        {
+            get => _immediatePopupRecipient;
+            private set => Set(nameof(ImmediatePopupRecipient), ref _immediatePopupRecipient, value);
         }
 
         private BindingList<Content> _contents;
@@ -234,31 +245,41 @@ namespace Wms.ViewModel.Page
 
         public async Task SearchVariantDocSendersAsync(string text)
         {
-            try
+            await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
             {
-                var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("senderDocIdVariants", Sender.DocTypeId, text);
-                if (documents.Code == 1)
-                    DocNumSenders = new ObservableCollection<string>(documents.Data);
-            }
-            catch (ApiException e)
-            {
-                DocNumSenders = new ObservableCollection<string>();
-                await HandleGeneralErrorsAsync(e);
-            }
+                DocNumSenders = collection;
+                ImmediatePopupSender = b;
+            });
         }
 
         public async Task SearchVariantDocRecipientsAsync(string text)
         {
+            await SearchVariantDocAsync(text, "recipientDocIdVariants", Recipient.DocTypeId, (collection, b) =>
+            {
+                DocNumRecipients = collection;
+                ImmediatePopupRecipient = b;
+            });
+        }
+
+        private async Task SearchVariantDocAsync(string text, string typeCustomer, int docTypeId, Action<ObservableCollection<string>, bool> callBack)
+        {
+            var immediatePopup = false;
+            var data = Enumerable.Empty<string>();
             try
             {
-                var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>("recipientDocIdVariants", Recipient.DocTypeId, text);
-                if (documents.Code == 1)
-                    DocNumRecipients = new ObservableCollection<string>(documents.Data);
+                var documents = await _unitOfWork.PackageRepository.FindCustomerInfoAsync<List<string>>(typeCustomer, docTypeId, text);
+                if (documents.Data.Any())
+                {
+                    data = documents.Data;
+                    immediatePopup = true;
+                }
             }
             catch (ApiException e)
             {
                 await HandleGeneralErrorsAsync(e);
             }
+
+            callBack(new ObservableCollection<string>(data), immediatePopup);
         }
 
 
