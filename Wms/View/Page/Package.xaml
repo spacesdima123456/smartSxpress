@@ -20,7 +20,7 @@
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
-        <!--<Style TargetType="{x:Type dxlc:LayoutItem}" BasedOn="{StaticResource {x:Type Control}}"></Style>-->
+        <Style TargetType="{x:Type dxlc:LayoutItem}" BasedOn="{StaticResource {x:Type Control}}"></Style>
         <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type Control}}">
             <Setter Property="Margin" Value="0 0 20 0"/>
             <Setter Property="BorderBrush" Value="Black"/>

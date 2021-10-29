@@ -247,8 +247,9 @@ namespace Wms.ViewModel.Page
         {
             await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
             {
-                DocNumSenders = collection;
                 ImmediatePopupSender = b;
+                DocNumSenders = collection;
+                IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(text);
             });
         }
 
@@ -256,8 +257,9 @@ namespace Wms.ViewModel.Page
         {
             await SearchVariantDocAsync(text, "recipientDocIdVariants", Recipient.DocTypeId, (collection, b) =>
             {
-                DocNumRecipients = collection;
                 ImmediatePopupRecipient = b;
+                DocNumRecipients = collection;
+                IsEnabledAddressRecipient = b != true && !string.IsNullOrWhiteSpace(text);
             });
         }
 
