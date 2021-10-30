@@ -21,9 +21,22 @@ namespace Wms.View.Page
             var vm = (PackageViewModel) DataContext;
             var autoSuggestEdit = (AutoSuggestEdit) sender;
 
-            await vm.SearchVariantDocSendersAsync(e.Text);
+            await vm.OnQuerySubmittedSenderAsync(e.Text);
 
             if (vm.DocNumSenders != null && vm.DocNumSenders.Count > 0)
+                autoSuggestEdit.ShowPopup();
+            else
+                autoSuggestEdit.ClosePopup();
+        }
+
+        private async void OnQuerySubmittedRecipients(object sender, AutoSuggestEditQuerySubmittedEventArgs e)
+        {
+            var vm = (PackageViewModel)DataContext;
+            var autoSuggestEdit = (AutoSuggestEdit)sender;
+
+            await vm.OnQuerySubmittedRecipientAsync(e.Text);
+
+            if (vm.DocNumRecipients != null && vm.DocNumRecipients.Count > 0)
                 autoSuggestEdit.ShowPopup();
             else
                 autoSuggestEdit.ClosePopup();
