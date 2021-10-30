@@ -139,19 +139,42 @@ namespace Wms.ViewModel.Page
                 Sender = sender.Data;
             });
 
-        private ICommand _onQuerySubmittedSendersCommand;
-        public ICommand OnQuerySubmittedSendersCommand => _onQuerySubmittedSendersCommand ??= new AsyncCommand<AutoSuggestEditQuerySubmittedEventArgs>(async (e) =>
+        //private ICommand _onQuerySubmittedSendersCommand;
+        //public ICommand OnQuerySubmittedSendersCommand => _onQuerySubmittedSendersCommand ??= new AsyncCommand<AutoSuggestEditQuerySubmittedEventArgs>(async (e) =>
+        //{
+        //    await SearchVariantDocAsync(e.Text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
+        //    {
+        //        //ImmediatePopupSender = b;
+        //        DocNumSenders = collection;
+        //        IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(e.Text);
+
+        //        if (IsEnabledAddressSender)
+        //            Sender.Clear();
+        //        else
+        //        {
+        //            if (DocNumSenders.Count == 1)
+        //                SelectedSenderCommand.Execute(e.Text);
+        //        }
+        //    });
+        //});
+
+        public async Task SearchVariantDocSendersAsync(string text)
         {
-            await SearchVariantDocAsync(e.Text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
+            await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
             {
-                ImmediatePopupSender = b;
                 DocNumSenders = collection;
-                IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(e.Text);
+                IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(text);
 
                 if (IsEnabledAddressSender)
                     Sender.Clear();
+                else
+                {
+                    if (collection.Any(a=>a.Contains(text)))
+                        SelectedSenderCommand.Execute(text);
+                }
             });
-        });
+        }
+
 
         private ICommand _onQuerySubmittedRecipientCommand;
         public ICommand OnQuerySubmittedRecipientCommand => _onQuerySubmittedRecipientCommand ??= new AsyncCommand<AutoSuggestEditQuerySubmittedEventArgs>(async (e) =>
@@ -164,6 +187,11 @@ namespace Wms.ViewModel.Page
 
                 if (IsEnabledAddressRecipient)
                     Recipient.Clear();
+                else
+                {
+                    if (DocNumRecipients.Count == 1)
+                        SelectedRecipientCommand.Execute(e.Text);
+                }
             });
         });
 
@@ -195,12 +223,12 @@ namespace Wms.ViewModel.Page
             private set => Set(nameof(IsEnabledAddressRecipient), ref _isEnabledAddressRecipient, value);
         }
 
-        private bool _immediatePopupSender;
-        public bool ImmediatePopupSender
-        {
-            get => _immediatePopupSender;
-            private  set=> Set(nameof(ImmediatePopupSender), ref _immediatePopupSender, value);
-        }
+        //private bool _immediatePopupSender;
+        //public bool ImmediatePopupSender
+        //{
+        //    get => _immediatePopupSender;
+        //    private  set=> Set(nameof(ImmediatePopupSender), ref _immediatePopupSender, value);
+        //}
 
         private bool _immediatePopupRecipient;
         public bool ImmediatePopupRecipient
