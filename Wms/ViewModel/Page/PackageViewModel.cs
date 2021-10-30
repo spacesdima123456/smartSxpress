@@ -26,6 +26,7 @@ namespace Wms.ViewModel.Page
             get => _docTypeSender;
             set
             {
+                DocNumSenders?.Clear();
                 Sender.DocTypeId = value.Id;
                 Set(nameof(DocTypeSender), ref _docTypeSender, value);
             }
