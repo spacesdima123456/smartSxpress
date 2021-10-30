@@ -92,9 +92,10 @@
                         <dxlc:LayoutItem Label="#:">
                             <dxe:AutoSuggestEdit
                                     ImmediatePopup="{Binding Path=ImmediatePopupSender, Mode=OneWay}"
-                                    ItemsSource="{Binding Path=DocNumSenders, Mode=OneWay}" QuerySubmitted="OnQuerySubmittedSender" >
+                                    ItemsSource="{Binding Path=DocNumSenders, Mode=OneWay}">
                                 <dxmvvm:Interaction.Behaviors>
                                     <dxmvvm:EventToCommand EventName="EditValueChanged" Command="{Binding SelectedSenderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxe:AutoSuggestEdit}}, Path=Text}" UseDispatcher="True"/>
+                                    <dxmvvm:EventToCommand EventName="QuerySubmitted" Command="{Binding OnQuerySubmittedSendersCommand, UpdateSourceTrigger=PropertyChanged}" PassEventArgsToCommand="True"/>
                                 </dxmvvm:Interaction.Behaviors>
                             </dxe:AutoSuggestEdit>
                         </dxlc:LayoutItem>
@@ -176,11 +177,11 @@
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="#:">
                             <dxe:AutoSuggestEdit
-                                    QuerySubmitted="OnQuerySubmittedRecipients"
-                                    ItemsSource="{Binding Path=DocNumRecipients, Mode=OneWay}" 
+                                ItemsSource="{Binding Path=DocNumRecipients, Mode=OneWay}" 
                                     ImmediatePopup="{Binding Path=ImmediatePopupRecipient, Mode=OneWay}">
                                 <dxmvvm:Interaction.Behaviors>
                                     <dxmvvm:EventToCommand EventName="EditValueChanged" Command="{Binding SelectedRecipientCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxe:AutoSuggestEdit}}, Path=Text}" UseDispatcher="True"/>
+                                    <dxmvvm:EventToCommand EventName="QuerySubmitted" Command="{Binding OnQuerySubmittedRecipientCommand, UpdateSourceTrigger=PropertyChanged}" PassEventArgsToCommand="True"/>
                                 </dxmvvm:Interaction.Behaviors>
                             </dxe:AutoSuggestEdit>
                         </dxlc:LayoutItem>

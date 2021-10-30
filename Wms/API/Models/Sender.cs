@@ -84,5 +84,12 @@ namespace Wms.API.Models
             if (string.IsNullOrWhiteSpace(Address))
                 AddError(nameof(Address), "Address is null or white space ");
         }
+
+
+        public  void Clear()
+        {
+            Zip = null;
+            Name = Address = City = State = Phone = "";
+        }
     }
 }

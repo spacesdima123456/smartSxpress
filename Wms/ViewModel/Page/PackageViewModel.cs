@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using DevExpress.Xpf.Editors;
 using  static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
@@ -138,6 +139,34 @@ namespace Wms.ViewModel.Page
                 Sender = sender.Data;
             });
 
+        private ICommand _onQuerySubmittedSendersCommand;
+        public ICommand OnQuerySubmittedSendersCommand => _onQuerySubmittedSendersCommand ??= new AsyncCommand<AutoSuggestEditQuerySubmittedEventArgs>(async (e) =>
+        {
+            await SearchVariantDocAsync(e.Text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
+            {
+                ImmediatePopupSender = b;
+                DocNumSenders = collection;
+                IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(e.Text);
+
+                if (IsEnabledAddressSender)
+                    Sender.Clear();
+            });
+        });
+
+        private ICommand _onQuerySubmittedRecipientCommand;
+        public ICommand OnQuerySubmittedRecipientCommand => _onQuerySubmittedRecipientCommand ??= new AsyncCommand<AutoSuggestEditQuerySubmittedEventArgs>(async (e) =>
+        {
+            await SearchVariantDocAsync(e.Text, "recipientDocIdVariants", Recipient.DocTypeId, (collection, b) =>
+            {
+                ImmediatePopupRecipient = b;
+                DocNumRecipients = collection;
+                IsEnabledAddressRecipient = b != true && !string.IsNullOrWhiteSpace(e.Text);
+
+                if (IsEnabledAddressRecipient)
+                    Recipient.Clear();
+            });
+        });
+
         private double? _physicalWeight;
         public double? PhysicalWeight
         {
@@ -243,25 +272,31 @@ namespace Wms.ViewModel.Page
             CalcVolumetricWeight();
         }
 
-        public async Task SearchVariantDocSendersAsync(string text)
-        {
-            await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
-            {
-                ImmediatePopupSender = b;
-                DocNumSenders = collection;
-                IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(text);
-            });
-        }
+        //public async Task SearchVariantDocSendersAsync(string text)
+        //{
+        //    await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>
+        //    {
+        //        ImmediatePopupSender = b;
+        //        DocNumSenders = collection;
+        //        IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(text);
 
-        public async Task SearchVariantDocRecipientsAsync(string text)
-        {
-            await SearchVariantDocAsync(text, "recipientDocIdVariants", Recipient.DocTypeId, (collection, b) =>
-            {
-                ImmediatePopupRecipient = b;
-                DocNumRecipients = collection;
-                IsEnabledAddressRecipient = b != true && !string.IsNullOrWhiteSpace(text);
-            });
-        }
+        //        if (IsEnabledAddressSender)
+        //            Sender.Clear();
+        //    });
+        //}
+
+        //public async Task SearchVariantDocRecipientsAsync(string text)
+        //{
+        //    await SearchVariantDocAsync(text, "recipientDocIdVariants", Recipient.DocTypeId, (collection, b) =>
+        //    {
+        //        ImmediatePopupRecipient = b;
+        //        DocNumRecipients = collection;
+        //        IsEnabledAddressRecipient = b != true && !string.IsNullOrWhiteSpace(text);
+
+        //        if (IsEnabledAddressRecipient)
+        //            Recipient.Clear();
+        //    });
+        //}
 
         private async Task SearchVariantDocAsync(string text, string typeCustomer, int docTypeId, Action<ObservableCollection<string>, bool> callBack)
         {
