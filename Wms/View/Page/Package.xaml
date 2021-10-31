@@ -80,8 +80,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="10"/>
-                <RowDefinition Height="50*"/>
-            </Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
             <GroupBox Header="Sender" Grid.Column="1" Grid.Row="0" Style="{StaticResource GroupBox}">
                 <StackPanel>
                     <GroupBox Header="Doc" Margin="15 10 15 20">
@@ -141,7 +142,7 @@
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-        <GroupBox  Header="Package info" Grid.Column="2" Grid.Row="0" Style="{StaticResource GroupBox}">
+        <GroupBox  Header="Package and Sending info" Grid.Column="2" Grid.Row="0" Style="{StaticResource GroupBox}">
             <StackPanel Margin="15 10 15 20">
                 <DataGrid  x:Name="DtgBox" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Boxes, Mode=TwoWay}" Style="{StaticResource DataGrid}">
                     <DataGrid.Columns>
@@ -161,10 +162,22 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Content="+" FontSize="45" BorderThickness="0"  Background="#AFAFAF" Padding="0 -16 0 0" Width="40" Height="40" Command="{Binding Path=AddBoxCommand}" Margin="0 20 0 0"/>
-                <Label Content="{Binding Path=PhysicalWeight, Mode=OneWay}" Foreground="{Binding Path=PhysWeightColor, Mode=OneWay}"  ContentStringFormat="Физический вес: {0}"/>
-                <Label Content="{Binding Path=VolumetricWeight, Mode=OneWay}" Foreground="{Binding Path=VolumWeightColor, Mode=OneWay}" ContentStringFormat="Объемный вес: {0}" />
-                <Label></Label>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="{Binding Path=PhysicalWeight, Mode=OneWay}" Foreground="{Binding Path=PhysWeightColor, Mode=OneWay}"  ContentStringFormat="Физический вес: {0}" Margin="0 0 175 0"/>
+                    <Label Content="{Binding Path=VolumetricWeight, Mode=OneWay}" Foreground="{Binding Path=VolumeWeightColor, Mode=OneWay}" ContentStringFormat="Объемный вес: {0}" />
+                </StackPanel>
+                <Button Content="+" FontSize="45" BorderThickness="0"  Background="#AFAFAF" Padding="0 -16 0 0" Width="40" Height="40" Command="{Binding Path=AddBoxCommand}" Margin="0 -10 0 0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 -10 0 0">
+                    <StackPanel Margin="0 0 10 0">
+                        <Label Content="Forwerder" Width="200"/>
+                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Forwarders, Mode=OneWay}" DisplayMember="Name"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Consugnee" Width="200"/>
+                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Consignees, Mode=OneWay}" DisplayMember="Name"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Content="Send" Width="100" Height="30" Command="{Binding Path=SaveCommand, Mode=OneTime}" Margin="0 0 0 -50"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Recipient" Grid.Column="3" Grid.Row="0" Style="{StaticResource GroupBox}">
@@ -232,7 +245,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Content" Grid.Row="0">
+            <GroupBox Header="Sending Info" Grid.Row="0">
                 <DataGrid x:Name="DtgContent" dx:ThemeManager.ThemeName="office2016white" ItemsSource="{Binding Path=Contents, Mode=TwoWay}"  Margin="10 10 10 10" PreviewKeyDown="OnPreviewKeyDown">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="70" Header="#" IsReadOnly="True" Binding="{Binding Number, Mode=OneWay}"/>
@@ -266,7 +279,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
-            <Button  Grid.Row="1" Content="Content" Width="100" Height="30" Margin="0 15 0 40" Command="{Binding Path=SaveCommand, Mode=OneTime}"/>
         </Grid>
     </Grid>
 </Page>

@@ -81,11 +81,11 @@ namespace Wms.ViewModel.Page
             private set => Set(nameof(PhysWeightColor), ref _physWeightColor, value);
         }
 
-        private Brush _volumWeightColor;
-        public Brush VolumWeightColor
+        private Brush _volumeWeightColor;
+        public Brush VolumeWeightColor
         {
-            get => _volumWeightColor;
-            private set => Set(nameof(VolumWeightColor), ref _volumWeightColor, value);
+            get => _volumeWeightColor;
+            private set => Set(nameof(VolumeWeightColor), ref _volumeWeightColor, value);
         }
 
         private ICommand _addBoxCommand;
@@ -176,6 +176,8 @@ namespace Wms.ViewModel.Page
 
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
         public static ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
+        public static ObservableCollection<Cargo> Consignees => new ObservableCollection<Cargo>(App.Data.Data.Consignees);
+        public static ObservableCollection<Cargo> Forwarders => new ObservableCollection<Cargo>(App.Data.Data.Forwarders);
 
         private ObservableCollection<string> _docNumSenders;
         public ObservableCollection<string> DocNumSenders
@@ -296,14 +298,14 @@ namespace Wms.ViewModel.Page
 
         private  void SetWeightColor()
         {
-            VolumWeightColor = Brushes.Black;
+            VolumeWeightColor = Brushes.Black;
             PhysWeightColor = Brushes.Black;
 
             if (PhysicalWeight > VolumetricWeight)
                 PhysWeightColor = Brushes.Green;
 
             if (PhysicalWeight < VolumetricWeight)
-                VolumWeightColor = Brushes.Red;
+                VolumeWeightColor = Brushes.Red;
         }
         private static void RemoveItemBindingList<T>(T item, BindingList<T> bindingList) where T : BoxesBase
         {

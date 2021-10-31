@@ -19,6 +19,11 @@ namespace Wms.API.Models
 
         [JsonPropertyName("scaleTypes")]
         public List<ScaleType> ScaleTypes { get; set; }
-    }
 
+        [JsonPropertyName("forwarders")]
+        public  List<Cargo> Forwarders { get; set; }
+
+        [JsonPropertyName("consignees")]
+        public List<Cargo> Consignees { get; set; }
+    }
 }
