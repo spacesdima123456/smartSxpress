@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using  static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
@@ -173,6 +174,8 @@ namespace Wms.ViewModel.Page
             get => _contents;
             set => Set(nameof(Contents), ref _contents, value);
         }
+
+        public static Visibility VisibilityCargo => Forwarders.Any() && Consignees.Any() ? Visibility.Visible : Visibility.Collapsed;
 
         public  ObservableCollection<Countries> CountriesRecipient { get;  }
         public static ObservableCollection<Ht> Hts => new ObservableCollection<Ht>(App.Data.Data.Hts);
