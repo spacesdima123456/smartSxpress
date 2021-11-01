@@ -3,8 +3,11 @@ using System;
 using Wms.Models;
 using System.Linq;
 using Wms.API.Models;
+using System.Windows;
+using System.IO.Ports;
 using DevExpress.Mvvm;
 using System.Windows.Input;
+using Wms.Services.ComPort;
 using System.Windows.Media;
 using System.ComponentModel;
 using DevExpress.Mvvm.Native;
@@ -12,7 +15,6 @@ using System.Threading.Tasks;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using  static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
@@ -168,6 +170,13 @@ namespace Wms.ViewModel.Page
             private set => Set(nameof(IsEnabledAddressRecipient), ref _isEnabledAddressRecipient, value);
         }
 
+        private int _selectedIndexBox;
+        public  int SelectedIndexBox
+        {
+            get => _selectedIndexBox;
+            set=> Set(nameof(SelectedIndexBox), ref _selectedIndexBox, value);
+        }
+
         private BindingList<Content> _contents;
         public BindingList<Content> Contents
         {
@@ -210,7 +219,7 @@ namespace Wms.ViewModel.Page
         }
 
 
-        public PackageViewModel(IUnitOfWork unitOfWork)
+        public PackageViewModel(IUnitOfWork unitOfWork, IComPort port)
         {
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
             DocTypeSender = DocTypes[0];
@@ -220,8 +229,19 @@ namespace Wms.ViewModel.Page
 
             Boxes.ListChanged += ListChanged;
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
+            port.DataReceived += DataReceived;
             _unitOfWork = unitOfWork;
         }
+
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (Boxes.Count > SelectedIndexBox)
+            {
+                var last = Boxes[SelectedIndexBox < 0 ? 0 : SelectedIndexBox];
+                last.Weight = Convert.ToDouble(((SerialPort) sender).ReadExisting().Replace(".", ","));
+            }
+        }
+
         public async Task OnQuerySubmittedSenderAsync(string text)
         {
             await SearchVariantDocAsync(text, "senderDocIdVariants", Sender.DocTypeId, (collection, b) =>

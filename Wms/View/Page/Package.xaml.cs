@@ -1,4 +1,5 @@
-﻿using Wms.ViewModel.Page;
+﻿using System.Windows;
+using Wms.ViewModel.Page;
 using System.Windows.Input;
 using DevExpress.Xpf.Editors;
 
