@@ -35,13 +35,22 @@ namespace Wms.ViewModel.Dialog
         private string _typeScale;
         public string TypeScale
         {
-            get => _typeScale;
+            get => _typeScale; 
             set => Set(nameof(TypeScale), ref _typeScale, value);
+        }
+
+        private string _speedComPort;
+        public  string SpeedComPort
+        {
+            get => _speedComPort;
+            set => Set(nameof(SpeedComPort), ref _speedComPort, value);
         }
 
         public ObservableCollection<string> Printers { get; }
         public ObservableCollection<string> ComPorts { get; }
         public ObservableCollection<string> TypeOfScales { get; }
+
+        public ObservableCollection<string> SpeedComPorts => new ObservableCollection<string> { "9600", "14400", "19200", "38400", "57600" };
 
         public static ICommand PrinterDialogCommand => new DelegateCommand<string>((printer) =>
         {
@@ -67,6 +76,7 @@ namespace Wms.ViewModel.Dialog
             TypeScale = GetValue(nameof(TypeScale));
             Printer = GetValue(nameof(Printer));
             ComPort = GetValue(nameof(ComPort));
+            SpeedComPort = GetValue(nameof(SpeedComPort));
         }
 
         private void Set(string property, ref string field, string value)
