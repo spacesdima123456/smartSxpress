@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 using static Wms.Helpers.RegistryWin;
 
 namespace Wms.Services.ComPort
@@ -14,8 +15,9 @@ namespace Wms.Services.ComPort
         {
             var port = GetValue("ComPort");
             var speed = GetValue("SpeedComPort");
+            var comPorts = SerialPort.GetPortNames();
 
-            if (string.IsNullOrEmpty(port) || string.IsNullOrEmpty(speed))
+            if (string.IsNullOrEmpty(port) || string.IsNullOrEmpty(speed) || !comPorts.Any(a=>a.Contains(port)))
                 return;
 
             _serialPort = new SerialPort(port, Convert.ToInt32(speed), Parity.None, 8, StopBits.One);
