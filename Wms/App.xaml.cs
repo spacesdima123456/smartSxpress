@@ -4,16 +4,16 @@ using Wms.Properties;
 using DevExpress.Mvvm;
 using Wms.Localization;
 using DevExpress.Xpf.Core;
+using Wms.Services.Updater;
 using System.Globalization;
 using Wms.DependencyInjection;
-using Wms.Services.Updater;
 
 namespace Wms
 {
     public partial class App : Application
     {
         public static Window Window { get; set; }
-        public  static Response Data { get; private set; }
+        public static Response Data { get; private set; }
 
         public App()
         {

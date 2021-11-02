@@ -6,12 +6,13 @@ using Wms.API.Models;
 using System.Windows;
 using System.IO.Ports;
 using DevExpress.Mvvm;
-using System.Windows.Input;
 using Wms.Services.ComPort;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.ComponentModel;
 using DevExpress.Mvvm.Native;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,8 @@ namespace Wms.ViewModel.Page
 {
     public class PackageViewModel: BaseViewModel
     {
+
+        private readonly IComPort _comPort;
         private readonly IUnitOfWork _unitOfWork;
 
         private DocType _docTypeSender;
@@ -142,6 +145,28 @@ namespace Wms.ViewModel.Page
                 Sender = sender.Data;
             });
 
+        private ICommand _currentCellCommand;
+        public ICommand CurrentCellCommand => _currentCellCommand??= new DelegateCommand(() =>
+        {
+            if (CellInfo.IsValid)
+            {
+                _comPort.DataReceived += DataReceived;
+                _comPort.Open();
+            }
+            else
+            {
+                _comPort.DataReceived -= DataReceived;
+                _comPort.Close();
+            }
+        });
+
+        private DataGridCellInfo _cellInfo;
+        public DataGridCellInfo CellInfo
+        {
+            get => _cellInfo;
+            set => Set(nameof(CellInfo), ref _cellInfo, value);
+        }
+
         private double? _physicalWeight;
         public double? PhysicalWeight
         {
@@ -218,27 +243,28 @@ namespace Wms.ViewModel.Page
             }
         }
 
-
-        public PackageViewModel(IUnitOfWork unitOfWork, IComPort port)
+        public PackageViewModel(IUnitOfWork unitOfWork, IComPort comPort)
         {
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
-            DocTypeSender = DocTypes[0];
-            CountryRecipient = countriesRecipient[0];
-            Boxes = new BindingList<Boxes> {new Boxes {Number = 1}};
             Contents = new BindingList<Content>{new Content{Number = 1, Ht = Hts.FirstOrDefault()}};
-
-            Boxes.ListChanged += ListChanged;
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
-            port.DataReceived += DataReceived;
+            Boxes = new BindingList<Boxes> {new Boxes {Number = 1}};
+            CountryRecipient = countriesRecipient[0];
+            Boxes.ListChanged += ListChanged;
+            DocTypeSender = DocTypes[0];
             _unitOfWork = unitOfWork;
+            _comPort = comPort;
         }
+
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             if (Boxes.Count > SelectedIndexBox)
             {
                 var last = Boxes[SelectedIndexBox < 0 ? 0 : SelectedIndexBox];
-                last.Weight = Convert.ToDouble(((SerialPort) sender).ReadExisting().Replace(".", ","));
+                var data = ((SerialPort) sender).ReadExisting().Replace(".", ",");
+                if (double.TryParse(data, out var weight))
+                    last.Weight = weight;
             }
         }
 
@@ -275,16 +301,16 @@ namespace Wms.ViewModel.Page
             });
         }
 
-        private void ListChanged(object sender, ListChangedEventArgs e)
-        {
-            CalcWeight();
-            SetWeightColor();
-        }
-
         public void CalcWeight()
         {
             CalcPhysicalWeight();
             CalcVolumetricWeight();
+        }
+
+        private void ListChanged(object sender, ListChangedEventArgs e)
+        {
+            CalcWeight();
+            SetWeightColor();
         }
 
         private async Task SearchVariantDocAsync(string text, string typeCustomer, int docTypeId, Action<ObservableCollection<string>, bool> callBack)

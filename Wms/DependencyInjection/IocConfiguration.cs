@@ -19,7 +19,7 @@ namespace Wms.DependencyInjection
             Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
             Bind<IWindowBranch>().To<WindowBranch>().InSingletonScope();
             Bind<IWindowSettings>().To<WindowSettings>().InSingletonScope();
-            Bind<IComPort>().To<ComPort>().InSingletonScope();
+            Bind<IComPort>().To<ComPort>().InTransientScope();
 
             //mapper
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<AutoMapping>(); });

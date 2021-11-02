@@ -4,8 +4,8 @@ namespace Wms.Services.ComPort
 {
     public interface IComPort
     {
-        void Open();
-        void Close();
-        event SerialDataReceivedEventHandler DataReceived;
+         void Open();
+         void Close();
+         event SerialDataReceivedEventHandler DataReceived;
     }
 }

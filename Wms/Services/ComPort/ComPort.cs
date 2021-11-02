@@ -4,9 +4,8 @@ using static Wms.Helpers.RegistryWin;
 
 namespace Wms.Services.ComPort
 {
-    public class ComPort : IComPort
+    public class ComPort: IComPort
     {
-
         private readonly SerialPort _serialPort;
 
         public event SerialDataReceivedEventHandler DataReceived;
@@ -14,10 +13,13 @@ namespace Wms.Services.ComPort
         public ComPort()
         {
             var port = GetValue("ComPort");
-            var speed = Convert.ToInt32(GetValue("SpeedComPort"));
-            _serialPort = new SerialPort(port, speed, Parity.None, 8, StopBits.One) { Handshake = Handshake.None };
+            var speed = GetValue("SpeedComPort");
+
+            if (string.IsNullOrEmpty(port) || string.IsNullOrEmpty(speed))
+                return;
+
+            _serialPort = new SerialPort(port, Convert.ToInt32(speed), Parity.None, 8, StopBits.One);
             _serialPort.DataReceived += Received;
-            _serialPort.Open();
         }
 
         private void Received(object sender, SerialDataReceivedEventArgs e)
@@ -25,16 +27,16 @@ namespace Wms.Services.ComPort
             DataReceived?.Invoke(sender, e);
         }
 
-        public void Close()
-        {
-            if (_serialPort.IsOpen)
-                _serialPort.Close();
-        }
-
         public void Open()
         {
-            if (!_serialPort.IsOpen)
+            if (_serialPort!=null && !_serialPort.IsOpen)
                 _serialPort.Open();
+        }
+
+        public void Close()
+        {
+            if (_serialPort != null && _serialPort.IsOpen)
+                _serialPort.Close();
         }
     }
 }
