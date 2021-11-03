@@ -16,6 +16,8 @@ using System.Windows.Controls;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using  static Wms.Helpers.ErrorValidation;
 
 namespace Wms.ViewModel.Page
@@ -262,9 +264,10 @@ namespace Wms.ViewModel.Page
             if (Boxes.Count > SelectedIndexBox)
             {
                 var last = Boxes[SelectedIndexBox < 0 ? 0 : SelectedIndexBox];
-                var data = ((SerialPort) sender).ReadExisting().Replace(".", ",");
-                if (double.TryParse(data, out var weight))
-                    last.Weight = weight;
+                var data = ((SerialPort) sender).ReadExisting();
+                var m = Regex.Match(data, @"[0-9]{1,3}.[0-9]{2}");
+                if (m.Success)
+                    last.Weight = Math.Round(Convert.ToDouble(m.Value, new CultureInfo("en-US")), 1, MidpointRounding.AwayFromZero);
             }
         }
 
