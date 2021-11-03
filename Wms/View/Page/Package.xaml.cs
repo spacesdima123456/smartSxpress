@@ -1,8 +1,6 @@
-﻿using System;
-using Wms.ViewModel.Page;
+﻿using Wms.ViewModel.Page;
 using System.Windows.Input;
 using DevExpress.Xpf.Editors;
-using System.Windows.Controls;
 
 namespace Wms.View.Page
 {
