@@ -47,7 +47,15 @@ namespace Wms.ViewModel.Dialog
         }
 
         public ObservableCollection<string> Printers { get; }
-        public ObservableCollection<string> ComPorts { get; }
+
+        private ObservableCollection<string> _comPorts;
+
+        public ObservableCollection<string> ComPorts
+        {
+            get => _comPorts;
+            set => Set(nameof(ComPorts), ref _comPorts, value);
+        }
+
         public ObservableCollection<string> TypeOfScales { get; }
 
         public ObservableCollection<string> SpeedComPorts => new ObservableCollection<string> { "9600", "14400", "19200", "38400", "57600" };
@@ -67,16 +75,22 @@ namespace Wms.ViewModel.Dialog
             process.Start();
         });
 
+
+        public ICommand ComPortClickCommand => new DelegateCommand(() =>
+        {
+            ComPorts = new ObservableCollection<string>(SerialPort.GetPortNames());
+        });
+
         public DisplayAlertSettingsViewModel()
         {
             Printers = new ObservableCollection<string>(PrinterSettings.InstalledPrinters.OfType<string>());
             TypeOfScales = new ObservableCollection<string>(App.Data.Data.ScaleTypes.Select(s=>s.Type));
             ComPorts = new ObservableCollection<string>(SerialPort.GetPortNames());
+            SpeedComPort = GetValue(nameof(SpeedComPort));
             PrinterDocx = GetValue(nameof(PrinterDocx));
             TypeScale = GetValue(nameof(TypeScale));
             Printer = GetValue(nameof(Printer));
             ComPort = GetValue(nameof(ComPort));
-            SpeedComPort = GetValue(nameof(SpeedComPort));
         }
 
         private void Set(string property, ref string field, string value)
