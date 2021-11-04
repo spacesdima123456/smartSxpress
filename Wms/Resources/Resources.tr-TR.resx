@@ -192,6 +192,9 @@
   <data name="MsgLogOut" xml:space="preserve">
     <value>Çıkmak istediğinizden emin misiniz?</value>
   </data>
+  <data name="MsgSendPackage" xml:space="preserve">
+    <value>Yazıcılar yüklü değil, yazdırmadan gönderiliyor mu?</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Hayır</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Tittle" xml:space="preserve">
     <value>Zerre</value>
   </data>
+  <data name="TittleSendPackage" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Güncelleme</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>Depolar</value>
+  </data>
+  <data name="WrgPrnPackage" xml:space="preserve">
+    <value>Sistemde mevcut yazıcı yok.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Evet</value>

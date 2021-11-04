@@ -5,6 +5,7 @@ using Ninject.Modules;
 using Wms.UnitOfWorkAPI;
 using Wms.ViewModel.Page;
 using Wms.Services.ComPort;
+using Wms.Services.Printer;
 using Wms.UnitOfWorkAPI.Contract;
 using Wms.Services.Window.Contract;
 using Wms.Services.Window.WindowDialogs;
@@ -19,6 +20,8 @@ namespace Wms.DependencyInjection
             Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
             Bind<IWindowBranch>().To<WindowBranch>().InSingletonScope();
             Bind<IWindowSettings>().To<WindowSettings>().InSingletonScope();
+            Bind<IWindowPackage>().To<WindowPackage>().InSingletonScope();
+            Bind<IPrinter>().To<Printer>().InSingletonScope();
             Bind<IComPort>().To<ComPort>().InTransientScope();
 
             //mapper

@@ -192,6 +192,9 @@
   <data name="MsgLogOut" xml:space="preserve">
     <value>Are you sure you want to log out?</value>
   </data>
+  <data name="MsgSendPackage" xml:space="preserve">
+    <value>Printers are not installed, send without printing ?</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Tittle" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="TittleSendPackage" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>Warehouses</value>
+  </data>
+  <data name="WrgPrnPackage" xml:space="preserve">
+    <value>There are no printers available in the system.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

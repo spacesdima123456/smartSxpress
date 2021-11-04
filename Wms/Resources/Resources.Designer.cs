@@ -286,6 +286,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Printers are not installed, send without printing ?.
+        /// </summary>
+        public static string MsgSendPackage {
+            get {
+                return ResourceManager.GetString("MsgSendPackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на No.
         /// </summary>
         public static string No {
@@ -385,6 +394,15 @@ namespace Wms.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Warning.
+        /// </summary>
+        public static string TittleSendPackage {
+            get {
+                return ResourceManager.GetString("TittleSendPackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Update.
         /// </summary>
         public static string Update {
@@ -417,6 +435,15 @@ namespace Wms.Resources {
         public static string Warehouses {
             get {
                 return ResourceManager.GetString("Warehouses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на There are no printers available in the system..
+        /// </summary>
+        public static string WrgPrnPackage {
+            get {
+                return ResourceManager.GetString("WrgPrnPackage", resourceCulture);
             }
         }
         

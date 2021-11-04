@@ -177,11 +177,11 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 -10 0 0">
                     <StackPanel Margin="0 0 10 0" Visibility="{Binding Path=VisibilityCargo, Mode=OneWay}">
                         <Label Content="Forwerder" Width="200"/>
-                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Forwarders, Mode=OneWay}" DisplayMember="Name"/>
+                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Forwarders, Mode=OneWay}" DisplayMember="Name" ValueMember="Id" EditValue="{Binding Path=ForwardId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                     <StackPanel Visibility="{Binding Path=VisibilityCargo, Mode=OneWay}">
                         <Label Content="Consugnee" Width="200"/>
-                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Consignees, Mode=OneWay}" DisplayMember="Name"/>
+                        <dxe:ComboBoxEdit Width="200" ItemsSource="{Binding Path=Consignees, Mode=OneWay}" DisplayMember="Name" ValueMember="Id" EditValue="{Binding Path=ConsigneeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
                 <Button Content="Send" Width="100" Height="30" Command="{Binding Path=SaveCommand, Mode=OneTime}" Margin="0 0 0 -50"/>

@@ -9,14 +9,16 @@ using DevExpress.Mvvm;
 using Wms.Services.ComPort;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Globalization;
+using Wms.Services.Printer;
 using System.ComponentModel;
 using DevExpress.Mvvm.Native;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Wms.UnitOfWorkAPI.Contract;
 using System.Collections.Generic;
+using Wms.Services.Window.Contract;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Text.RegularExpressions;
 using  static Wms.Helpers.ErrorValidation;
 
@@ -25,8 +27,10 @@ namespace Wms.ViewModel.Page
     public class PackageViewModel: BaseViewModel
     {
 
+        private readonly IPrinter _printer;
         private readonly IComPort _comPort;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWindowPackage _windowPackage;
 
         private DocType _docTypeSender;
         public DocType DocTypeSender
@@ -126,11 +130,55 @@ namespace Wms.ViewModel.Page
         });
 
         private ICommand _saveCommand;
-        public ICommand SaveCommand => _saveCommand ??= new DelegateCommand(() =>
+        public ICommand SaveCommand => _saveCommand ??= new AsyncCommand(async () =>
         {
-            //Sender.Validate();
-            //Recipient.Validate();
+            if (_printer.HasPrinterRegistry())
+            {
+                _windowPackage.ShowDisplayAlertSend(async ok =>
+                { 
+                    await SendAsync(0);
+                });
+            }
+            else
+            {
+                var printersEnabled = _printer.HasPrinterPhysical() ? 1 : 0;
+                if (printersEnabled == 0)
+                    _windowPackage.Warning();
+
+                await SendAsync(printersEnabled);
+            }
         });
+
+        private async Task SendAsync(int printersEnabled)
+        {
+            dynamic data = new System.Dynamic.ExpandoObject();
+            data.content = Contents.Select(s => new { htsId = s.Ht.Id, price = s.Price, itemsName = s.Ht.Desc, qty = s.Count });
+            data.parcelInfo = Boxes.Select(s => new { id = s.Number, height = s.Height, weight = s.Weight, width = s.Width, length = s.Length });
+
+            if (Recipient.CustomerId == null)
+                data.recipient = new { docTypeId = Recipient.DocTypeId, docId = Recipient.DocId, name = Recipient.Name, address = Recipient.Address, city = Recipient.City, state = Recipient.State, zip = Recipient.Zip, phone = Recipient.Phone, countryId = Recipient.CountryCode };
+            else
+                data.recipientId = Recipient.CustomerId;
+
+            if (Sender.CustomerId == null)
+                data.sender = new { docTypeId = Sender.DocTypeId, docId = Sender.DocId, name = Sender.Name, address = Sender.Address, city = Sender.City, state = Sender.State, zip = Sender.Zip, phone = Sender.Phone, countryId = Sender.CountryCode };
+            else
+                data.senderId = Sender.CustomerId;
+
+            data.forwarderId = ForwardId;
+            data.consigneeId = ConsigneeId;
+            data.printersEnabled = printersEnabled;
+
+            try
+            {
+                var result = await _unitOfWork.PackageRepository.SendAsync(data);
+            }
+            catch (ApiException e)
+            {
+                Console.WriteLine(e);
+
+            }
+        }
 
         private ICommand _selectedRecipientCommand;
         public ICommand SelectedRecipientCommand => _selectedRecipientCommand ??= new AsyncCommand<string>(
@@ -204,6 +252,20 @@ namespace Wms.ViewModel.Page
             set=> Set(nameof(SelectedIndexBox), ref _selectedIndexBox, value);
         }
 
+        private int _forwardId;
+        public int ForwardId
+        {
+            get => _forwardId;
+            set => Set(nameof(ForwardId), ref _forwardId, value);
+        }
+
+        private int _consigneeId;
+        public int ConsigneeId
+        {
+            get => _forwardId;
+            set => Set(nameof(ConsigneeId), ref _consigneeId, value);
+        }
+
         private BindingList<Content> _contents;
         public BindingList<Content> Contents
         {
@@ -245,7 +307,7 @@ namespace Wms.ViewModel.Page
             }
         }
 
-        public PackageViewModel(IUnitOfWork unitOfWork, IComPort comPort)
+        public PackageViewModel(IUnitOfWork unitOfWork, IComPort comPort, IWindowPackage windowPackage, IPrinter printer)
         {
             var countriesRecipient = App.Data.Data.Countries.Where(w => w.Name != App.Data.Data.Customer.CountryName).ToList();
             Contents = new BindingList<Content>{new Content{Number = 1, Ht = Hts.FirstOrDefault()}};
@@ -254,7 +316,9 @@ namespace Wms.ViewModel.Page
             CountryRecipient = countriesRecipient[0];
             Boxes.ListChanged += ListChanged;
             DocTypeSender = DocTypes[0];
+            _windowPackage = windowPackage;
             _unitOfWork = unitOfWork;
+            _printer = printer;
             _comPort = comPort;
         }
 
@@ -279,7 +343,10 @@ namespace Wms.ViewModel.Page
                 IsEnabledAddressSender = b != true && !string.IsNullOrWhiteSpace(text);
 
                 if (IsEnabledAddressSender)
+                {
                     Sender.Clear();
+                    Sender.DocId = text?.Trim();
+                }
                 else
                 {
                     if (!string.IsNullOrWhiteSpace(text) && collection.Any(a => a.Contains(text)))
@@ -295,7 +362,10 @@ namespace Wms.ViewModel.Page
                 IsEnabledAddressRecipient = b != true && !string.IsNullOrWhiteSpace(text);
 
                 if (IsEnabledAddressRecipient)
+                {
                     Recipient.Clear();
+                    Recipient.DocId = text;
+                }
                 else
                 {
                     if (!string.IsNullOrWhiteSpace(text) && collection.Any(a => a.Contains(text)))

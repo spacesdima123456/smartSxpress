@@ -192,6 +192,9 @@
   <data name="MsgLogOut" xml:space="preserve">
     <value>Вы уверены что хотите выйти?</value>
   </data>
+  <data name="MsgSendPackage" xml:space="preserve">
+    <value>Принтеры не установлены, отправить без печати?</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Tittle" xml:space="preserve">
     <value>Админочка</value>
   </data>
+  <data name="TittleSendPackage" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>Обновление</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>Склады</value>
+  </data>
+  <data name="WrgPrnPackage" xml:space="preserve">
+    <value>Нет доступных принтеров в системе.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>

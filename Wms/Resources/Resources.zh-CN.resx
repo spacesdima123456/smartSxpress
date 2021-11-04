@@ -192,6 +192,9 @@
   <data name="MsgLogOut" xml:space="preserve">
     <value>你确定要出去吗</value>
   </data>
+  <data name="MsgSendPackage" xml:space="preserve">
+    <value>打印机没有安装，发送没有打印？</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>非也。</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="Tittle" xml:space="preserve">
     <value>管理员</value>
   </data>
+  <data name="TittleSendPackage" xml:space="preserve">
+    <value>警告</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>更新</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="Warehouses" xml:space="preserve">
     <value>仓库</value>
+  </data>
+  <data name="WrgPrnPackage" xml:space="preserve">
+    <value>系统中没有可用的打印机。</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是的</value>

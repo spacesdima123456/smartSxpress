@@ -69,6 +69,14 @@ namespace Wms.API.Models
             set => Set(nameof(Phone), ref _phone, value);
         }
 
+        private int? _customerId;
+        [JsonPropertyName("customerId")]
+        public  int? CustomerId
+        {
+            get => _customerId;
+            set => Set(nameof(CustomerId), ref _customerId, value);
+        }
+
         private string _countryCode;
         [JsonPropertyName("countryCode")]
         public string CountryCode
@@ -88,7 +96,7 @@ namespace Wms.API.Models
 
         public  void Clear()
         {
-            Zip = null;
+            Zip = CustomerId = null;
             Name = Address = City = State = Phone = "";
         }
     }
