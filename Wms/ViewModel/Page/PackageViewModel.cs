@@ -410,7 +410,7 @@ namespace Wms.ViewModel.Page
 
         private  void CalcPhysicalWeight()
         {
-            PhysicalWeight = Math.Round(Convert.ToDouble(Boxes.Sum(s => s.Weight)));
+            PhysicalWeight = Math.Round(Convert.ToDouble(Boxes.Sum(s => s.Weight)), 2);
         }
 
         private void CalcVolumetricWeight()
