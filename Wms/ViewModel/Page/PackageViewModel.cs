@@ -266,6 +266,13 @@ namespace Wms.ViewModel.Page
             set => Set(nameof(ConsigneeId), ref _consigneeId, value);
         }
 
+        private bool _btnSendIsEnabled;
+        public  bool BtnSendIsEnabled
+        {
+            get => _btnSendIsEnabled;
+            private set => Set(nameof(BtnSendIsEnabled), ref _btnSendIsEnabled, value);
+        }
+
         private BindingList<Content> _contents;
         public BindingList<Content> Contents
         {
@@ -313,6 +320,7 @@ namespace Wms.ViewModel.Page
             Contents = new BindingList<Content>{new Content{Number = 1, Ht = Hts.FirstOrDefault()}};
             CountriesRecipient = new ObservableCollection<Countries>(countriesRecipient);
             Boxes = new BindingList<Boxes> {new Boxes {Number = 1}};
+            Contents.ListChanged += ContentsChanged;
             CountryRecipient = countriesRecipient[0];
             Boxes.ListChanged += ListChanged;
             DocTypeSender = DocTypes[0];
@@ -321,7 +329,6 @@ namespace Wms.ViewModel.Page
             _printer = printer;
             _comPort = comPort;
         }
-
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -374,16 +381,26 @@ namespace Wms.ViewModel.Page
             });
         }
 
-        public void CalcWeight()
+        private void CalcWeight()
         {
             CalcPhysicalWeight();
             CalcVolumetricWeight();
+        }
+
+        private  void SetBtnSendIsEnabled()
+        {
+            BtnSendIsEnabled = Boxes.All(a => a.Weight > 0 && a.Height > 0 && a.Length > 0 && a.Width > 0) && Contents.All(a=>a.Count>0 && a.Price>0 && a.Ht!=null);
         }
 
         private void ListChanged(object sender, ListChangedEventArgs e)
         {
             CalcWeight();
             SetWeightColor();
+            SetBtnSendIsEnabled();
+        }
+        private void ContentsChanged(object sender, ListChangedEventArgs e)
+        {
+            SetBtnSendIsEnabled();
         }
 
         private async Task SearchVariantDocAsync(string text, string typeCustomer, int docTypeId, Action<ObservableCollection<string>, bool> callBack)
