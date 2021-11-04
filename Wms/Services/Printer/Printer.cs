@@ -6,18 +6,16 @@ namespace Wms.Services.Printer
 {
     public class Printer : IPrinter
     {
-        private readonly string _printer = GetValue("Printer");
-        private readonly string _printerDocx = GetValue("PrinterDocx");
 
         public bool HasPrinterPhysical()
         {
             var printers = PrinterSettings.InstalledPrinters.OfType<string>();
-            return printers.Any(a=>a == _printer || a == _printerDocx);
+            return printers.Any(a=>a == GetValue("Printer") || a == GetValue("PrinterDocx"));
         }
 
         public bool HasPrinterRegistry()
         {
-            return string.IsNullOrEmpty(_printer) && string.IsNullOrEmpty(_printerDocx);
+            return string.IsNullOrEmpty(GetValue("Printer")) && string.IsNullOrEmpty(GetValue("PrinterDocx"));
         }
     }
 }
