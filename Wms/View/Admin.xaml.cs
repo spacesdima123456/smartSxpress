@@ -13,7 +13,6 @@ namespace Wms.View
     {
         private IWindowFactory _window;
         private IWindowLogOut _windowLogOut;
-        private DisplayAlertSettings _displayAlertSettings;
 
         public Admin()
         {
@@ -55,10 +54,8 @@ namespace Wms.View
 
         private void ShowSettings(object sender, RoutedEventArgs e)
         {
-            if (_displayAlertSettings == null)
-                _displayAlertSettings = new DisplayAlertSettings();
-
-            _displayAlertSettings.ShowDialog();
+            var displayAlertSettings = new DisplayAlertSettings();
+            displayAlertSettings.ShowDialog();
         }
     }
 }
