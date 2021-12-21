@@ -132,53 +132,22 @@ namespace Wms.ViewModel.Page
         private ICommand _saveCommand;
         public ICommand SaveCommand => _saveCommand ??= new AsyncCommand(async () =>
         {
-            if (_printer.HasPrinterRegistry())
+            if (IsValid())
             {
-                _windowPackage.ShowDisplayAlertSend(async ok =>
-                { 
-                    await SendAsync(0);
-                });
-            }
-            else
-            {
-                var printersEnabled = _printer.HasPrinterPhysical() ? 1 : 0;
-                if (printersEnabled == 0)
-                    _windowPackage.Warning();
+                if (_printer.HasPrinterRegistry())
+                {
+                    _windowPackage.ShowDisplayAlertSend(async ok => { await SendAsync(0); });
+                }
+                else
+                {
+                    var printersEnabled = _printer.HasPrinterPhysical() ? 1 : 0;
+                    if (printersEnabled == 0)
+                        _windowPackage.Warning();
 
-                await SendAsync(printersEnabled);
+                    await SendAsync(printersEnabled);
+                }
             }
         });
-
-        private async Task SendAsync(int printersEnabled)
-        {
-            dynamic data = new System.Dynamic.ExpandoObject();
-            data.content = Contents.Select(s => new { htsId = s.Ht.Id, price = s.Price, itemsName = s.Ht.Desc, qty = s.Count });
-            data.parcelInfo = Boxes.Select(s => new { id = s.Number, height = s.Height, weight = s.Weight, width = s.Width, length = s.Length });
-
-            if (Recipient.CustomerId == null)
-                data.recipient = new { docTypeId = Recipient.DocTypeId, docId = Recipient.DocId, name = Recipient.Name, address = Recipient.Address, city = Recipient.City, state = Recipient.State, zip = Recipient.Zip, phone = Recipient.Phone, countryId = Recipient.CountryCode };
-            else
-                data.recipientId = Recipient.CustomerId;
-
-            if (Sender.CustomerId == null)
-                data.sender = new { docTypeId = Sender.DocTypeId, docId = Sender.DocId, name = Sender.Name, address = Sender.Address, city = Sender.City, state = Sender.State, zip = Sender.Zip, phone = Sender.Phone, countryId = Sender.CountryCode };
-            else
-                data.senderId = Sender.CustomerId;
-
-            data.forwarderId = ForwardId;
-            data.consigneeId = ConsigneeId;
-            data.printersEnabled = printersEnabled;
-
-            try
-            {
-                var result = await _unitOfWork.PackageRepository.SendAsync(data);
-            }
-            catch (ApiException e)
-            {
-                Console.WriteLine(e);
-
-            }
-        }
 
         private ICommand _selectedRecipientCommand;
         public ICommand SelectedRecipientCommand => _selectedRecipientCommand ??= new AsyncCommand<string>(
@@ -328,6 +297,44 @@ namespace Wms.ViewModel.Page
             _unitOfWork = unitOfWork;
             _printer = printer;
             _comPort = comPort;
+        }
+
+        private bool IsValid()
+        {
+            Sender.Validate();
+            Recipient.Validate();
+            return !Recipient.HasErrors && !Sender.HasErrors;
+        }
+
+        private async Task SendAsync(int printersEnabled)
+        {
+            dynamic data = new System.Dynamic.ExpandoObject();
+            data.content = Contents.Select(s => new { htsId = s.Ht.Id, price = s.Price, itemsName = s.Ht.Desc, qty = s.Count });
+            data.parcelInfo = Boxes.Select(s => new { id = s.Number, height = s.Height, weight = s.Weight, width = s.Width, length = s.Length });
+
+            if (Recipient.CustomerId == null)
+                data.recipient = new { docTypeId = Recipient.DocTypeId, docId = Recipient.DocId, name = Recipient.Name, address = Recipient.Address, city = Recipient.City, state = Recipient.State, zip = Recipient.Zip, phone = Recipient.Phone, countryId = Recipient.CountryCode };
+            else
+                data.recipientId = Recipient.CustomerId;
+
+            if (Sender.CustomerId == null)
+                data.sender = new { docTypeId = Sender.DocTypeId, docId = Sender.DocId, name = Sender.Name, address = Sender.Address, city = Sender.City, state = Sender.State, zip = Sender.Zip, phone = Sender.Phone, countryId = Sender.CountryCode };
+            else
+                data.senderId = Sender.CustomerId;
+
+            data.forwarderId = ForwardId;
+            data.consigneeId = ConsigneeId;
+            data.printersEnabled = printersEnabled;
+
+            try
+            {
+                var result = await _unitOfWork.PackageRepository.SendAsync(data);
+            }
+            catch (ApiException e)
+            {
+                Console.WriteLine(e);
+
+            }
         }
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)

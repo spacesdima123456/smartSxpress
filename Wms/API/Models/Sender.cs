@@ -90,9 +90,23 @@ namespace Wms.API.Models
             ClearErrors();
 
             if (string.IsNullOrWhiteSpace(Address))
-                AddError(nameof(Address), "Address is null or white space ");
-        }
+                AddError(nameof(Address), "Address is null or white space.");
 
+            if (string.IsNullOrWhiteSpace(Name))
+                AddError(nameof(Name), "Name is null or white space.");
+
+            if (string.IsNullOrWhiteSpace(City))
+                AddError(nameof(City), "City is null or white space.");
+
+            if (!Zip.HasValue)
+                AddError(nameof(Zip), "Zip is null or white space.");
+
+            if (string.IsNullOrWhiteSpace(Phone))
+                AddError(nameof(Phone), "Phone is null or white space.");
+
+            if (CountryCode == "US" && string.IsNullOrWhiteSpace(State))
+                AddError(nameof(State), "State is null or white space.");
+        }
 
         public  void Clear()
         {
